@@ -30,10 +30,10 @@ Country.}
 		The recent development of methods that automatically score variables in multiple animals provides an unprecedented insight into the study of behaviours. 
 		The analysis of ethomics data presents many challenges that are conceptually independent of the acquisition platform.
 		However, there is, little effort in providing a general framework to analyse multiple and long behavioural time series.
-		We developped the  Rethomics framework, a suite of R packages that altogether provide utilities to:
+		We developped the \texttt{rethomics} framework, a suite of R packages that altogether provide utilities to:
 		import, store, visualise and analyse behavioural data.\\
 	\textbf{Availability and Implementation:}
-	All packages in the rethomics framework are available under the terms of the GPLv3 license.
+	All packages in the \texttt{rethomics} framework are available under the terms of the GPLv3 license.
 	Exaustive installation instructions and tutorials are available at
  		\href{https://github.com/rethomics}{https://github.com/rethomics/} 
  		\href{https://rethomics.github.io/}{https://rethomics.github.io/}.\\
@@ -44,23 +44,41 @@ Country.}
 \maketitle
 
 \section{Introduction}
-TODOs:
+Animal behaviours are complex phenotypes that are manifestations of the interaction between the nervous system and the external or internal environment.
+In the last few decades, our ability to record large amounts of various phenotypical data has tremendously increased.
+Behaviour scoring is certainly not an exception to this trend.
+Indeed, many platforms (todo citations) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
 
-	1. Ethomics, a scaling up in time but also in number of animals.
-	2. A diversity of platform to do the same thing.
-	3. Need for well documented programmatic interface  innovative/advances analysis
-	4. The idea of unifying behavioural analysis, so community (experimental and quantitative biologists) collaborates 
+The availability of ever so large amounts of data is very exciting as it paves the way for refined analyses.
+Clearly, the multiplicity of model organisms, hypotheses and paradigms makes the diversity of recording tools crucial.
+However, regarding subsequent data analysis, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
+Instead, tools tend to consist of graphical interfaces with strictly defined functionalities that only import data from a single platform.
+There are three issues with this approach.
+First of all, state of the art analysis and visualisation requires a flexibility than only a programmatic interface can provide.
+Secondly, it favours replicated work as developers need to provide their own implementation to very similar problems.
+Lastly, it links analysis and visualisation to the target platform, which makes it very difficult to share cross-platform tools.
+ 
+Thankfully, behavioural data is conceptually largely agnostic of the acquisition platform and paradigm. 	
+Typically, the behaviour of each individual is a long time series (possibly multivariate and heterogeneous).
+In addition, each individual has to be unambiguously identified and associated with arbitrary metadata defined by the experimenter (sex, treatment, genotype and so on). Efficiently combining and manipulating these information, on datasets of hundreds of individuals, each recorded for weeks, is not trivial. The availability of such a tool help promoting the analysis of behaviour as a data science.
+
+Here, we describe \texttt{rethomics}, a framework that unifies analysis of large behavioural dataset in an efficient and manner.
+It offers an elegant solution to store, manipulate and visualise a large amount of behavioural data.
+Rethomics comes with a extensive documentation and a set of both practical and theoretical tutorials.
+
 
 
 %\enlargethispage{12pt}
 
 \section{Approach}
-
-Equation~(\ref{eq:01}) Text Text Text Text Text Text  Text Text
-Text Text Text Text Text Text Text Text Text Text Text Text Text.
-Figure~2\vphantom{\ref{fig:02}} shows that the above method  Text
-Text Text Text  Text Text Text Text Text Text  Text Text.
-\citealp{Boffelli03} might want to know about text text text text
+%Figure~2\vphantom{\ref{fig:02}} shows that the above method  Text
+\texttt{rethomics} is implemented as a collection of small packages linked to one another.
+This development model follows modern frameworks such as the \texttt{tidyverse}, which results in increases testability and maintainability.
+The different tasks of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation)
+are explicitly handled by different packages (Fig.~1\vphantom{\ref{fig:01}}).
+At the core of \texttt{rethomics}, the \texttt{behavr} package offers an very flexible and efficient solution to store both large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table} derived object.
+Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be manipulated and visualised regardless of the input platform.
+Analyses results and plots integrate seamlessly within the \texttt{R} ecosystem, hence providing users with state visualisation and statistics tools.
 
 
 \section{Framework  features}
