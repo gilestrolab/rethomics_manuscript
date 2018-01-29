@@ -1,0 +1,262 @@
+% Template for PLoS
+% Version 3.4 January 2017
+% -- FIGURES AND TABLES
+%
+% Please include tables/figure captions directly after the paragraph where they are first cited in the text.
+%
+% DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
+% - Figures should be uploaded separately from your manuscript file. 
+% - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
+% - Figures containing multiple panels/subfigures must be combined into one image file before submission.
+% For figure citations, please use "Fig" instead of "Figure".
+% See http://journals.plos.org/plosone/s/figures for PLOS figure guidelines.
+%
+% Tables should be cell-based and may not contain:
+% - spacing/line breaks within cells to alter layout or alignment
+% - do not nest tabular environments (no tabular environments within tabular environments)
+% - no graphics or colored text (cell background color/shading OK)
+% See http://journals.plos.org/plosone/s/tables for table guidelines.
+%
+% For tables that exceed the width of the text column, use the adjustwidth environment as illustrated in the example table in text below.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
+
+\usepackage{amsmath,amssymb}
+\usepackage{changepage}
+\usepackage[utf8x]{inputenc}
+\usepackage{textcomp,marvosym}
+\usepackage{cite}
+\usepackage{nameref,hyperref}
+\usepackage[right]{lineno}
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+\usepackage[table]{xcolor}
+\usepackage{array}
+
+% create "+" rule type for thick vertical lines
+\newcolumntype{+}{!{\vrule width 2pt}}
+
+% create \thickcline for thick horizontal lines of variable length
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+% \thickhline command for thick horizontal lines that span the table
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
+% Remove comment for double spacing
+%\usepackage{setspace} 
+%\doublespacing
+
+% Text layout
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in 
+\textheight 8.75in
+
+% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
+% Captions will be left justified
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+% Use the PLoS provided BiBTeX style
+\bibliographystyle{plos2015}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+% Leave date blank
+\date{}
+
+% Header and Footer with logo
+\usepackage{lastpage,fancyhdr,graphicx}
+\usepackage{epstopdf}
+\pagestyle{myheadings}
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{27.023pt}
+\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\sf PLOS}
+
+
+\usepackage[colorinlistoftodos]{todonotes}
+%\usepackage[colorinlistoftodos,disable]{todonotes}
+
+%% Include all macros below
+\newcommand{\citationneeded}[2][]{\todo[color=brown, fancyline, #1]{\textbf{Citation Needed:} #2}}
+
+
+\newcommand{\lorem}{{\bf LOREM}}
+\newcommand{\ipsum}{{\bf IPSUM}}
+
+%% END MACROS SECTION
+
+
+\begin{document}
+\vspace*{0.2in}
+
+% Title must be 250 characters or less.
+\begin{flushleft}
+{\Large
+\textbf\newline{Rethomics: an R framework to analyse high-throughput behavioural data} 
+}
+\newline
+% Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
+\\
+Quentin Geissmann\textsuperscript{1*},
+Luis Garcia Rodriguez\textsuperscript{2},
+Esteban J Beckwith\textsuperscript{1},
+Giorgio F Gilestro\textsuperscript{1*}
+\\
+\bigskip
+\textbf{1} Department of Life Sciences, Imperial College London, London, United Kingdom
+\\
+\textbf{2} Affiliation Dept/Program/Center, Institution Name, City, State, Country %TODO @luis
+\\
+\bigskip
+
+
+% Use the asterisk to denote corresponding authorship and provide email address in note below.
+* qgeissmann@gmail.com, giorgio@gilest.ro
+
+\end{flushleft}
+% Please keep the abstract below 300 words
+\section*{Abstract}
+Ethomics, a quantitative and high-throughput approach to ethology, is a novel and exciting field.
+The recent development of methods that automatically score variables in multiple animals provides an unprecedented insight into the study of behaviours. 
+The analysis of ethomics data presents many challenges that are conceptually independent of the acquisition platform.
+However, there is, little effort in providing a general framework to analyse multiple and long behavioural time series.
+We developed the \texttt{rethomics} framework, a suite of \texttt{R} packages that altogether provide utilities to:
+import, store, visualise and analyse behavioural data.
+The \texttt{rethomics} framework is available and documented at \href{https://github.com/rethomics}{https://github.com/rethomics/}.
+
+
+
+% Please keep the Author Summary between 150 and 200 words
+% Use first person. PLOS ONE authors please skip this step. 
+% Author Summary not valid for PLOS ONE submissions.   
+%\section*{Author summary}
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non %sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque %pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
+
+\linenumbers
+
+% Use "Eq" instead of "Equation" for equation citations.
+\section*{Introduction}
+
+Animal behaviours are complex phenotypical manifestations of the interaction between nervous systems and their external or internal environment.
+In the last few decades, our ability to record large amounts of various phenotypical data has tremendously increased.
+Behaviour scoring is certainly not an exception to this trend.
+Indeed, many platforms (todo citations) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
+
+The availability of ever so large amounts of data is very exciting as it paves the way for refined analyses.
+Clearly, the multiplicity of model organisms, hypotheses and paradigms makes the diversity of recording tools crucial.
+However, regarding subsequent data analysis, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
+Instead, tools tend to consist of graphical interfaces with strictly defined functionalities that only import data from a single platform.
+There are three issues with this approach.
+First of all, state of the art analysis and visualisation requires a flexibility than only a programmatic interface can provide.
+Secondly, it favours replicated work as developers need to provide their own implementation to address very similar problems.
+Lastly, it links analysis and visualisation to the target platform, which makes it very difficult to share cross-platform tools.
+
+Thankfully, behavioural data is conceptually largely agnostic of the acquisition platform and paradigm. 	
+Typically, the behaviour of each individual is a long time series (possibly multivariate and heterogeneous).
+In addition, each individual has to be unambiguously identified and associated with arbitrary metadata defined by the experimenter (\emph{e.g.} sex, treatment and genotype). Efficiently combining and manipulating these information, on datasets of hundreds of individuals, each recorded for weeks, is not trivial. The availability of a unified ethomics toolbox would help promoting the analysis of behaviour as a data science.
+
+Here, we describe \texttt{rethomics}, a framework that unifies analysis of behavioural dataset in an efficient and flexible manner.
+It offers an elegant solution to store, manipulate and visualise a large amount of data.
+Rethomics comes with a extensive documentation and a set of both practical and theoretical tutorials.
+
+
+\section*{Design and Implementation}
+
+\texttt{rethomics} is implemented as a collection of small packages linked to one another.
+This development model follows modern frameworks such as the \texttt{tidyverse}, which results in increases testability and maintainability.
+The different tasks of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation)
+are explicitly handled by different packages (Fig.~1\vphantom{\ref{fig:01}}).
+At the core of \texttt{rethomics}, the \texttt{behavr} package offers an very flexible and efficient solution to store both large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table} derived object.
+Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be manipulated and visualised regardless of the original input platform.
+Analyses results and plots integrate seamlessly within the \texttt{R} ecosystem, hence providing users with state visualisation and statistics tools.
+
+
+\subsection{Data import}
+xxx xxxxx xxxx dwjdkl xxx xxxxx xxxx dwjdkl xxx xxxxx xxxx dwjdkl 
+\subsection{Internal data structure}
+The baha
+\subsection{Circadian analysis}
+xxx xxxxx xxxx dwjdkl xxx xxxxx xxxx dwjdkl xxx xxxxx xxxx dwjdkl 
+\subsection{Sleep scoring}
+xxx xxxxx xxxx dwjdkl xxx xxxxx xxxx dwjdkl xxx xxxxx xxxx dwjdkl 
+\subsection{Visualisation}
+xxx xxxxx xxxx dwjdkl xxx xxxxx xxxx dwjdkl xxx xxxxx xxxx dwjdkl 
+
+
+\section*{Results}
+
+
+%\todo{write something here!}
+
+\section*{Availability and Future Directions}
+All packages in the \texttt{rethomics} framework are available under the terms of the GPLv3 license and listed at  		\href{https://github.com/rethomics}{https://github.com/rethomics/}.
+Extensive installation instructions as well as reproducible demos and tutorials are available at
+\href{https://rethomics.github.io/}{https://rethomics.github.io/}.
+
+% Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
+%\paragraph*{S1 Fig.}
+%\label{S1_Fig}
+%{\bf Bold the title sentence.} Add descriptive text after the title of the item (optional).
+
+\nolinenumbers
+
+% Either type in your references using
+% \begin{thebibliography}{}
+% \bibitem{}
+% Text
+% \end{thebibliography}
+%
+% or
+%
+% Compile your BiBTeX database using our plos2015.bst
+% style file and paste the contents of your .bbl file
+% here. See http://journals.plos.org/plosone/s/latex for 
+% step-by-step instructions.
+% 
+\begin{thebibliography}{10}
+
+\bibitem{bib1}
+Conant GC, Wolfe KH.
+\newblock {{T}urning a hobby into a job: how duplicated genes find new
+  functions}.
+\newblock Nat Rev Genet. 2008 Dec;9(12):938--950.
+
+\bibitem{bib2}
+Ohno S.
+\newblock Evolution by gene duplication.
+\newblock London: George Alien \& Unwin Ltd. Berlin, Heidelberg and New York:
+  Springer-Verlag.; 1970.
+
+\bibitem{bib3}
+Magwire MM, Bayer F, Webster CL, Cao C, Jiggins FM.
+\newblock {{S}uccessive increases in the resistance of {D}rosophila to viral
+  infection through a transposon insertion followed by a {D}uplication}.
+\newblock PLoS Genet. 2011 Oct;7(10):e1002337.
+
+\end{thebibliography}
+
+
+
+\end{document}
+
