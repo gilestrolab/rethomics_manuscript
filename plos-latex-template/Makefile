@@ -1,10 +1,17 @@
-all: manuscript.pdf
+
+all: manuscript.pdf all-figures.pdf
+
+FIGS := $(shell ls fig/*.pdf)
+
+all-figures.pdf: $(FIGS)
+	pdftk $^ cat output $@
+	
 
 manuscript.tex: manuscript.Rnw results.Rnw
 	R -e "library(knitr);knit(\"$<\")"
 	
-manuscript.pdf: manuscript.tex
+manuscript.pdf: manuscript.tex all-figures.pdf
 	pdflatex $<
 
 clean:
-	rm *.log *.aux *.tex *.out -f
+	rm *.log *.aux *.tex *.out  *.pdf -f 

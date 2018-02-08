@@ -109,7 +109,7 @@ figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
 
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (Fig~S1B).
+In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (see \nameref{S1-Fig}).
 
 <<>>=
 dt_ll <- dt[t > days(1)]
@@ -164,7 +164,7 @@ fig3 <- cowplot::plot_grid(
                           axis="b",
                           align="h"
                           )
-pdf("../fig/fig3.pdf",w=12,h=12)
+pdf("../fig/fig-3.pdf",w=12,h=12)
 print(fig3)
 dev.off()
 
@@ -180,7 +180,7 @@ figS1 <- cowplot::plot_grid(
                           align="v"
                           )
 
-pdf("../fig/figS1.pdf",w=16,h=16)
+pdf("../fig/fig-S1.pdf",w=12,h=16)
 print(figS1)
 dev.off()
 @

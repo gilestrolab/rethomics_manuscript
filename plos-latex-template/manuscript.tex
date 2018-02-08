@@ -21,7 +21,57 @@
 %
 % % % % % % % % % % % % % % % % % % % % % % % %
 
-\documentclass[10pt,letterpaper]{article}
+\documentclass[10pt,letterpaper]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
 
 \usepackage{amsmath,amssymb}
@@ -105,8 +155,7 @@
 \newcommand{\ipsum}{{\bf IPSUM}}
 
 %% END MACROS SECTION
-
-
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 \vspace*{0.2in}
 
@@ -274,8 +323,199 @@ Together, they offer a suite of methods to compute periodograms and find their p
 
 
 
-<<'child-results.Rnw', child='results.Rnw'>>=
-@
+
+
+
+\section*{Results}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(damr)}      \hlcom{# input DAM2 data}
+\hlkwd{library}\hlstd{(zeitgebr)}  \hlcom{# periodogram computation}
+\hlkwd{library}\hlstd{(sleepr)}    \hlcom{# sleep analysis}
+\hlkwd{library}\hlstd{(ggetho)}    \hlcom{# behaviour visualisation}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Then, the metadata file is read and linked to the \texttt{.txt} result files.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{metadata} \hlkwb{<-} \hlkwd{link_dam2_metadata}\hlstd{(}\hlstr{"metadata.csv"}\hlstd{,}\hlstr{"."}\hlstd{)}    \hlcom{# linking}
+\hlcom{# print(metadata)                                     # check metadata}
+\hlstd{dt} \hlkwb{<-} \hlkwd{load_dam2}\hlstd{(metadata)}                             \hlcom{# loading}
+\hlkwd{summary}\hlstd{(dt)}                                           \hlcom{# quick summary}
+\end{alltt}
+\begin{verbatim}
+## behavr table with:
+##  58	individuals
+##  8	metavariables
+##  2	variables
+##  1.58722e+05	measurements
+##  1	key (id)
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\subsection*{Preprocessing}
+We notice, from the metadata, that the two replicates do not have the same time in baseline.
+We would like to express the time relative to the important event: the transition to \texttt{LL}. 
+To do so, we subtract the \texttt{baseline\_days} metavariable from the \texttt{t} variable.
+This gives us an opportunity to illustrate the use \texttt{xmv()}, which expands metavariables as variables.
+In addition, we use the \texttt{data.table} syntax to create, in place, a \texttt{moving} variable.
+It is \texttt{TRUE} when and only when \texttt{activity} is greater than zero:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# baseline subtraction -- note the use of xmv}
+\hlstd{dt[,t} \hlkwb{:=} \hlstd{t} \hlopt{-} \hlkwd{days}\hlstd{(}\hlkwd{xmv}\hlstd{(baseline_days))]}
+\hlstd{dt[, moving} \hlkwb{:=}  \hlstd{activity} \hlopt{>} \hlnum{0}\hlstd{]}
+\hlkwd{summary}\hlstd{(dt)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+To simplify visualisation, we create our own \texttt{label} metavariable, as combination of a number and \texttt{genotype}.
+In the restricted context of this analysis, \texttt{label} acts a unique identifier.
+Importantly, we keep \texttt{id} , which is more rigorous and universal.
+
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{dt[, label} \hlkwb{:=} \hlkwd{interaction}\hlstd{(}\hlnum{1}\hlopt{:}\hlstd{.N, genotype),} \hlkwc{meta}\hlstd{=T]}
+\hlcom{# print(dt)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+\subsection*{Curation}
+It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:tile-plot}A).
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# make a ggplot object with label on the y and moving on the z axis}
+\hlstd{fig3A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=label,} \hlkwc{z}\hlstd{=moving))} \hlopt{+}
+  \hlcom{# show data as a tile plot}
+  \hlcom{# that is z is a pixel whose intensity maps moving}
+  \hlkwd{stat_tile_etho}\hlstd{()} \hlopt{+}
+  \hlcom{# add layers to draw annotations to show L and D phases}
+  \hlcom{# as white and black, respectivelly}
+  \hlcom{# the first layer is for the baseline (until t=0)}
+  \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(dt[,}\hlkwd{min}\hlstd{(t)],} \hlnum{0}\hlstd{))} \hlopt{+}
+  \hlcom{# in the 2nd one, we start at 0 and use grey }
+  \hlcom{# instead of black as we work in LL}
+  \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, dt[,}\hlkwd{max}\hlstd{(t)]),}
+                      \hlkwc{ld_colours} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"white"}\hlstd{,} \hlstr{"grey"}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Activity of dead or escaped animals is falsely scored as long series of zeros.
+Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# remove data after death}
+\hlstd{dt} \hlkwb{<-} \hlstd{sleepr}\hlopt{::}\hlkwd{curate_dead_animals}\hlstd{(dt, moving)}
+\hlcom{# same as above}
+\hlstd{fig3B} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=label,} \hlkwc{z}\hlstd{=moving))} \hlopt{+}
+    \hlkwd{stat_tile_etho}\hlstd{()} \hlopt{+}
+    \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(dt[,}\hlkwd{min}\hlstd{(t)],} \hlnum{0}\hlstd{))} \hlopt{+}
+    \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, dt[,}\hlkwd{max}\hlstd{(t)]),}
+                        \hlkwc{ld_colours} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"white"}\hlstd{,} \hlstr{"grey"}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+The updated version can be visualised in Fig 3B.
+
+For the purpose of this example, we keep only individuals that have \emph{at least five days in LL}.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# for each id, we check for validity}
+\hlstd{valid_dt} \hlkwb{<-} \hlstd{dt[ ,} \hlkwd{.}\hlstd{(}\hlkwc{valid} \hlstd{=} \hlkwd{max}\hlstd{(t)} \hlopt{>} \hlkwd{days}\hlstd{(}\hlnum{5}\hlstd{)),} \hlkwc{by}\hlstd{=id]}
+\hlcom{# a vector of all valid ids}
+\hlstd{valid_ids} \hlkwb{<-} \hlstd{valid_dt[valid} \hlopt{==} \hlstd{T, id]}
+\hlcom{# filter dt with the valid ids}
+\hlstd{dt} \hlkwb{<-} \hlstd{dt[id} \hlopt{%in%} \hlstd{valid_ids]}
+\hlkwd{summary}\hlstd{(dt)}
+\end{alltt}
+\begin{verbatim}
+## behavr table with:
+##  52	individuals
+##  9	metavariables
+##  3	variables
+##  1.40609e+05	measurements
+##  1	key (id)
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Note that as a result, we now have 52 ``valid''individuals.
+
+
+\subsection*{Double plotted actograms}
+``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
+In Fig~S1A, we show the double-plotted actograms of each animals:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{figS1A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{z} \hlstd{= moving),} \hlkwc{multiplot} \hlstd{=} \hlnum{2}\hlstd{)} \hlopt{+}
+            \hlkwd{stat_bar_tile_etho}\hlstd{()} \hlopt{+}
+            \hlkwd{facet_wrap}\hlstd{(} \hlopt{~} \hlstd{label,} \hlkwc{ncol}\hlstd{=}\hlnum{4}\hlstd{)} \hlopt{+}
+            \hlkwd{scale_y_discrete}\hlstd{(}\hlkwc{name}\hlstd{=}\hlstr{"Day"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+\subsection*{Periodograms}
+Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
+In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (see \nameref{S1-Fig}).
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{dt_ll} \hlkwb{<-} \hlstd{dt[t} \hlopt{>} \hlkwd{days}\hlstd{(}\hlnum{1}\hlstd{)]}
+\hlstd{per_dt} \hlkwb{<-} \hlkwd{periodogram}\hlstd{(moving,}
+                        \hlstd{dt_ll,}
+                        \hlkwc{resample_rate} \hlstd{=} \hlnum{1}\hlopt{/}\hlkwd{mins}\hlstd{(}\hlnum{10}\hlstd{),}
+                        \hlkwc{FUN}\hlstd{=chi_sq_periodogram)}
+
+\hlstd{per_dt} \hlkwb{<-} \hlkwd{find_peaks}\hlstd{(per_dt)}
+
+\hlstd{figS1B} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power,} \hlkwc{peak}\hlstd{=peak))} \hlopt{+}
+                  \hlkwd{geom_line}\hlstd{()} \hlopt{+}
+                  \hlkwd{geom_line}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=signif_threshold),} \hlkwc{colour}\hlstd{=}\hlstr{"red"}\hlstd{)} \hlopt{+}
+                  \hlkwd{geom_peak}\hlstd{()} \hlopt{+}
+                  \hlkwd{facet_wrap}\hlstd{(} \hlopt{~} \hlstd{label,} \hlkwc{ncol}\hlstd{=}\hlnum{4}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+## pdf 
+##   2
+## pdf 
+##   2
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 % We present an small example examining the circadian behaviour of 128 fruit flies in recorded in a DAM2 -- a paradigm very widely adopted. 
 % A less formal description of this case and others are explained at \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
