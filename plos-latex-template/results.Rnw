@@ -48,7 +48,15 @@ dt[, label := interaction(1:.N, genotype), meta=T]
 
 
 \subsection*{Curation}
-It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:tile-plot}A).
+It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
+
+\begin{figure}[!h]
+	\includegraphics[width=1\textwidth]{fig/fig-3.pdf}
+	\caption{{\bf Experiment quality control.}
+			Tile plot representing the fraction of time spent moving as a colour intensity.
+			Each individual is represented by a row and time, on the x axis, is binned in 30 minute.}
+	\label{fig:fig-3}
+\end{figure}
 
 <<>>=
 # make a ggplot object with label on the y and moving on the z axis
@@ -67,8 +75,8 @@ fig3A <- ggetho(dt, aes(y=label, z=moving)) +
 @
 
 Activity of dead or escaped animals is falsely scored as long series of zeros.
-Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data:
-
+Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data.
+The updated version can be visualised in Fig~\ref{fig:fig-3}B.
 <<>>=
 # remove data after death
 dt <- sleepr::curate_dead_animals(dt, moving)
@@ -79,7 +87,6 @@ fig3B <- ggetho(dt, aes(y=label, z=moving)) +
     stat_ld_annotations(x_limits = c(0, dt[,max(t)]), 
                         ld_colours = c("white", "grey"))
 @
-The updated version can be visualised in Fig 3B.
 
 For the purpose of this example, we keep only individuals that have \emph{at least five days in LL}.
 <<>>=

@@ -213,7 +213,7 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 Animal behaviours are complex phenotypical manifestations of the interaction between nervous systems and their external or internal environment.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
 Behaviour scoring is certainly not an exception to this trend.
-Indeed, many platforms (todo citations) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
+Indeed, many platforms (TODO citations) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
 
 The availability of large amounts of data is very exciting as it paves the way for in-depth analyses.
 Clearly, the multiplicity of model organisms, hypotheses and paradigms should be reflected in  diverse range of recording tools.
@@ -288,7 +288,7 @@ For instance, when one wants to update variable according to the value of a meta
 		Data and metadata are implicitly joined with the \texttt{id} field.
 		Notably, the names used for variables and metavariable are only plausible examples that will likely differ in practice. 
 	}
-	\label{fig:fig2}
+	\label{fig:fig-2}
 \end{figure}
 
 
@@ -396,7 +396,15 @@ Importantly, we keep \texttt{id} , which is more rigorous and universal.
 
 
 \subsection*{Curation}
-It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:tile-plot}A).
+It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
+
+\begin{figure}[!h]
+	\includegraphics[width=1\textwidth]{fig/fig-3.pdf}
+	\caption{{\bf Experiment quality control.}
+			Tile plot representing the fraction of time spent moving as a colour intensity.
+			Each individual is represented by a row and time, on the x axis, is binned in 30 minute.}
+	\label{fig:fig-3}
+\end{figure}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -419,8 +427,8 @@ It is important to visualise an overview of how each individual behaved and, if 
 \end{knitrout}
 
 Activity of dead or escaped animals is falsely scored as long series of zeros.
-Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data:
-
+Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data.
+The updated version can be visualised in Fig~\ref{fig:fig-3}B.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -435,7 +443,6 @@ Our \texttt{sleepr} package offer a tool to detect and remove such artefactual d
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-The updated version can be visualised in Fig 3B.
 
 For the purpose of this example, we keep only individuals that have \emph{at least five days in LL}.
 \begin{knitrout}

@@ -12,6 +12,7 @@ manuscript.tex: manuscript.Rnw results.Rnw
 	
 manuscript.pdf: manuscript.tex all-figures.pdf
 	pdflatex $<
+	pdflatex $<
 
 clean:
 	rm *.log *.aux *.tex *.out  *.pdf -f 
