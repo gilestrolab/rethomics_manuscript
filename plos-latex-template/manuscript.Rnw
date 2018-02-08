@@ -273,25 +273,18 @@ The packages \texttt{zeitgebr} and \texttt{sleepr} provide tools to analyse circ
 Together, they offer a suite of methods to compute periodograms and find their peaks, score sleep from inactivity (\emph{e.g.} using the ``five minute rule''), and characterise the architecture of sleep bouts (\emph{e.g.} number, length and latency).
 
 
-\section*{Results}
-We present an small example examining the circadian behaviour of 128 fruit flies in recorded in a DAM2 -- a paradigm very widely adopted. 
-A less formal description of this case and others are explained at \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
-In order to prodive a more comprehensive and didactic example, data was altered and simplified.	
-Fig~\ref{fig:experiment} describes our case experiment (A) and the corresponding metadata (B).
-Briefly, three monitors were used each containing 16 males and 16 females of a different genotype (A, B and C).
-Two replicates were performed at different times.
-raw data and metadata files are publicly available TODO cite zenodo
 
-\subsection*{Data loading}
+<<'child-results.Rnw', child='results.Rnw'>>=
+@
 
-
-\subsection*{Quality control}
-
-\subsection*{Actograms}
-
-
-\subsection*{Spectogram}
-
+% We present an small example examining the circadian behaviour of 128 fruit flies in recorded in a DAM2 -- a paradigm very widely adopted. 
+% A less formal description of this case and others are explained at \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
+% In order to prodive a more comprehensive and didactic example, data was altered and simplified.	
+% Fig~\ref{fig:experiment} describes our case experiment (A) and the corresponding metadata (B).
+% Briefly, three monitors were used each containing 16 males and 16 females of a different genotype (A, B and C).
+% Two replicates were performed at different times.
+% raw data and metadata files are publicly available TODO cite zenodo
+% 
 
 \section*{Availability and Future Directions}
 All packages in the \texttt{rethomics} framework are available under the terms of the GPLv3 license and listed at  		\href{https://github.com/rethomics}{https://github.com/rethomics/}.

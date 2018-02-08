@@ -1,0 +1,186 @@
+<<echo=FALSE, message=FALSE>>=
+opts_knit$set(root.dir = "results")
+@
+
+\section*{Results}
+
+<<message=FALSE>>=
+library(damr)      # input DAM2 data
+library(zeitgebr)  # periodogram computation
+library(sleepr)    # sleep analysis
+library(ggetho)    # behaviour visualisation
+@
+
+Then, the metadata file is read and linked to the \texttt{.txt} result files.
+
+<<>>=
+metadata <- link_dam2_metadata("metadata.csv",".")    # linking
+# print(metadata)                                     # check metadata
+dt <- load_dam2(metadata)                             # loading
+summary(dt)                                           # quick summary
+@
+
+\subsection*{Preprocessing}
+We notice, from the metadata, that the two replicates do not have the same time in baseline.
+We would like to express the time relative to the important event: the transition to \texttt{LL}. 
+To do so, we subtract the \texttt{baseline\_days} metavariable from the \texttt{t} variable.
+This gives us an opportunity to illustrate the use \texttt{xmv()}, which expands metavariables as variables.
+In addition, we use the \texttt{data.table} syntax to create, in place, a \texttt{moving} variable.
+It is \texttt{TRUE} when and only when \texttt{activity} is greater than zero:
+
+<<message=F, results="hide">>=
+# baseline subtraction -- note the use of xmv
+dt[,t := t - days(xmv(baseline_days))]
+dt[, moving :=  activity > 0]  
+summary(dt)
+@
+
+To simplify visualisation, we create our own \texttt{label} metavariable, as combination of a number and \texttt{genotype}.
+In the restricted context of this analysis, \texttt{label} acts a unique identifier.
+Importantly, we keep \texttt{id} , which is more rigorous and universal.
+
+
+
+<<message=FALSE, rsults="hide">>=
+dt[, label := interaction(1:.N, genotype), meta=T]
+# print(dt)
+@
+
+
+\subsection*{Curation}
+It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:tile-plot}A).
+
+<<>>=
+# make a ggplot object with label on the y and moving on the z axis
+fig3A <- ggetho(dt, aes(y=label, z=moving)) +  
+  # show data as a tile plot
+  # that is z is a pixel whose intensity maps moving
+  stat_tile_etho() +                  
+  # add layers to draw annotations to show L and D phases
+  # as white and black, respectivelly
+  # the first layer is for the baseline (until t=0)
+  stat_ld_annotations(x_limits = c(dt[,min(t)], 0)) +
+  # in the 2nd one, we start at 0 and use grey 
+  # instead of black as we work in LL
+  stat_ld_annotations(x_limits = c(0, dt[,max(t)]), 
+                      ld_colours = c("white", "grey"))
+@
+
+Activity of dead or escaped animals is falsely scored as long series of zeros.
+Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data:
+
+<<>>=
+# remove data after death
+dt <- sleepr::curate_dead_animals(dt, moving)
+# same as above
+fig3B <- ggetho(dt, aes(y=label, z=moving)) +  
+    stat_tile_etho() +                  
+    stat_ld_annotations(x_limits = c(dt[,min(t)], 0)) +
+    stat_ld_annotations(x_limits = c(0, dt[,max(t)]), 
+                        ld_colours = c("white", "grey"))
+@
+The updated version can be visualised in Fig 3B.
+
+For the purpose of this example, we keep only individuals that have \emph{at least five days in LL}.
+<<>>=
+# for each id, we check for validity
+valid_dt <- dt[ , .(valid = max(t) > days(5)), by=id]
+# a vector of all valid ids
+valid_ids <- valid_dt[valid == T, id]
+# filter dt with the valid ids
+dt <- dt[id %in% valid_ids]
+summary(dt)
+@
+
+Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} ``valid''individuals.
+
+
+\subsection*{Double plotted actograms}
+``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
+In Fig~S1A, we show the double-plotted actograms of each animals:
+
+<<>>=
+figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
+            stat_bar_tile_etho() + 
+            facet_wrap( ~ label, ncol=4) +
+            scale_y_discrete(name="Day")
+@
+
+
+\subsection*{Periodograms}
+Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
+In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (Fig~S1B).
+
+<<>>=
+dt_ll <- dt[t > days(1)]
+per_dt <- periodogram(moving, 
+                    	dt_ll, 
+                    	resample_rate = 1/mins(10),
+                    	FUN=chi_sq_periodogram)
+
+per_dt <- find_peaks(per_dt)
+
+figS1B <- ggperio(per_dt, aes(y = power, peak=peak)) + 
+                  geom_line() +
+                  geom_line(aes(y=signif_threshold), colour="red") + 
+                  geom_peak() + 
+                  facet_wrap( ~ label, ncol=4) 
+@
+
+
+
+
+<<r, eval=TRUE, echo=FALSE, message=FALSE, result="hide">>=
+################################ CODE BELOW FOR COSMETIC ALTERATIONS OF FIGURES
+
+library(cowplot)
+my_theme <- theme(axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks=element_blank(),
+            axis.line = element_blank(),
+            panel.border = element_blank(),
+            legend.position="none")
+
+
+legend <- fig3A + theme(axis.title=element_blank(),
+                        axis.text.x=element_blank(),
+                        axis.ticks=element_blank(),
+                        axis.line = element_blank(),
+                        #axis.ticks.y=element_blank(),
+                        panel.border = element_blank(),
+                        #legend.text = "moving",
+                        legend.position="left") + 
+                  coord_cartesian(xlim=-days(c(10, 9))) + scale_y_discrete(position = "right")
+
+
+fig3 <- cowplot::plot_grid(
+                          legend,
+                          fig3A +  my_theme,
+                          fig3B +  my_theme,
+                          nrow=1,
+                          labels=c("", "A", "B"),
+                          rel_widths = c(1, 2, 2),
+                          label_size = 20,
+                          axis="b",
+                          align="h"
+                          )
+pdf("../fig/fig3.pdf",w=12,h=12)
+print(fig3)
+dev.off()
+
+figS1A <- figS1A +  theme(strip.text.x = element_text(size =8))
+figS1B <- figS1B +  theme(strip.text.x = element_text(size =8))
+
+figS1 <- cowplot::plot_grid(
+                          figS1A,
+                          figS1B,
+                          nrow=1,
+                          labels=c( "A", "B"),
+                          label_size = 20,
+                          align="v"
+                          )
+
+pdf("../fig/figS1.pdf",w=16,h=16)
+print(figS1)
+dev.off()
+@
