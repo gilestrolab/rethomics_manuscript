@@ -1,0 +1,317 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+
+\begin{document}
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\hypertarget{description}{%
+\subsection{Description}\label{description}}
+
+In order to illustrate some mechanisms in rethomics, we provide a simple
+and reproducible example of analysis of circadian phenotype recorded
+with DAM2 monitors -- a widely addopted paradigm.
+
+TODO: * data source -- The data was obtained from \ldots{}(citation)
+TODO. * description (genotypes etc) -- exhaustive description in the
+\texttt{metadata.csv}
+
+\hypertarget{data-loading}{%
+\subsection{Data loading}\label{data-loading}}
+
+First of all, the necessary \texttt{rethomics} packages are loaded.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(damr)      }\CommentTok{# input DAM2 data}
+\KeywordTok{library}\NormalTok{(zeitgebr)  }\CommentTok{# periodogram computation}
+\KeywordTok{library}\NormalTok{(sleepr)    }\CommentTok{# sleep analysis}
+\KeywordTok{library}\NormalTok{(ggetho)    }\CommentTok{# behaviour visualisation}
+\end{Highlighting}
+\end{Shaded}
+
+Then, the metadata file is read and linked to the \texttt{.txt} result
+files.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{met <-}\StringTok{ }\NormalTok{damr}\OperatorTok{::}\KeywordTok{link_dam2_metadata}\NormalTok{(}\StringTok{"./metadata.csv"}\NormalTok{, }\StringTok{"."}\NormalTok{) }\CommentTok{# linking}
+\NormalTok{dt <-}\StringTok{ }\KeywordTok{load_dam2}\NormalTok{(met)                                   }\CommentTok{# loading}
+\KeywordTok{summary}\NormalTok{(dt)                                            }\CommentTok{# quick summary}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## behavr table with:
+##  58  individuals
+##  8   metavariables
+##  2   variables
+##  1.58722e+05 measurements
+##  1   key (id)
+\end{verbatim}
+
+\hypertarget{preprocessing}{%
+\subsection{Preprocessing}\label{preprocessing}}
+
+We notice, from the metadata, that the two replicates do not have the
+same time in baseline. We would like to express the time relative to the
+important event: thetransition to \texttt{LL}. The best way is to
+sustract the \texttt{baseline\_days} metavariable from the \texttt{t}
+variable. This gives us an opportunity to illustrate the use
+\texttt{xmv()} that maps metavariables as variables. In addition, we use
+the \texttt{data.table} syntax to create, in place, a \texttt{moving}
+variable. It is \texttt{TRUE} when and only when \texttt{activity} is
+greater than zero:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt[,t }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\NormalTok{t }\OperatorTok{-}\StringTok{ }\KeywordTok{days}\NormalTok{(}\KeywordTok{xmv}\NormalTok{(baseline_days))]    }\CommentTok{# baseline sustraction. not the use of xmv}
+\NormalTok{dt[, moving }\OperatorTok{:}\ErrorTok{=}\StringTok{  }\NormalTok{activity }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{]  }
+\end{Highlighting}
+\end{Shaded}
+
+To simplify visualisation, we create our own \texttt{label}
+metavariable, as combination of a number and \texttt{genotype}. In the
+restricted context of this analysis, this acts a unique identifyier.
+Importanly, we keep \texttt{id} , which is more rigourous and universal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt[, label }\OperatorTok{:}\ErrorTok{=}\StringTok{ }\KeywordTok{interaction}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{.N, genotype), meta=T]}
+\CommentTok{# print(dt)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{curation}{%
+\subsection{Curation}\label{curation}}
+
+It is important to see an overview of how each individual and experiment
+behaved and, if necessary, alter the data accordingly. We save this
+figure as Fig 3A.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# make a ggplot object with label on the y and moving on the z axis}
+\NormalTok{fig3A <-}\StringTok{ }\KeywordTok{ggetho}\NormalTok{(dt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{label, }\DataTypeTok{z=}\NormalTok{moving)) }\OperatorTok{+}\StringTok{  }
+\StringTok{  }\CommentTok{# show data as a tile plot. That is z is a pixel whose intensity maps moving}
+\StringTok{  }\KeywordTok{stat_tile_etho}\NormalTok{() }\OperatorTok{+}\StringTok{                  }
+\StringTok{  }\CommentTok{# add layers to draw annotations to show L and D phases as white and black}
+\StringTok{  }\CommentTok{# the first layer is for the baseline (until t=0)}
+\StringTok{  }\KeywordTok{stat_ld_annotations}\NormalTok{(}\DataTypeTok{x_limits =} \KeywordTok{c}\NormalTok{(dt[,}\KeywordTok{min}\NormalTok{(t)], }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\CommentTok{# in the 2nd one, we start at 0 and use grey instead of black as we work in LL}
+\StringTok{  }\KeywordTok{stat_ld_annotations}\NormalTok{(}\DataTypeTok{x_limits =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, dt[,}\KeywordTok{max}\NormalTok{(t)]), }\DataTypeTok{ld_colours =} \KeywordTok{c}\NormalTok{(}\StringTok{"white"}\NormalTok{, }\StringTok{"grey"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Dead or escaped animals are falsely scored as long series of
+zero-activity. Our \texttt{sleepr} packges offer a tool to detect and
+remove this artifactual data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt <-}\StringTok{ }\NormalTok{sleepr}\OperatorTok{::}\KeywordTok{curate_dead_animals}\NormalTok{(dt, moving)}
+\CommentTok{# make a ggplot object with label on the y and moving on the z axis}
+\NormalTok{fig3B <-}\StringTok{ }\KeywordTok{ggetho}\NormalTok{(dt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{label, }\DataTypeTok{z=}\NormalTok{moving)) }\OperatorTok{+}\StringTok{  }
+\StringTok{    }\KeywordTok{stat_tile_etho}\NormalTok{() }\OperatorTok{+}\StringTok{                  }
+\StringTok{    }\KeywordTok{stat_ld_annotations}\NormalTok{(}\DataTypeTok{x_limits =} \KeywordTok{c}\NormalTok{(dt[,}\KeywordTok{min}\NormalTok{(t)], }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{stat_ld_annotations}\NormalTok{(}\DataTypeTok{x_limits =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, dt[,}\KeywordTok{max}\NormalTok{(t)]), }\DataTypeTok{ld_colours =} \KeywordTok{c}\NormalTok{(}\StringTok{"white"}\NormalTok{, }\StringTok{"grey"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The updated version can be visualised in Fig 3B.
+
+For the purpose of this example, we keep only individuals that have at
+least five days in LL.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{valid_dt <-}\StringTok{ }\NormalTok{dt[ , .(}\DataTypeTok{valid =} \KeywordTok{max}\NormalTok{(t) }\OperatorTok{>}\StringTok{ }\KeywordTok{days}\NormalTok{(}\DecValTok{5}\NormalTok{)), by=id]}
+\NormalTok{valid_ids <-}\StringTok{ }\NormalTok{valid_dt[valid }\OperatorTok{==}\StringTok{ }\NormalTok{T, id]}
+\NormalTok{dt <-}\StringTok{ }\NormalTok{dt[id }\OperatorTok{%in%}\StringTok{ }\NormalTok{valid_ids]}
+\KeywordTok{summary}\NormalTok{(dt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## behavr table with:
+##  52  individuals
+##  9   metavariables
+##  3   variables
+##  1.40609e+05 measurements
+##  1   key (id)
+\end{verbatim}
+
+Note that as a result, we now have 52 ``valid'' individuals.
+
+\hypertarget{double-plotted-actograms}{%
+\subsection{Double plotted actograms}\label{double-plotted-actograms}}
+
+A common way of representing rythmicity in circadian experiments is to
+compute ``double-plotted actograms''. In Fig S1A, we show all double
+plotted actograms layed out in a grid.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{figS1A <-}\StringTok{ }\KeywordTok{ggetho}\NormalTok{(dt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{z =}\NormalTok{ moving), }\DataTypeTok{multiplot =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{            }\KeywordTok{stat_bar_tile_etho}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{            }\KeywordTok{facet_wrap}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{label, }\DataTypeTok{ncol=}\DecValTok{4}\NormalTok{) }\OperatorTok{+}
+\StringTok{            }\KeywordTok{scale_y_discrete}\NormalTok{(}\DataTypeTok{name=}\StringTok{"Day"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{periodograms}{%
+\subsection{Periodograms}\label{periodograms}}
+
+For each indidual, we compute a \(\chi{}^2\) periodogram and we layout
+all of them in a grid (Fig S1B).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dt_ll <-}\StringTok{ }\NormalTok{dt[t }\OperatorTok{>}\StringTok{ }\KeywordTok{days}\NormalTok{(}\DecValTok{1}\NormalTok{)]}
+\NormalTok{per_dt <-}\StringTok{ }\KeywordTok{periodogram}\NormalTok{(moving, }
+\NormalTok{                        dt_ll, }
+                        \DataTypeTok{resample_rate =} \DecValTok{1}\OperatorTok{/}\KeywordTok{mins}\NormalTok{(}\DecValTok{10}\NormalTok{),}
+                        \DataTypeTok{FUN=}\NormalTok{chi_sq_periodogram)}
+
+\NormalTok{per_dt <-}\StringTok{ }\KeywordTok{find_peaks}\NormalTok{(per_dt)}
+
+\NormalTok{figS1B <-}\StringTok{ }\KeywordTok{ggperio}\NormalTok{(per_dt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ power, }\DataTypeTok{peak=}\NormalTok{peak)) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{signif_threshold), }\DataTypeTok{colour=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_peak}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{facet_wrap}\NormalTok{( }\OperatorTok{~}\StringTok{ }\NormalTok{label, }\DataTypeTok{ncol=}\DecValTok{4}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+\begin{verbatim}
+## pdf 
+##   2
+\end{verbatim}
+
+
+\end{document}
