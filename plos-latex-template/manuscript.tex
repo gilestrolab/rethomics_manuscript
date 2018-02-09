@@ -189,8 +189,8 @@ Giorgio F Gilestro\textsuperscript{1*}
 Ethomics, a quantitative and high-throughput approach to animal behaviour, is a new and exciting field.
 The recent development of automatised methods that can score various behaviours on a large number of animals
 % brings the promise of a powerful and original insight
-provides biologists with an unprecedented tools to decipher these complex phenotypes. 
-Analysing ethomics data comes with many challenges that are independent of these acquisition platform.
+provides biologists with an unprecedented set of tools to decipher these complex phenotypes. 
+Analysing ethomics data comes with many challenges that are largely shared across acquisition platform and paradigms.
 However, there is little effort in providing a generic framework to specifically analyse multiple and long behavioural time series.
 We developed the \texttt{rethomics} framework, a suite of \texttt{R} packages that altogether offer utilities to:
 import, store, visualise and analyse behavioural data.
@@ -216,13 +216,13 @@ Behaviour scoring is certainly not an exception to this trend.
 Indeed, many platforms (TODO citations) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
 
 The availability of large amounts of data is very exciting as it paves the way for in-depth analyses.
-Clearly, the multiplicity of model organisms, hypotheses and paradigms should be reflected in  diverse range of recording tools.
+Clearly, the multiplicity of model organisms, hypotheses and paradigms should be matched by a diverse range of recording tools.
 However, when it comes to the subsequent data analysis, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 Instead, tools tend to consist of graphical interfaces with rigid functionalities that only import data from a single platform.
 There are, at least, three issues with this approach.
 First of all, state-of-the-art analysis and visualisation requires a level of reproducibility, flexibility and scalability than only a programmatic interface can provide.
 Secondly, it favours replicated work as developers need to create their independent solution to similar problems.
-Lastly, it links analysis and visualisation to the target tool, which makes it very difficult to share cross-tool utilities and concepts.
+Lastly, it links analysis and visualisation to the target acquisition tool, which makes it very difficult to share cross-tool utilities and concepts.
 
 Thankfully, behavioural data is conceptually largely agnostic of the acquisition platform and paradigm. 	
 Typically, the behaviour of each individual is described by a long time series (possibly multivariate and heterogeneous).
@@ -231,7 +231,7 @@ Efficiently combining and manipulating these two types of information, on datase
 
 In the article herein, we describe \texttt{rethomics}, a framework that unifies analysis of behavioural dataset in an efficient and flexible manner.
 It offers an elegant computational solution to store, manipulate and visualise a large amount of data.
-We expect it to fill the gap between behavioural biology and data sciences.
+We expect it to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural biologists.
 \texttt{rethomics} comes with a extensive documentation and a set of both practical and theoretical tutorials.
 
 
@@ -241,7 +241,7 @@ We expect it to fill the gap between behavioural biology and data sciences.
 This paradigm follows the model of modern frameworks such as the \texttt{tidyverse}, which results in increased testability and maintainability.
 In it, the different tasks of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation)
 are explicitly handled by different packages.
-At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store both large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table}-derived object.
+At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table}-derived object.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be manipulated and visualised regardless of the original input platform.
 Results and plots integrate seamlessly within the \texttt{R} ecosystem, hence providing users with state-of-the-art visualisation and statistics tools.
 
@@ -282,11 +282,11 @@ For instance, when one wants to update variable according to the value of a meta
 	\includegraphics[width=1\textwidth]{fig/fig-2.pdf}
 	\caption{{\bf Example of a \texttt{behavr} table.}
 		The metadata holds a single row for each of the $n$ individuals. 
-		Its columns, the $p$ metavariables, are of two kind: either required and defined by the acquisition platform (\emph{i.e.} used to map the data) or user-defined (\emph{i.e.} arbitrary).
-		In the data, each row is a ``read'' (\emph{i.e.} information about one animal at one time point).
+		Its columns, the $p$ metavariables, are of two kind: either required and defined by the acquisition platform (\emph{i.e.} used to fetch the data) or user-defined (\emph{i.e.} arbitrary).
+		In the data, each row is a ``read'' (\emph{i.e.} information about one individual at one time point).
 		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual.
 		Data and metadata are implicitly joined with the \texttt{id} field.
-		Notably, the names used for variables and metavariable are only plausible examples that will likely differ in practice. 
+		In this figure, the names used for variables and metavariable are only plausible examples that will likely differ in practice. 
 	}
 	\label{fig:fig-2}
 \end{figure}
@@ -301,11 +301,11 @@ In it, there will be both mandatory and optional columns.
 The mandatory ones are the necessary and sufficient information to fetch data (\emph{e.g.} machine id, region of interest and date). 
 The optional columns are user-defined arbitrary fields that relate to the experiment itself (\emph{e.g.} condition and sex).
 
-In this respect the metadata file is a standardised an comprehensive data frame describing an experiment.
+In this respect, the metadata file is a standardised an comprehensive data frame describing an experiment.
 Using such a structure comes with multiple advantages.
 For instance, it simplify collaboration and data exchange as all treatments and individuals are very explicit.
-Then, it promotes good experimental practices such as interspersion of treatments (indeed, without it, users are tempted to simplify their design, for instance, confounding device/location and treatment).
-Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow. Indeed, additional replicates can simply be added as new rows, and replicate number later user, if needed, as a covariate.	
+Then, it promotes good experimental practices such as interspersion of treatments (indeed, without it, users are tempted to simplify their design by, for instance, confounding device/location and treatment).
+Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow. Indeed, additional replicates can simply be added as new rows and replicate ID later used, if needed, as a covariate.	
 
 
 \subsection*{Visualisation}
@@ -315,7 +315,7 @@ To integrate visualisation in \texttt{rethomics},
 we implemented \texttt{ggetho}, a package extending the widely adopted \texttt{ggplot2} by providing preprocessing tools as well as new layers and scales.
 Our tools make full use of the internal \texttt{behavr} structure to deliver efficient representations of temporal trends.
 It particularly applies to the visualisation of long experiments, with the ability to, for instance, annotate light and dark phases, wrap time over a circadian day, display ``double-plotted actograms'' and periodograms. 
-Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot}.
+Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}.
 
 \subsection*{Circadian and sleep analysis}
 The packages \texttt{zeitgebr} and \texttt{sleepr} provide tools to analyse circadian behaviours and sleep, respectively.
@@ -328,6 +328,19 @@ Together, they offer a suite of methods to compute periodograms and find their p
 
 \section*{Results}
 
+TODO description of the dataset here
+
+* experiment goal
+
+* design
+
+* source
+
+* express the idea that shis is just simple example that could be scaled up
+
+
+
+First of all, we load the necessary libraries (see availability section for installation instructions):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -374,8 +387,23 @@ It is \texttt{TRUE} when and only when \texttt{activity} is greater than zero:
 \hlcom{# baseline subtraction -- note the use of xmv}
 \hlstd{dt[,t} \hlkwb{:=} \hlstd{t} \hlopt{-} \hlkwd{days}\hlstd{(}\hlkwd{xmv}\hlstd{(baseline_days))]}
 \hlstd{dt[, moving} \hlkwb{:=}  \hlstd{activity} \hlopt{>} \hlnum{0}\hlstd{]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
 \hlkwd{summary}\hlstd{(dt)}
 \end{alltt}
+\begin{verbatim}
+## behavr table with:
+##  58	individuals
+##  8	metavariables
+##  3	variables
+##  1.58722e+05	measurements
+##  1	key (id)
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -410,23 +438,23 @@ It is important to visualise an overview of how each individual behaved and, if 
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# make a ggplot object with label on the y and moving on the z axis}
-\hlstd{fig3A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=label,} \hlkwc{z}\hlstd{=moving))} \hlopt{+}
+\hlstd{fig3A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= label,} \hlkwc{z} \hlstd{= moving))} \hlopt{+}
   \hlcom{# show data as a tile plot}
   \hlcom{# that is z is a pixel whose intensity maps moving}
   \hlkwd{stat_tile_etho}\hlstd{()} \hlopt{+}
   \hlcom{# add layers to draw annotations to show L and D phases}
   \hlcom{# as white and black, respectivelly}
-  \hlcom{# the first layer is for the baseline (until t=0)}
+  \hlcom{# the first layer is for the baseline (until t = 0)}
   \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(dt[,}\hlkwd{min}\hlstd{(t)],} \hlnum{0}\hlstd{))} \hlopt{+}
   \hlcom{# in the 2nd one, we start at 0 and use grey }
   \hlcom{# instead of black as we work in LL}
-  \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, dt[,}\hlkwd{max}\hlstd{(t)]),}
+  \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, dt[,} \hlkwd{max}\hlstd{(t)]),}
                       \hlkwc{ld_colours} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"white"}\hlstd{,} \hlstr{"grey"}\hlstd{))}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
-Activity of dead or escaped animals is falsely scored as long series of zeros.
+Activity of dead or escaped animals is falsely scored as long series of zeros (see, for instance, individual 30 and 18 in Fig~\ref{fig:fig-3}A).
 Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data.
 The updated version can be visualised in Fig~\ref{fig:fig-3}B.
 
@@ -436,10 +464,10 @@ The updated version can be visualised in Fig~\ref{fig:fig-3}B.
 \hlcom{# remove data after death}
 \hlstd{dt} \hlkwb{<-} \hlstd{sleepr}\hlopt{::}\hlkwd{curate_dead_animals}\hlstd{(dt, moving)}
 \hlcom{# same as above}
-\hlstd{fig3B} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=label,} \hlkwc{z}\hlstd{=moving))} \hlopt{+}
+\hlstd{fig3B} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= label,} \hlkwc{z} \hlstd{= moving))} \hlopt{+}
     \hlkwd{stat_tile_etho}\hlstd{()} \hlopt{+}
-    \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(dt[,}\hlkwd{min}\hlstd{(t)],} \hlnum{0}\hlstd{))} \hlopt{+}
-    \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, dt[,}\hlkwd{max}\hlstd{(t)]),}
+    \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(dt[,} \hlkwd{min}\hlstd{(t)],} \hlnum{0}\hlstd{))} \hlopt{+}
+    \hlkwd{stat_ld_annotations}\hlstd{(}\hlkwc{x_limits} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{, dt[,} \hlkwd{max}\hlstd{(t)]),}
                         \hlkwc{ld_colours} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"white"}\hlstd{,} \hlstr{"grey"}\hlstd{))}
 \end{alltt}
 \end{kframe}
@@ -450,7 +478,7 @@ For the purpose of this example, we keep only individuals that have \emph{at lea
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# for each id, we check for validity}
-\hlstd{valid_dt} \hlkwb{<-} \hlstd{dt[ ,} \hlkwd{.}\hlstd{(}\hlkwc{valid} \hlstd{=} \hlkwd{max}\hlstd{(t)} \hlopt{>} \hlkwd{days}\hlstd{(}\hlnum{5}\hlstd{)),} \hlkwc{by}\hlstd{=id]}
+\hlstd{valid_dt} \hlkwb{<-} \hlstd{dt[,} \hlkwd{.}\hlstd{(}\hlkwc{valid} \hlstd{=} \hlkwd{max}\hlstd{(t)} \hlopt{>} \hlkwd{days}\hlstd{(}\hlnum{5}\hlstd{)),} \hlkwc{by} \hlstd{= id]}
 \hlcom{# a vector of all valid ids}
 \hlstd{valid_ids} \hlkwb{<-} \hlstd{valid_dt[valid} \hlopt{==} \hlstd{T, id]}
 \hlcom{# filter dt with the valid ids}
@@ -473,14 +501,18 @@ Note that as a result, we now have 52 ``valid''individuals.
 
 \subsection*{Double plotted actograms}
 ``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
-In Fig~S1A, we show the double-plotted actograms of each animals:
+In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{figS1A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{z} \hlstd{= moving),} \hlkwc{multiplot} \hlstd{=} \hlnum{2}\hlstd{)} \hlopt{+}
+            \hlcom{# bars n the z axis could }
+            \hlcom{#  one could also use stat_tile_etho}
             \hlkwd{stat_bar_tile_etho}\hlstd{()} \hlopt{+}
-            \hlkwd{facet_wrap}\hlstd{(} \hlopt{~} \hlstd{label,} \hlkwc{ncol}\hlstd{=}\hlnum{4}\hlstd{)} \hlopt{+}
+            \hlcom{# divide plot by individual}
+            \hlkwd{facet_wrap}\hlstd{(} \hlopt{~} \hlstd{label,} \hlkwc{ncol} \hlstd{=} \hlnum{4}\hlstd{)} \hlopt{+}
+            \hlcom{# rename the y axis}
             \hlkwd{scale_y_discrete}\hlstd{(}\hlkwc{name}\hlstd{=}\hlstr{"Day"}\hlstd{)}
 \end{alltt}
 \end{kframe}
@@ -489,7 +521,7 @@ In Fig~S1A, we show the double-plotted actograms of each animals:
 
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (see \nameref{S1-Fig}).
+In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (see \nameref{S1-Fig}B).
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -503,15 +535,150 @@ In several methods are implemented in \texttt{zeitbebr}. In this example, we gen
 \hlstd{per_dt} \hlkwb{<-} \hlkwd{find_peaks}\hlstd{(per_dt)}
 
 \hlstd{figS1B} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power,} \hlkwc{peak}\hlstd{=peak))} \hlopt{+}
+                  \hlcom{# periododogram drawn as a line}
                   \hlkwd{geom_line}\hlstd{()} \hlopt{+}
-                  \hlkwd{geom_line}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y}\hlstd{=signif_threshold),} \hlkwc{colour}\hlstd{=}\hlstr{"red"}\hlstd{)} \hlopt{+}
+                  \hlcom{# the significance line in red}
+                  \hlkwd{geom_line}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= signif_threshold),} \hlkwc{colour}\hlstd{=}\hlstr{"red"}\hlstd{)} \hlopt{+}
+                  \hlcom{# point and text at the peak}
                   \hlkwd{geom_peak}\hlstd{()} \hlopt{+}
-                  \hlkwd{facet_wrap}\hlstd{(} \hlopt{~} \hlstd{label,} \hlkwc{ncol}\hlstd{=}\hlnum{4}\hlstd{)}
+                  \hlcom{# divide plot by individual}
+                  \hlkwd{facet_wrap}\hlstd{(} \hlopt{~} \hlstd{label,} \hlkwc{ncol} \hlstd{=} \hlnum{4}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
+\subsection*{Population statistics}
+Both double-plotted actograms and periodograms suggest that NKCCOX/+ flies are mostly 
+arhythmic in LL whilst Tim/NKCCOX appear to have a consistant, long-period rhythm.
+To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-4}A):
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{fig4A} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power} \hlopt{-} \hlstd{signif_threshold,}
+                             \hlkwc{colour} \hlstd{= genotype))} \hlopt{+}
+          \hlcom{# periododogram a line for population mean}
+          \hlcom{# and bootstrap error bars}
+          \hlkwd{stat_pop_etho}\hlstd{(}\hlkwc{method} \hlstd{= ggplot2}\hlopt{::}\hlstd{mean_cl_boot)} \hlopt{+}
+          \hlcom{# rename x and y axis }
+          \hlkwd{scale_y_continuous}\hlstd{(}\hlkwc{name}\hlstd{=}\hlstr{"Relative power"}\hlstd{)} \hlopt{+}
+          \hlkwd{scale_x_hours}\hlstd{(}\hlstr{"Period"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+To further quantify this difference, we can show the value of the peak for both groups (see Fig~\ref{fig:fig-4}B). First of all, we comput a summary per individual (\texttt{by=id}):
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{summary_dt} \hlkwb{<-} \hlstd{per_dt[,}\hlkwd{.}\hlstd{(}
+                        \hlkwc{first_peak_period} \hlstd{= period[peak}\hlopt{==}\hlnum{1}\hlstd{],}
+                        \hlkwc{first_peak_power} \hlstd{= power[peak}\hlopt{==}\hlnum{1}\hlstd{],}
+                        \hlkwc{is_rhythmic} \hlstd{=} \hlkwd{any}\hlstd{(peak}\hlopt{==}\hlnum{1}\hlstd{)),}
+                      \hlkwc{by}\hlstd{=id]}
+
+
+\hlcom{# rejoin metadata}
+\hlstd{summary_dt} \hlkwb{<-} \hlkwd{rejoin}\hlstd{(summary_dt)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\texttt{summary\_dt} is just a regular data frame with one row per individual, contianing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and such:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# standard ggplot}
+\hlstd{fig4B} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= first_peak_period,}
+                                \hlkwc{x} \hlstd{= genotype))} \hlopt{+}
+              \hlcom{# draw the mean of each genotype group}
+              \hlkwd{stat_summary}\hlstd{(}\hlkwc{fun.y} \hlstd{= mean,} \hlkwc{geom} \hlstd{=} \hlstr{"point"}\hlstd{,} \hlkwc{shape}\hlstd{=}\hlnum{3}\hlstd{)} \hlopt{+}
+              \hlcom{# draw bootstrap confidence intervals}
+              \hlkwd{stat_summary}\hlstd{(}\hlkwc{fun.data} \hlstd{= mean_cl_boot,} \hlkwc{geom} \hlstd{=} \hlstr{"errorbar"}\hlstd{)} \hlopt{+}
+              \hlcom{# shows all individuals as points. }
+              \hlcom{# the size of the point expresses the power of the peak}
+              \hlkwd{geom_jitter}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{colour}\hlstd{= genotype,}
+                              \hlkwc{size}\hlstd{=first_peak_power),}
+                          \hlkwc{alpha}\hlstd{=}\hlnum{.67}\hlstd{)} \hlopt{+}
+              \hlcom{# We would like to convert time in hour}
+              \hlkwd{scale_y_hours}\hlstd{(}\hlstr{"Period"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the proportion of rhytmic flies (see Fig~\ref{fig:fig-4}C):
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# standard ggplot}
+\hlstd{fig4C} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= genotype,}
+                                \hlkwc{fill} \hlstd{= genotype,}
+                                \hlkwc{alpha} \hlstd{= is_rhythmic}
+                                \hlstd{))} \hlopt{+}
+              \hlkwd{geom_bar}\hlstd{(}\hlkwc{colour}\hlstd{=}\hlstr{"black"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\texttt{R} provide one of the richest statistical toolbox available, which allows users to go deeper in he analysis of the extracted variables.
+One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic vs arhythmic flies in both genotypes.
+To address the same question, we fit a binomial generalised linear model, which shows a strong positive effect of ($p$-value $< 10^{-5}$):
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{fit} \hlkwb{<-} \hlkwd{glm}\hlstd{(is_rhythmic} \hlopt{~} \hlstd{genotype, summary_dt,} \hlkwc{family}\hlstd{=}\hlstr{"binomial"}\hlstd{)}
+
+\hlkwd{summary}\hlstd{(fit)}\hlopt{$}\hlstd{coefficients}
+\end{alltt}
+\begin{verbatim}
+##                     Estimate Std. Error   z value     Pr(>|z|)
+## (Intercept)        -1.504077  0.5527708 -2.720978 6.508902e-03
+## genotypeTim/NKCCOX  4.143135  0.9172057  4.517127 6.268433e-06
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Lastly, we can generate a table that compute arbitrary population statistics for each genotype:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{result_dt} \hlkwb{<-} \hlstd{summary_dt[,}
+          \hlkwd{.}\hlstd{(}
+            \hlkwc{mean_period} \hlstd{=} \hlkwd{mean}\hlstd{(first_peak_period,} \hlkwc{na.rm} \hlstd{= T)} \hlopt{/} \hlkwd{hours}\hlstd{(}\hlnum{1}\hlstd{),}
+            \hlkwc{sd_period} \hlstd{=} \hlkwd{sd}\hlstd{(first_peak_period,} \hlkwc{na.rm} \hlstd{= T)} \hlopt{/} \hlkwd{hours}\hlstd{(}\hlnum{1}\hlstd{),}
+            \hlkwc{n_rhythmic} \hlstd{=} \hlkwd{sum}\hlstd{(is_rhythmic),}
+            \hlkwc{n} \hlstd{= .N}
+            \hlstd{),}
+          \hlkwc{by} \hlstd{= genotype}
+          \hlstd{]}
+\hlstd{result_dt}
+\end{alltt}
+\begin{verbatim}
+##      genotype mean_period sd_period n_rhythmic  n
+## 1:   NKCCOX/+    25.92500  4.133098          4 22
+## 2: Tim/NKCCOX    26.36071  1.834513         28 30
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+\begin{figure}[!h]
+	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
+	\caption{{\bf Population statistics on circadian phenotype.}
+			TODO}
+	\label{fig:fig-4}
+\end{figure}
+
+
+* high scalability
+
+* reproducibility
+
+* from raw data to publication-quality figures
+
+* flexibility
 
 
 

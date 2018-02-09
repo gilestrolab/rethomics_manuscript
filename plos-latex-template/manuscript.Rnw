@@ -140,8 +140,8 @@ Giorgio F Gilestro\textsuperscript{1*}
 Ethomics, a quantitative and high-throughput approach to animal behaviour, is a new and exciting field.
 The recent development of automatised methods that can score various behaviours on a large number of animals
 % brings the promise of a powerful and original insight
-provides biologists with an unprecedented tools to decipher these complex phenotypes. 
-Analysing ethomics data comes with many challenges that are independent of these acquisition platform.
+provides biologists with an unprecedented set of tools to decipher these complex phenotypes. 
+Analysing ethomics data comes with many challenges that are largely shared across acquisition platform and paradigms.
 However, there is little effort in providing a generic framework to specifically analyse multiple and long behavioural time series.
 We developed the \texttt{rethomics} framework, a suite of \texttt{R} packages that altogether offer utilities to:
 import, store, visualise and analyse behavioural data.
@@ -167,13 +167,13 @@ Behaviour scoring is certainly not an exception to this trend.
 Indeed, many platforms (TODO citations) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
 
 The availability of large amounts of data is very exciting as it paves the way for in-depth analyses.
-Clearly, the multiplicity of model organisms, hypotheses and paradigms should be reflected in  diverse range of recording tools.
+Clearly, the multiplicity of model organisms, hypotheses and paradigms should be matched by a diverse range of recording tools.
 However, when it comes to the subsequent data analysis, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 Instead, tools tend to consist of graphical interfaces with rigid functionalities that only import data from a single platform.
 There are, at least, three issues with this approach.
 First of all, state-of-the-art analysis and visualisation requires a level of reproducibility, flexibility and scalability than only a programmatic interface can provide.
 Secondly, it favours replicated work as developers need to create their independent solution to similar problems.
-Lastly, it links analysis and visualisation to the target tool, which makes it very difficult to share cross-tool utilities and concepts.
+Lastly, it links analysis and visualisation to the target acquisition tool, which makes it very difficult to share cross-tool utilities and concepts.
 
 Thankfully, behavioural data is conceptually largely agnostic of the acquisition platform and paradigm. 	
 Typically, the behaviour of each individual is described by a long time series (possibly multivariate and heterogeneous).
@@ -182,7 +182,7 @@ Efficiently combining and manipulating these two types of information, on datase
 
 In the article herein, we describe \texttt{rethomics}, a framework that unifies analysis of behavioural dataset in an efficient and flexible manner.
 It offers an elegant computational solution to store, manipulate and visualise a large amount of data.
-We expect it to fill the gap between behavioural biology and data sciences.
+We expect it to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural biologists.
 \texttt{rethomics} comes with a extensive documentation and a set of both practical and theoretical tutorials.
 
 
@@ -192,7 +192,7 @@ We expect it to fill the gap between behavioural biology and data sciences.
 This paradigm follows the model of modern frameworks such as the \texttt{tidyverse}, which results in increased testability and maintainability.
 In it, the different tasks of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation)
 are explicitly handled by different packages.
-At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store both large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table}-derived object.
+At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table}-derived object.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be manipulated and visualised regardless of the original input platform.
 Results and plots integrate seamlessly within the \texttt{R} ecosystem, hence providing users with state-of-the-art visualisation and statistics tools.
 
@@ -233,11 +233,11 @@ For instance, when one wants to update variable according to the value of a meta
 	\includegraphics[width=1\textwidth]{fig/fig-2.pdf}
 	\caption{{\bf Example of a \texttt{behavr} table.}
 		The metadata holds a single row for each of the $n$ individuals. 
-		Its columns, the $p$ metavariables, are of two kind: either required and defined by the acquisition platform (\emph{i.e.} used to map the data) or user-defined (\emph{i.e.} arbitrary).
-		In the data, each row is a ``read'' (\emph{i.e.} information about one animal at one time point).
+		Its columns, the $p$ metavariables, are of two kind: either required and defined by the acquisition platform (\emph{i.e.} used to fetch the data) or user-defined (\emph{i.e.} arbitrary).
+		In the data, each row is a ``read'' (\emph{i.e.} information about one individual at one time point).
 		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual.
 		Data and metadata are implicitly joined with the \texttt{id} field.
-		Notably, the names used for variables and metavariable are only plausible examples that will likely differ in practice. 
+		In this figure, the names used for variables and metavariable are only plausible examples that will likely differ in practice. 
 	}
 	\label{fig:fig-2}
 \end{figure}
@@ -252,11 +252,11 @@ In it, there will be both mandatory and optional columns.
 The mandatory ones are the necessary and sufficient information to fetch data (\emph{e.g.} machine id, region of interest and date). 
 The optional columns are user-defined arbitrary fields that relate to the experiment itself (\emph{e.g.} condition and sex).
 
-In this respect the metadata file is a standardised an comprehensive data frame describing an experiment.
+In this respect, the metadata file is a standardised an comprehensive data frame describing an experiment.
 Using such a structure comes with multiple advantages.
 For instance, it simplify collaboration and data exchange as all treatments and individuals are very explicit.
-Then, it promotes good experimental practices such as interspersion of treatments (indeed, without it, users are tempted to simplify their design, for instance, confounding device/location and treatment).
-Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow. Indeed, additional replicates can simply be added as new rows, and replicate number later user, if needed, as a covariate.	
+Then, it promotes good experimental practices such as interspersion of treatments (indeed, without it, users are tempted to simplify their design by, for instance, confounding device/location and treatment).
+Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow. Indeed, additional replicates can simply be added as new rows and replicate ID later used, if needed, as a covariate.	
 
 
 \subsection*{Visualisation}
@@ -266,7 +266,7 @@ To integrate visualisation in \texttt{rethomics},
 we implemented \texttt{ggetho}, a package extending the widely adopted \texttt{ggplot2} by providing preprocessing tools as well as new layers and scales.
 Our tools make full use of the internal \texttt{behavr} structure to deliver efficient representations of temporal trends.
 It particularly applies to the visualisation of long experiments, with the ability to, for instance, annotate light and dark phases, wrap time over a circadian day, display ``double-plotted actograms'' and periodograms. 
-Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot}.
+Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}.
 
 \subsection*{Circadian and sleep analysis}
 The packages \texttt{zeitgebr} and \texttt{sleepr} provide tools to analyse circadian behaviours and sleep, respectively.
