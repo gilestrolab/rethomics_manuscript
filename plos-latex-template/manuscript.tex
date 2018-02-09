@@ -190,8 +190,8 @@ Ethomics, a quantitative and high-throughput approach to animal behaviour, is a 
 The recent development of automatised methods that can score various behaviours on a large number of animals
 % brings the promise of a powerful and original insight
 provides biologists with an unprecedented tools to decipher these complex phenotypes. 
-Analysing ethomics data comes with many challenges that are, conceptually, independent of the acquisition platform used.
-However, there is, little effort in providing a generic framework to specifically analyse multiple and long behavioural time series.
+Analysing ethomics data comes with many challenges that are independent of these acquisition platform.
+However, there is little effort in providing a generic framework to specifically analyse multiple and long behavioural time series.
 We developed the \texttt{rethomics} framework, a suite of \texttt{R} packages that altogether offer utilities to:
 import, store, visualise and analyse behavioural data.
 In this article, we describe it and show an example of its application to the blooming field of sleep and circadian rhythm in fruit fly.
@@ -389,7 +389,7 @@ Importantly, we keep \texttt{id} , which is more rigorous and universal.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{dt[, label} \hlkwb{:=} \hlkwd{interaction}\hlstd{(}\hlnum{1}\hlopt{:}\hlstd{.N, genotype),} \hlkwc{meta}\hlstd{=T]}
-\hlcom{# print(dt)}
+\hlkwd{print}\hlstd{(dt)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -429,6 +429,7 @@ It is important to visualise an overview of how each individual behaved and, if 
 Activity of dead or escaped animals is falsely scored as long series of zeros.
 Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data.
 The updated version can be visualised in Fig~\ref{fig:fig-3}B.
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -513,16 +514,7 @@ In several methods are implemented in \texttt{zeitbebr}. In this example, we gen
 
 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## pdf 
-##   2
-## pdf 
-##   2
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+
 
 % We present an small example examining the circadian behaviour of 128 fruit flies in recorded in a DAM2 -- a paradigm very widely adopted. 
 % A less formal description of this case and others are explained at \href{https://rethomics.github.io/}{https://rethomics.github.io/}.

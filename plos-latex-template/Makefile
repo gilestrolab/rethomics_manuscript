@@ -16,3 +16,4 @@ manuscript.pdf: manuscript.tex all-figures.pdf
 
 clean:
 	rm *.log *.aux *.tex *.out  *.pdf -f 
+	rm -r cache/ 

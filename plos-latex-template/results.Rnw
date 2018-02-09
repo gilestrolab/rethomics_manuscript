@@ -1,4 +1,4 @@
-<<echo=FALSE, message=FALSE>>=
+<<echo=FALSE, message=FALSE, cache=TRUE>>=
 opts_knit$set(root.dir = "results")
 @
 
@@ -13,7 +13,7 @@ library(ggetho)    # behaviour visualisation
 
 Then, the metadata file is read and linked to the \texttt{.txt} result files.
 
-<<>>=
+<<cache=TRUE>>=
 metadata <- link_dam2_metadata("metadata.csv",".")    # linking
 # print(metadata)                                     # check metadata
 dt <- load_dam2(metadata)                             # loading
@@ -28,7 +28,7 @@ This gives us an opportunity to illustrate the use \texttt{xmv()}, which expands
 In addition, we use the \texttt{data.table} syntax to create, in place, a \texttt{moving} variable.
 It is \texttt{TRUE} when and only when \texttt{activity} is greater than zero:
 
-<<message=F, results="hide">>=
+<<message=F, results="hide", cache=TRUE>>=
 # baseline subtraction -- note the use of xmv
 dt[,t := t - days(xmv(baseline_days))]
 dt[, moving :=  activity > 0]  
@@ -41,9 +41,9 @@ Importantly, we keep \texttt{id} , which is more rigorous and universal.
 
 
 
-<<message=FALSE, rsults="hide">>=
+<<message=FALSE, results="hide", cache=TRUE>>=
 dt[, label := interaction(1:.N, genotype), meta=T]
-# print(dt)
+print(dt)
 @
 
 
@@ -58,7 +58,7 @@ It is important to visualise an overview of how each individual behaved and, if 
 	\label{fig:fig-3}
 \end{figure}
 
-<<>>=
+<<cache=TRUE>>=
 # make a ggplot object with label on the y and moving on the z axis
 fig3A <- ggetho(dt, aes(y=label, z=moving)) +  
   # show data as a tile plot
@@ -77,7 +77,8 @@ fig3A <- ggetho(dt, aes(y=label, z=moving)) +
 Activity of dead or escaped animals is falsely scored as long series of zeros.
 Our \texttt{sleepr} package offer a tool to detect and remove such artefactual data.
 The updated version can be visualised in Fig~\ref{fig:fig-3}B.
-<<>>=
+
+<<cache=TRUE>>=
 # remove data after death
 dt <- sleepr::curate_dead_animals(dt, moving)
 # same as above
@@ -89,7 +90,7 @@ fig3B <- ggetho(dt, aes(y=label, z=moving)) +
 @
 
 For the purpose of this example, we keep only individuals that have \emph{at least five days in LL}.
-<<>>=
+<<cache=TRUE>>=
 # for each id, we check for validity
 valid_dt <- dt[ , .(valid = max(t) > days(5)), by=id]
 # a vector of all valid ids
@@ -106,7 +107,7 @@ Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} ``valid''individuals
 ``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
 In Fig~S1A, we show the double-plotted actograms of each animals:
 
-<<>>=
+<<cache=TRUE>>=
 figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
             stat_bar_tile_etho() + 
             facet_wrap( ~ label, ncol=4) +
@@ -118,7 +119,7 @@ figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
 In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (see \nameref{S1-Fig}).
 
-<<>>=
+<<cache=TRUE>>=
 dt_ll <- dt[t > days(1)]
 per_dt <- periodogram(moving, 
                     	dt_ll, 
@@ -137,7 +138,7 @@ figS1B <- ggperio(per_dt, aes(y = power, peak=peak)) +
 
 
 
-<<r, eval=TRUE, echo=FALSE, message=FALSE, result="hide">>=
+<<r, eval=TRUE, echo=FALSE, message=FALSE, result="hide",cache=TRUE>>=
 ################################ CODE BELOW FOR COSMETIC ALTERATIONS OF FIGURES
 
 library(cowplot)
@@ -173,7 +174,7 @@ fig3 <- cowplot::plot_grid(
                           )
 pdf("../fig/fig-3.pdf",w=12,h=12)
 print(fig3)
-dev.off()
+tmp  <- dev.off()
 
 figS1A <- figS1A +  theme(strip.text.x = element_text(size =8))
 figS1B <- figS1B +  theme(strip.text.x = element_text(size =8))
@@ -189,5 +190,5 @@ figS1 <- cowplot::plot_grid(
 
 pdf("../fig/fig-S1.pdf",w=12,h=16)
 print(figS1)
-dev.off()
+tmp <- dev.off()
 @
