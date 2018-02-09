@@ -161,12 +161,12 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
 
-Animal behaviours are complex phenotypical manifestations of the interaction between nervous systems and their external or internal environment.
+Animal behaviours are complex phenotypical manifestations of the interaction between nervous systems and external or internal environments.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
 Behaviour scoring is certainly not an exception to this trend.
 Indeed, many platforms (TODO citations) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
 
-The availability of large amounts of data is very exciting as it paves the way for in-depth analyses.
+The availability of large amounts of data is very exciting as it paves the way for in-depth quantitative analyses.
 Clearly, the multiplicity of model organisms, hypotheses and paradigms should be matched by a diverse range of recording tools.
 However, when it comes to the subsequent data analysis, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 Instead, tools tend to consist of graphical interfaces with rigid functionalities that only import data from a single platform.
@@ -178,32 +178,32 @@ Lastly, it links analysis and visualisation to the target acquisition tool, whic
 Thankfully, behavioural data is conceptually largely agnostic of the acquisition platform and paradigm. 	
 Typically, the behaviour of each individual is described by a long time series (possibly multivariate and heterogeneous).
 Importantly, individuals are labelled with arbitrary metadata defined by the experimenter (\emph{e.g.} sex, treatment and genotype).
-Efficiently combining and manipulating these two types of information, on datasets of hundreds of individuals, each recorded for weeks, is not trivial.
+Efficiently combining and manipulating metadata and data of hundreds of individuals, each recorded for weeks, is not trivial.
 
 In the article herein, we describe \texttt{rethomics}, a framework that unifies analysis of behavioural dataset in an efficient and flexible manner.
 It offers an elegant computational solution to store, manipulate and visualise a large amount of data.
-We expect it to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural biologists.
-\texttt{rethomics} comes with a extensive documentation and a set of both practical and theoretical tutorials.
+We expect it to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural scientists.
+\texttt{rethomics} comes with a extensive documentation and a set of both practical and theoretical demos and tutorials.
 
 
 \section*{Design and Implementation}
 
-\texttt{rethomics} is implemented as a collection of small packages linked to one another (Fig~\ref{fig:fig-1}).
+\texttt{rethomics} is implemented as a collection of small packages related to one another (Fig~\ref{fig:fig-1}).
 This paradigm follows the model of modern frameworks such as the \texttt{tidyverse}, which results in increased testability and maintainability.
 In it, the different tasks of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation)
 are explicitly handled by different packages.
 At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table}-derived object.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be manipulated and visualised regardless of the original input platform.
-Results and plots integrate seamlessly within the \texttt{R} ecosystem, hence providing users with state-of-the-art visualisation and statistics tools.
+Results and plots integrate seamlessly within the \texttt{R} ecosystem, hence providing users with state-of-the-art visualisation and statistical tools.
 
 % Place figure captions after the first paragraph in which they are cited.
 
 
-     
+
 \begin{figure}[!h]
-    \includegraphics[width=1\textwidth]{fig/fig-1.pdf}
+	\includegraphics[width=1\textwidth]{fig/fig-1.pdf}
 	\caption{{\bf The \texttt{rethomics} workflow.}
-		Diagram representing, from left to right, the interplay between the raw data, the \texttt{rethomics} packages (in blue) and the rest of the \texttt{R} ecosystem.}
+		Diagram representing the interplay between, from left to right, the raw data, the \texttt{rethomics} packages (in blue) and the rest of the \texttt{R} ecosystem.}
 	\label{fig:fig-1}
 \end{figure}
 
@@ -213,14 +213,15 @@ We created \texttt{behavr} (Fig~\ref{fig:fig-2}), a new data structure, based on
 two challenges that are inherent to manipulating ethomics results.
 
 Firstly, there could be very long (typically $k_i > 10^8, \forall i \in [1,n]$), multivariate (often, $q > 10$), time series for each individual.
-For instance, each series could represent variables that encode coordinates, orientation, dimensions, activity, colour intensity and so on, sampled several times per second, over multiple days. Therefore, data structure must be computationally efficient -- both in term of memory footprint and processing speed. 
+For instance, each series could represent variables that encode coordinates, orientation, dimensions, activity, colour intensity and so on, sampled several times per second, over multiple days.
+Therefore, data structure must be computationally efficient -- both in term of memory footprint and processing speed. 
 
 Secondly, a large amount of individuals are often studied (typically $n > 100$).
-Each individual ($i$) is associated with metadata, that is a set of $p$ ``metavariables'' that describe experimental conditions.
+Each individual ($i$) is associated with metadata: a set of $p$ ``metavariables'' that describe experimental conditions.
 For instance, metadata stores information regarding the date and location of the experiment, treatment, genotype, sex, \emph{post hoc} observations and other arbitrary metavariables.
 It is good practice to record as many metavariables as possible so they can later be used as covariates. 
 Therefore, typically $p > 10$.
- 
+
 \texttt{behavr} tables link metadata and data within the same object, extending the syntax of \texttt{data.table} to manipulate, join and access metadata.
 This approach guaranties that any data point can be mapped correctly to its parent metadata.
 It also allows implicit update of metadata when data is altered.
@@ -228,14 +229,14 @@ For instance, when is data filtered, only the remaining individuals should be in
 It is also important that metadata and data can interoperate.
 For instance, when one wants to update variable according to the value of a metavariable (say, alter the variable $x$ only for animals with the metavariable $sex=``male"$).
 
-     
+
 \begin{figure}[!h]
 	\includegraphics[width=1\textwidth]{fig/fig-2.pdf}
 	\caption{{\bf Example of a \texttt{behavr} table.}
 		The metadata holds a single row for each of the $n$ individuals. 
 		Its columns, the $p$ metavariables, are of two kind: either required and defined by the acquisition platform (\emph{i.e.} used to fetch the data) or user-defined (\emph{i.e.} arbitrary).
 		In the data, each row is a ``read'' (\emph{i.e.} information about one individual at one time point).
-		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual.
+		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual $i$.
 		Data and metadata are implicitly joined with the \texttt{id} field.
 		In this figure, the names used for variables and metavariable are only plausible examples that will likely differ in practice. 
 	}
@@ -245,18 +246,19 @@ For instance, when one wants to update variable according to the value of a meta
 
 \subsection*{Data import}
 Data import package translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
-Currently, we provide a package to read Drosophila Activity Monitor (DAM2) data  and another one for Ethoscope data.
+Currently, we provide a package to read Drosophila Activity Monitor (DAM2) data and another one for Ethoscope data.
 Although the structure of the raw results if very different, conceptually, loading data is very similar.
 In all cases the user is asked to generate a metadata table (one row per individual). 
 In it, there will be both mandatory and optional columns.
 The mandatory ones are the necessary and sufficient information to fetch data (\emph{e.g.} machine id, region of interest and date). 
-The optional columns are user-defined arbitrary fields that relate to the experiment itself (\emph{e.g.} condition and sex).
+The optional columns are user-defined arbitrary fields that translate experimental conditions (\emph{e.g.} treatment, genotype and sex).
 
 In this respect, the metadata file is a standardised an comprehensive data frame describing an experiment.
 Using such a structure comes with multiple advantages.
 For instance, it simplify collaboration and data exchange as all treatments and individuals are very explicit.
 Then, it promotes good experimental practices such as interspersion of treatments (indeed, without it, users are tempted to simplify their design by, for instance, confounding device/location and treatment).
-Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow. Indeed, additional replicates can simply be added as new rows and replicate ID later used, if needed, as a covariate.	
+Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow.
+Indeed, additional replicates can simply be added as new rows -- and the ID of the replicate later used, if needed, as a covariate.	
 
 
 \subsection*{Visualisation}
@@ -271,6 +273,7 @@ Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}.
 \subsection*{Circadian and sleep analysis}
 The packages \texttt{zeitgebr} and \texttt{sleepr} provide tools to analyse circadian behaviours and sleep, respectively.
 Together, they offer a suite of methods to compute periodograms and find their peaks, score sleep from inactivity (\emph{e.g.} using the ``five minute rule''), and characterise the architecture of sleep bouts (\emph{e.g.} number, length and latency).
+
 
 
 
@@ -320,6 +323,10 @@ Maite
 Hannah 
 
 Patrick Kr{\"a}tschmer
+
+Rob
+
+Markus
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.

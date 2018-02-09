@@ -177,6 +177,26 @@ fig4A <- ggperio(per_dt, aes(y = power - signif_threshold,
           scale_x_hours("Period")
 @
 
+
+
+\begin{figure}[!h]
+	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
+	\caption{{\bf Population statistics on circadian phenotype.}
+			A: Average periodograms. 
+			      The aggregated relative power of the periodogram of all animals.
+			      The lines shows and the shaded areas show population means and their 95\% bootstrap confidence interval, respectively.
+			B: Peak periodicity power and average.
+			      Values of the peak period for animals with a significant peak.
+			      Individual animals are shown by dots whose size represent power of the peak period.
+			      The error bars are 95\% bootstrap confidence interval on the population mean.
+			C: Frequencies of rhythmic animals.
+			      Number of rhythmic animals (\emph{i.e.} with a significant peak) in each genotypes.
+			      Dark and clear fillings indicate rhythmic and arhythmic animals, respectively.
+			      }
+	\label{fig:fig-4}
+\end{figure}
+
+
 To further quantify this difference, we can show the value of the peak for both groups (see Fig~\ref{fig:fig-4}B). First of all, we comput a summary per individual (\texttt{by=id}):
 
 <<cache=TRUE, warning=FALSE, results="hide">>=
@@ -246,13 +266,7 @@ result_dt
 @
 
 
-\begin{figure}[!h]
-	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
-	\caption{{\bf Population statistics on circadian phenotype.}
-			TODO}
-	\label{fig:fig-4}
-\end{figure}
-
+Some conclusion here, TODO:
 
 * high scalability
 
