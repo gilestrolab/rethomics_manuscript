@@ -310,7 +310,8 @@ All packages are continuously integrated and unit tested on several version of \
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
 \paragraph*{S1 Fig.}
 \label{S1-Fig}
-{\bf Bold the title sentence.} Add descriptive text after the title of the item (optional).
+{\bf Complete version of Fig~\ref{fig:fig-4}.}
+See Fig~\ref{fig:fig-4} for legend.
 
 
 \section*{Acknowledgements}

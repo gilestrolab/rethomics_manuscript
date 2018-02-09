@@ -509,6 +509,7 @@ In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
+\hlcom{# we also show a subset of this figure in supplementary materials}
 \hlstd{figS1A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{z} \hlstd{= moving),} \hlkwc{multiplot} \hlstd{=} \hlnum{2}\hlstd{)} \hlopt{+}
             \hlcom{# bars n the z axis could }
             \hlcom{#  one could also use stat_tile_etho}
@@ -522,9 +523,11 @@ In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
 \end{knitrout}
 
 
+
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (see \nameref{S1-Fig}B).
+In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid.
+A representative sample of all animals is shown in Fig~\ref{fig:fig-4}B (see \nameref{S1-Fig}B for all individuals).
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -536,7 +539,7 @@ In several methods are implemented in \texttt{zeitbebr}. In this example, we gen
                         \hlkwc{FUN}\hlstd{=chi_sq_periodogram)}
 
 \hlstd{per_dt} \hlkwb{<-} \hlkwd{find_peaks}\hlstd{(per_dt)}
-
+\hlcom{# we also show a subset of this figure in supplementary materials}
 \hlstd{figS1B} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power,} \hlkwc{peak}\hlstd{=peak))} \hlopt{+}
                   \hlcom{# periododogram drawn as a line}
                   \hlkwd{geom_line}\hlstd{()} \hlopt{+}
@@ -550,15 +553,32 @@ In several methods are implemented in \texttt{zeitbebr}. In this example, we gen
 \end{kframe}
 \end{knitrout}
 
+
+
+
+
+
+
+\begin{figure}[!h]
+	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
+	\caption{{\bf Visualisation of the periodicity in activity of eight representative animals.}
+		A: Double plotted actograms showing activity over the experiment. Transition to LL happens at day 0.
+		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
+		Titles on top of each facet refer to the label allocated to each individual.
+		A version of this figure with all animals is available \nameref{S1-Fig}.
+	}
+	\label{fig:fig-4}
+\end{figure}
+
 \subsection*{Population statistics}
 Both double-plotted actograms and periodograms suggest that NKCCOX/+ flies are mostly 
-arhythmic in LL whilst Tim/NKCCOX appear to have a consistant, long-period rhythm.
-To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-4}A):
+arhythmic in LL whilst Tim/NKCCOX appear to have a consistent, long-period rhythm.
+To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-5}A):
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{fig4A} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power} \hlopt{-} \hlstd{signif_threshold,}
+\hlstd{fig5A} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power} \hlopt{-} \hlstd{signif_threshold,}
                              \hlkwc{colour} \hlstd{= genotype))} \hlopt{+}
           \hlcom{# periododogram a line for population mean}
           \hlcom{# and bootstrap error bars}
@@ -573,7 +593,7 @@ To visualise this at the population scale, we can plot an average periodogram (s
 
 
 \begin{figure}[!h]
-	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
+	\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
 	\caption{{\bf Population statistics on circadian phenotype.}
 			A: Average periodograms. 
 			      The aggregated relative power of the periodogram of all animals.
@@ -586,11 +606,11 @@ To visualise this at the population scale, we can plot an average periodogram (s
 			      Number of rhythmic animals (\emph{i.e.} with a significant peak) in each genotypes.
 			      Dark and clear fillings indicate rhythmic and arhythmic animals, respectively.
 			      }
-	\label{fig:fig-4}
+	\label{fig:fig-5}
 \end{figure}
 
 
-To further quantify this difference, we can show the value of the peak for both groups (see Fig~\ref{fig:fig-4}B). First of all, we comput a summary per individual (\texttt{by=id}):
+To further quantify this difference, we can show the value of the peak for both groups (see Fig~\ref{fig:fig-5}B). First of all, we compute a summary per individual (\texttt{by=id}):
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -608,13 +628,13 @@ To further quantify this difference, we can show the value of the peak for both 
 \end{kframe}
 \end{knitrout}
 
-\texttt{summary\_dt} is just a regular data frame with one row per individual, contianing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and such:
+\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and such:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# standard ggplot}
-\hlstd{fig4B} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= first_peak_period,}
+\hlstd{fig5B} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= first_peak_period,}
                                 \hlkwc{x} \hlstd{= genotype))} \hlopt{+}
               \hlcom{# draw the mean of each genotype group}
               \hlkwd{stat_summary}\hlstd{(}\hlkwc{fun.y} \hlstd{= mean,} \hlkwc{geom} \hlstd{=} \hlstr{"point"}\hlstd{,} \hlkwc{shape}\hlstd{=}\hlnum{3}\hlstd{)} \hlopt{+}
@@ -631,12 +651,12 @@ To further quantify this difference, we can show the value of the peak for both 
 \end{kframe}
 \end{knitrout}
 
-To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the proportion of rhytmic flies (see Fig~\ref{fig:fig-4}C):
+To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the proportion of rhythmic flies (see Fig~\ref{fig:fig-5}C):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# standard ggplot}
-\hlstd{fig4C} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= genotype,}
+\hlstd{fig5C} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= genotype,}
                                 \hlkwc{fill} \hlstd{= genotype,}
                                 \hlkwc{alpha} \hlstd{= is_rhythmic}
                                 \hlstd{))} \hlopt{+}
@@ -730,7 +750,8 @@ All packages are continuously integrated and unit tested on several version of \
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
 \paragraph*{S1 Fig.}
 \label{S1-Fig}
-{\bf Bold the title sentence.} Add descriptive text after the title of the item (optional).
+{\bf Complete version of Fig~\ref{fig:fig-4}.}
+See Fig~\ref{fig:fig-4} for legend.
 
 
 \section*{Acknowledgements}

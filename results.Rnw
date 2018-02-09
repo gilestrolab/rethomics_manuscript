@@ -126,6 +126,7 @@ Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} ``valid''individuals
 In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
 
 <<cache=TRUE>>=
+# we also show a subset of this figure in supplementary materials
 figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
             # bars n the z axis could 
             #  one could also use stat_tile_etho
@@ -135,11 +136,21 @@ figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
             # rename the y axis
             scale_y_discrete(name="Day")
 @
+<<cache=TRUE, echo=FALSE>>=
+fig_4_picked_labels = paste(c(5,10,33,39, 13,17,22,51), rep(c("NKCCOX/+", "Tim/NKCCOX"), each=4), sep=".")
+
+fig4A <- ggetho(dt[xmv(label) %in% fig_4_picked_labels],
+						 aes(z = moving), multiplot = 2) +
+	stat_bar_tile_etho() + 
+	facet_wrap( ~ label, ncol = 4) +
+	scale_y_discrete(name="Day")
+@
 
 
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid (see \nameref{S1-Fig}B).
+In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid.
+A representative sample of all animals is shown in Fig~\ref{fig:fig-4}B (see \nameref{S1-Fig}B for all individuals).
 
 <<cache=TRUE>>=
 dt_ll <- dt[t > days(1)]
@@ -149,7 +160,7 @@ per_dt <- periodogram(moving,
                     	FUN=chi_sq_periodogram)
                     	
 per_dt <- find_peaks(per_dt)
-
+# we also show a subset of this figure in supplementary materials
 figS1B <- ggperio(per_dt, aes(y = power, peak=peak)) + 
                   # periododogram drawn as a line
                   geom_line() +
@@ -161,13 +172,41 @@ figS1B <- ggperio(per_dt, aes(y = power, peak=peak)) +
                   facet_wrap( ~ label, ncol = 4) 
 @
 
+
+
+<<cache=TRUE, echo=FALSE>>=
+fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
+aes(y = power, peak=peak)) + 
+# periododogram drawn as a line
+geom_line() +
+# the significance line in red
+geom_line(aes(y = signif_threshold), colour="red") + 
+# point and text at the peak
+geom_peak() + 
+# divide plot by individual
+facet_wrap( ~ label, ncol = 4) 
+@
+
+
+
+\begin{figure}[!h]
+	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
+	\caption{{\bf Visualisation of the periodicity in activity of eight representative animals.}
+		A: Double plotted actograms showing activity over the experiment. Transition to LL happens at day 0.
+		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
+		Titles on top of each facet refer to the label allocated to each individual.
+		A version of this figure with all animals is available \nameref{S1-Fig}.
+	}
+	\label{fig:fig-4}
+\end{figure}
+
 \subsection*{Population statistics}
 Both double-plotted actograms and periodograms suggest that NKCCOX/+ flies are mostly 
-arhythmic in LL whilst Tim/NKCCOX appear to have a consistant, long-period rhythm.
-To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-4}A):
+arhythmic in LL whilst Tim/NKCCOX appear to have a consistent, long-period rhythm.
+To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-5}A):
 
 <<cache=TRUE, warning=FALSE,message=FALSE, result="hide">>=
-fig4A <- ggperio(per_dt, aes(y = power - signif_threshold,
+fig5A <- ggperio(per_dt, aes(y = power - signif_threshold,
                              colour = genotype)) + 
           # periododogram a line for population mean
           # and bootstrap error bars
@@ -180,7 +219,7 @@ fig4A <- ggperio(per_dt, aes(y = power - signif_threshold,
 
 
 \begin{figure}[!h]
-	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
+	\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
 	\caption{{\bf Population statistics on circadian phenotype.}
 			A: Average periodograms. 
 			      The aggregated relative power of the periodogram of all animals.
@@ -193,11 +232,11 @@ fig4A <- ggperio(per_dt, aes(y = power - signif_threshold,
 			      Number of rhythmic animals (\emph{i.e.} with a significant peak) in each genotypes.
 			      Dark and clear fillings indicate rhythmic and arhythmic animals, respectively.
 			      }
-	\label{fig:fig-4}
+	\label{fig:fig-5}
 \end{figure}
 
 
-To further quantify this difference, we can show the value of the peak for both groups (see Fig~\ref{fig:fig-4}B). First of all, we comput a summary per individual (\texttt{by=id}):
+To further quantify this difference, we can show the value of the peak for both groups (see Fig~\ref{fig:fig-5}B). First of all, we compute a summary per individual (\texttt{by=id}):
 
 <<cache=TRUE, warning=FALSE, results="hide">>=
 
@@ -212,11 +251,11 @@ summary_dt <- per_dt[,.(
 summary_dt <- rejoin(summary_dt)
 @
 
-\texttt{summary\_dt} is just a regular data frame with one row per individual, contianing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and such:
+\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and such:
 
 <<>>=
 # standard ggplot
-fig4B <- ggplot(summary_dt, aes(y = first_peak_period,
+fig5B <- ggplot(summary_dt, aes(y = first_peak_period,
                                 x = genotype)) + 
               # draw the mean of each genotype group
               stat_summary(fun.y = mean, geom = "point", shape=3) +
@@ -231,10 +270,10 @@ fig4B <- ggplot(summary_dt, aes(y = first_peak_period,
               scale_y_hours("Period")
 @
 
-To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the proportion of rhytmic flies (see Fig~\ref{fig:fig-4}C):
+To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the proportion of rhythmic flies (see Fig~\ref{fig:fig-5}C):
 <<cache=TRUE, warning=FALSE, results="hide">>=
 # standard ggplot
-fig4C <- ggplot(summary_dt, aes(x = genotype,
+fig5C <- ggplot(summary_dt, aes(x = genotype,
                                 fill = genotype,
                                 alpha = is_rhythmic
                                 )) +
@@ -330,11 +369,27 @@ figS1 <- cowplot::plot_grid(
 pdf("../fig/fig-S1.pdf",w=12,h=16)
 print(figS1)
 tmp <- dev.off()
+
+#===================================================
+
+fig4 <- cowplot::plot_grid(
+				fig4A,
+				fig4B,
+				nrow=1,
+				labels=c("A", "B"),
+				align="v"
+)
+
+pdf("../fig/fig-4.pdf",w=10,h=3)
+print(fig4)
+tmp  <- dev.off()
+
+
 #=================================================
 
-fig4 <- cowplot::plot_grid(fig4A + theme(legend.position="none"),
-                           fig4B + theme(legend.position="bottom"),
-                           fig4C + theme(legend.position="none"),
+fig5 <- cowplot::plot_grid(fig5A + theme(legend.position="none"),
+                           fig5B + theme(legend.position="bottom"),
+                           fig5C + theme(legend.position="none"),
                            nrow=1,
                            label_size = 20,
                            align = "hv",
@@ -342,7 +397,7 @@ fig4 <- cowplot::plot_grid(fig4A + theme(legend.position="none"),
                            labels=c( "A", "B", "C")
                            #?cowplot::plot_grid
                            )
-pdf("../fig/fig-4.pdf",w=10,h=5)
-print(fig4)
+pdf("../fig/fig-5.pdf",w=10,h=5)
+print(fig5)
 tmp <- dev.off()
 @
