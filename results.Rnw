@@ -125,7 +125,7 @@ Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} ``valid''individuals
 ``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
 In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
 
-<<cache=TRUE>>=
+<<cache=TRUE, warning=FALSE>>=
 # we also show a subset of this figure in supplementary materials
 figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
             # bars n the z axis could 
@@ -136,14 +136,34 @@ figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
             # rename the y axis
             scale_y_discrete(name="Day")
 @
+
 <<cache=TRUE, echo=FALSE>>=
-fig_4_picked_labels = paste(c(5,10,33,39, 13,17,22,51), rep(c("NKCCOX/+", "Tim/NKCCOX"), each=4), sep=".")
+#fig_4_picked_labels = paste(c(5,10,33,39, 13,17,22,51), rep(c("NKCCOX/+", "Tim/NKCCOX"), each=4), sep=".")
+helper_dt_picked_labs <- data.table(num = c(5,10,33,39, 13,17,22,51),
+                                    genotype =  rep(c("NKCCOX/+", "Tim/NKCCOX"), each=4))
+helper_dt_picked_labs[,label := interaction(num, genotype)]
+
+  # add a bg that depends on labels
+bg_layer =   geom_rect(data=helper_dt_picked_labs, aes(fill=genotype),
+            xmin = -Inf,xmax = Inf,
+            ymin = -Inf,ymax = Inf,
+            alpha = 0.3, inherit.aes = F) 
+    
+fig_4_picked_labels = helper_dt_picked_labs[,label]
+
+
 
 fig4A <- ggetho(dt[xmv(label) %in% fig_4_picked_labels],
 						 aes(z = moving), multiplot = 2) +
+  bg_layer+
 	stat_bar_tile_etho() + 
 	facet_wrap( ~ label, ncol = 4) +
-	scale_y_discrete(name="Day")
+	scale_y_discrete(name="Day") +
+  theme(strip.text= element_text(size = 11))
+
+ylabs <- ggplot_build(fig4A)$layout$panel_ranges[[1]]$y.labels
+fig4A <- fig4A + scale_y_discrete(name="Day",
+                                  limits = ifelse(1:length(ylabs) %%2, ylabs, ""))
 @
 
 
@@ -174,17 +194,21 @@ figS1B <- ggperio(per_dt, aes(y = power, peak=peak)) +
 
 
 
-<<cache=TRUE, echo=FALSE>>=
+<<cache=TRUE, echo=FALSE, warning=FALSE>>=
 fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
-aes(y = power, peak=peak)) + 
-# periododogram drawn as a line
-geom_line() +
-# the significance line in red
-geom_line(aes(y = signif_threshold), colour="red") + 
-# point and text at the peak
-geom_peak() + 
-# divide plot by individual
-facet_wrap( ~ label, ncol = 4) 
+                      aes(y = power, peak=peak)) + 
+            # periododogram drawn as a line
+            geom_line() +
+            bg_layer+
+            # the significance line in red
+            geom_line(aes(y = signif_threshold), colour="red") + 
+            # point and text at the peak
+            geom_peak() + 
+            # divide plot by individual
+            facet_wrap( ~ label, ncol = 4) + 
+            scale_y_continuous(name="Power") +
+            theme(strip.text= element_text(size = 11))
+
 @
 
 
@@ -194,6 +218,7 @@ facet_wrap( ~ label, ncol = 4)
 	\caption{{\bf Visualisation of the periodicity in activity of eight representative animals.}
 		A: Double plotted actograms showing activity over the experiment. Transition to LL happens at day 0.
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
+		The blue annotation represents the first peak (if present) above the significance threshold (red line).
 		Titles on top of each facet refer to the label allocated to each individual.
 		A version of this figure with all animals is available \nameref{S1-Fig}.
 	}
@@ -334,7 +359,7 @@ legend <- fig3A + theme(axis.title=element_blank(),
                         #axis.ticks.y=element_blank(),
                         panel.border = element_blank(),
                         #legend.text = "moving",
-                        legend.position="left") + 
+                        legend.position="none") + 
                   coord_cartesian(xlim=-days(c(10, 9))) + scale_y_discrete(position = "right")
 
 
@@ -350,8 +375,18 @@ fig3 <- cowplot::plot_grid(
                           align="h",
                           hjust=0, vjust=1.01
                           )
+fill_legend <- 
+  cowplot::plot_grid(NULL,
+    cowplot::get_legend(
+        fig3A + theme(legend.position = "bottom", legend.direction = "horizontal") + scale_fill_continuous(labels = scales::percent, name="Moving ", breaks=c(0,.5,1))
+        ), NULL
+    )
+#?theme
+
+fig3_final <- cowplot::plot_grid(fig3, fill_legend,nrow = 2, rel_heights = c(15,1))
+
 pdf("../fig/fig-3.pdf",w=12,h=12)
-print(fig3)
+print(fig3_final)
 tmp  <- dev.off()
 
 #=================================================
@@ -376,8 +411,8 @@ tmp <- dev.off()
 #===================================================
 
 fig4 <- cowplot::plot_grid(
-				fig4A,
-				fig4B,
+				fig4A + theme(legend.position = "none"),
+				fig4B+ theme(legend.position = "none"),
 				nrow=1,
 				labels=c("A", "B"),
 				align="v",
@@ -386,16 +421,29 @@ fig4 <- cowplot::plot_grid(
 				hjust=0, vjust=1.01
 )
 
+
+fill_legend <- 
+  cowplot::plot_grid(NULL,
+    cowplot::get_legend(
+        fig4A + theme(legend.position = "bottom", legend.direction = "horizontal") + scale_fill_discrete(name="Genotype "))
+        )
+#?theme
+
+
+fig4_final <- cowplot::plot_grid(fig4, fill_legend,nrow = 2, rel_heights = c(15,1))
 pdf("../fig/fig-4.pdf",w=12,h=4)
-print(fig4)
+print(fig4_final)
 tmp  <- dev.off()
 
 
 #=================================================
 
+
+
 fig5 <- cowplot::plot_grid(fig5A + theme(legend.position="none"),
-                           fig5B + theme(legend.position="bottom"),
-                           fig5C + theme(legend.position="none"),
+                           fig5B + theme(legend.position="none") + scale_x_discrete(name="Genotype"),
+                           fig5C + theme(legend.position="none") + scale_y_continuous(name="Number") +
+                             scale_x_discrete(name="Genotype"),
                            nrow=1,
                            label_size = 32,
                            align = "hv",
@@ -404,7 +452,20 @@ fig5 <- cowplot::plot_grid(fig5A + theme(legend.position="none"),
                            hjust=0, vjust=1.01
                            #?cowplot::plot_grid
                            )
+
+dummy <- ggplot(summary_dt, aes(is_rhythmic, first_peak_period, size= first_peak_power, fill= genotype, colour=genotype)) + 
+    geom_bar(aes(x=genotype, alpha= ifelse(is_rhythmic, "Rhythmic", "Arhythmic"), fill=genotype), inherit.aes = F) + 
+  geom_jitter(aes(is_rhythmic, first_peak_period, size=first_peak_power), inherit.aes = F) +
+   scale_fill_discrete(name="Genotype")+scale_size(name= "Peak power") +  scale_alpha_discrete(name= "") +
+  theme(legend.position = "bottom")  + 
+  guides(fill = guide_legend(order=1),
+         size = guide_legend(order=2),
+         alpha = guide_legend(order=3))
+
+legend <- plot_grid(NULL, get_legend(dummy), NULL, nrow=1)
+
+fig5_final <- cowplot::plot_grid(fig5, legend, nrow = 2, rel_heights = c(15,1))
 pdf("../fig/fig-5.pdf",w=12,h=6)
-print(fig5)
+print(fig5_final)
 tmp <- dev.off()
 @
