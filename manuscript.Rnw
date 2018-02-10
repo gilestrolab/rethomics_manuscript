@@ -188,11 +188,11 @@ We expect it to fill the gap between behavioural biology and data sciences, thus
 
 \section*{Design and Implementation}
 
-\texttt{rethomics} is implemented as a collection of small packages related to one another (Fig~\ref{fig:fig-1}).
-This paradigm follows the model of modern frameworks such as the \texttt{tidyverse}, which results in increased testability and maintainability.
+\texttt{rethomics} is implemented as a collection of small \texttt{R}\cite{r_core_team_r:_2017} packages related to one another (Fig~\ref{fig:fig-1}).
+This paradigm follows the model of modern frameworks such as the \texttt{tidyverse} \cite{wickham_tidyverse:_2017}, which results in increased testability and maintainability.
 In it, the different tasks of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation)
 are explicitly handled by different packages.
-At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table}-derived object.
+At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatment, genotype and so on) in a single \texttt{data.table}-derived object\cite{dowle_data.table:_2017}
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be manipulated and visualised regardless of the original input platform.
 Results and plots integrate seamlessly within the \texttt{R} ecosystem, hence providing users with state-of-the-art visualisation and statistical tools.
 
@@ -247,7 +247,6 @@ For instance, when one wants to update variable according to the value of a meta
 	\label{fig:fig-2}
 \end{figure}
 
-
 \subsection*{Data import}
 Data import package translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
 Currently, we provide a package to read Drosophila Activity Monitor (DAM2) data and another one for Ethoscope data.
@@ -269,7 +268,7 @@ Indeed, additional replicates can simply be added as new rows -- and the ID of t
 Long time series often need to be preprocessed before visualisation.
 Typically, users are interested in understanding individual or population trends over time.
 To integrate visualisation in \texttt{rethomics},
-we implemented \texttt{ggetho}, a package extending the widely adopted \texttt{ggplot2} by providing preprocessing tools as well as new layers and scales.
+we implemented \texttt{ggetho}, a package extending the widely adopted \texttt{ggplot2}\cite{wickham_ggplot2:_2016} by providing preprocessing tools as well as new layers and scales.
 Our tools make full use of the internal \texttt{behavr} structure to deliver efficient representations of temporal trends.
 It particularly applies to the visualisation of long experiments, with the ability to, for instance, annotate light and dark phases, wrap time over a circadian day, display ``double-plotted actograms'' and periodograms. 
 Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}.
@@ -352,27 +351,12 @@ Markus, Patrick Kr{\"a}tschmer Rob
 % 
 
 
-\begin{thebibliography}{10}
 
-\bibitem{bib1}
-Conant GC, Wolfe KH.
-\newblock {{T}urning a hobby into a job: how duplicated genes find new
-  functions}.
-\newblock Nat Rev Genet. 2008 Dec;9(12):938--950.
+\bibliography{manuscript}{}
 
-\bibitem{bib2}
-Ohno S.
-\newblock Evolution by gene duplication.
-\newblock London: George Alien \& Unwin Ltd. Berlin, Heidelberg and New York:
-  Springer-Verlag.; 1970.
 
-\bibitem{bib3}
-Magwire MM, Bayer F, Webster CL, Cao C, Jiggins FM.
-\newblock {{S}uccessive increases in the resistance of {D}rosophila to viral
-  infection through a transposon insertion followed by a {D}uplication}.
-\newblock PLoS Genet. 2011 Oct;7(10):e1002337.
-
-\end{thebibliography}
+%\begin{thebibliography}{10}
+%\end{thebibliography}
 
 
 
