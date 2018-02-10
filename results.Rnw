@@ -69,7 +69,7 @@ print(dt)
 It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
 
 \begin{figure}[!h]
-	\includegraphics[width=1\textwidth]{fig/fig-3.pdf}
+	%\includegraphics[width=1\textwidth]{fig/fig-3.pdf}
 	\caption{{\bf Experiment quality control.}
 			Tile plot representing the fraction of time spent moving as a colour intensity.
 			Each individual is represented by a row and time, on the x axis, is binned in 30 minute.}
@@ -190,7 +190,7 @@ facet_wrap( ~ label, ncol = 4)
 
 
 \begin{figure}[!h]
-	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
+	%\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
 	\caption{{\bf Visualisation of the periodicity in activity of eight representative animals.}
 		A: Double plotted actograms showing activity over the experiment. Transition to LL happens at day 0.
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
@@ -219,7 +219,7 @@ fig5A <- ggperio(per_dt, aes(y = power - signif_threshold,
 
 
 \begin{figure}[!h]
-	\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
+	%\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
 	\caption{{\bf Population statistics on circadian phenotype.}
 			A: Average periodograms. 
 			      The aggregated relative power of the periodogram of all animals.
