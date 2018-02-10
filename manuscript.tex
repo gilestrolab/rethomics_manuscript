@@ -282,14 +282,14 @@ For instance, when one wants to update variable according to the value of a meta
 \begin{figure}[!h]
 	%\includegraphics[width=1\textwidth]{fig/fig-2.pdf}
 	\caption{{\bf \texttt{behavr} table.}
-	A: Illustration of a \texttt{behavr} object, core data structure in \texttt{rethomics}.
+	A: Illustration of a \texttt{behavr} object, the core data structure in \texttt{rethomics}.
 		The metadata holds a single row for each of the $n$ individuals. 
-		Its columns, the $p$ metavariables, are of two kind: either required and defined by the acquisition platform (\emph{i.e.} used to fetch the data) or user-defined (\emph{i.e.} arbitrary).
+		Its columns, the $p$ metavariables, are one of two kinds: either required -- and defined by the acquisition platform (\emph{i.e.} used to fetch the data) -- or user-defined (\emph{i.e.} arbitrary).
 		In the data, each row is a ``read'' (\emph{i.e.} information about one individual at one time point).
 		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual $i$.
 		Data and metadata are implicitly joined with the \texttt{id} field.
-		Names used for variables and metavariable are only plausible examples that will likely differ in practice. 
-		B: Non exhaustive list of uses of a \texttt{behavr} table, refered as \texttt{dt}. 
+		Note that the names used in this for variables and metavariable in this example are only plausible cases that will likely differ in practice. 
+		B: Non exhaustive list of uses of a \texttt{behavr} table (refered as \texttt{dt}). 
 		In addition to operations on data, which are inherited from \texttt{data.table},
 		we provide utilities designed specifically to act on both metadata and data.  
 	}
@@ -508,12 +508,12 @@ Note that as a result, we now have 52 ``valid''individuals.
 
 \subsection*{Double plotted actograms}
 ``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
-In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
+In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals. A representative sample of eight individuals is shown in Fig~\ref{fig:fig-4}A.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# we also show a subset of this figure in supplementary materials}
+\hlcom{# we also show a subset of this figure in 4A}
 \hlstd{figS1A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{z} \hlstd{= moving),} \hlkwc{multiplot} \hlstd{=} \hlnum{2}\hlstd{)} \hlopt{+}
             \hlcom{# bars n the z axis could }
             \hlcom{#  one could also use stat_tile_etho}
@@ -531,8 +531,8 @@ In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
 
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid.
-A representative sample of all animals is shown in Fig~\ref{fig:fig-4}B (see \nameref{S1-Fig}B for all individuals).
+Several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid.
+A subset of eight animals is shown in Fig~\ref{fig:fig-4}B (see \nameref{S1-Fig}B for all individuals).
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -586,7 +586,7 @@ To visualise this at the population scale, we can plot an average periodogram (s
 \begin{alltt}
 \hlstd{fig5A} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power} \hlopt{-} \hlstd{signif_threshold,}
                              \hlkwc{colour} \hlstd{= genotype))} \hlopt{+}
-          \hlcom{# periododogram a line for population mean}
+          \hlcom{# periododogram shown as a line for population mean}
           \hlcom{# and bootstrap error bars}
           \hlkwd{stat_pop_etho}\hlstd{(}\hlkwc{method} \hlstd{= ggplot2}\hlopt{::}\hlstd{mean_cl_boot)} \hlopt{+}
           \hlcom{# rename x and y axis }
@@ -603,7 +603,7 @@ To visualise this at the population scale, we can plot an average periodogram (s
 	\caption{{\bf Population statistics on circadian phenotype.}
 			A: Average periodograms. 
 			      The aggregated relative power of the periodogram of all animals.
-			      The lines shows and the shaded areas show population means and their 95\% bootstrap confidence interval, respectively.
+			      The solid lines and the shaded areas show population means and their 95\% bootstrap confidence interval, respectively.
 			B: Peak periodicity power and average.
 			      Values of the peak period for animals with a significant peak.
 			      Individual animals are shown by dots whose size represent power of the peak period.
@@ -634,7 +634,7 @@ To further quantify this difference, we can show the value of the peak for both 
 \end{kframe}
 \end{knitrout}
 
-\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and such:
+\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and other tools:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -672,7 +672,7 @@ To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the prop
 \end{knitrout}
 
 \texttt{R} provides one of the richest statistical toolbox available, which allows users to go deeper in he analysis of the extracted variables.
-One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic vs arhythmic flies in both genotypes.
+One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic \emph{vs} arhythmic flies in both genotypes.
 To address the same question, we fit a binomial generalised linear model, which shows a strong positive effect of genotype Tim/NKCCOX on the probability of being rhythmic ($p$-value $< 10^{-5}$):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -740,7 +740,7 @@ All packages in the \texttt{rethomics} framework are available under the terms o
 \href{https://github.com/rethomics}{https://github.com/rethomics/}.
 Extensive installation instructions as well as reproducible demos and tutorials are available at
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
-All packages are continuously integrated and unit tested on several version of \texttt{R} to minimise resent and future issues.
+All packages are continuously integrated and unit tested on several version of \texttt{R} to minimise the risk of present and future issues.
 
 * Other inputs 
 
@@ -767,13 +767,9 @@ Han Kim
 
 Maite
 
-Hannah 
+Hannah, Alice, Diana
 
-Patrick Kr{\"a}tschmer
-
-Rob
-
-Markus
+Markus, Patrick Kr{\"a}tschmer Rob
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.

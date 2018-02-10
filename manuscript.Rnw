@@ -233,14 +233,14 @@ For instance, when one wants to update variable according to the value of a meta
 \begin{figure}[!h]
 	%\includegraphics[width=1\textwidth]{fig/fig-2.pdf}
 	\caption{{\bf \texttt{behavr} table.}
-	A: Illustration of a \texttt{behavr} object, core data structure in \texttt{rethomics}.
+	A: Illustration of a \texttt{behavr} object, the core data structure in \texttt{rethomics}.
 		The metadata holds a single row for each of the $n$ individuals. 
-		Its columns, the $p$ metavariables, are of two kind: either required and defined by the acquisition platform (\emph{i.e.} used to fetch the data) or user-defined (\emph{i.e.} arbitrary).
+		Its columns, the $p$ metavariables, are one of two kinds: either required -- and defined by the acquisition platform (\emph{i.e.} used to fetch the data) -- or user-defined (\emph{i.e.} arbitrary).
 		In the data, each row is a ``read'' (\emph{i.e.} information about one individual at one time point).
 		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual $i$.
 		Data and metadata are implicitly joined with the \texttt{id} field.
-		Names used for variables and metavariable are only plausible examples that will likely differ in practice. 
-		B: Non exhaustive list of uses of a \texttt{behavr} table, refered as \texttt{dt}. 
+		Note that the names used in this for variables and metavariable in this example are only plausible cases that will likely differ in practice. 
+		B: Non exhaustive list of uses of a \texttt{behavr} table (refered as \texttt{dt}). 
 		In addition to operations on data, which are inherited from \texttt{data.table},
 		we provide utilities designed specifically to act on both metadata and data.  
 	}
@@ -298,7 +298,7 @@ All packages in the \texttt{rethomics} framework are available under the terms o
 \href{https://github.com/rethomics}{https://github.com/rethomics/}.
 Extensive installation instructions as well as reproducible demos and tutorials are available at
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
-All packages are continuously integrated and unit tested on several version of \texttt{R} to minimise resent and future issues.
+All packages are continuously integrated and unit tested on several version of \texttt{R} to minimise the risk of present and future issues.
 
 * Other inputs 
 
@@ -325,13 +325,9 @@ Han Kim
 
 Maite
 
-Hannah 
+Hannah, Alice, Diana
 
-Patrick Kr{\"a}tschmer
-
-Rob
-
-Markus
+Markus, Patrick Kr{\"a}tschmer Rob
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.

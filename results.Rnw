@@ -123,10 +123,10 @@ Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} ``valid''individuals
 
 \subsection*{Double plotted actograms}
 ``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
-In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
+In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals. A representative sample of eight individuals is shown in Fig~\ref{fig:fig-4}A.
 
 <<cache=TRUE, warning=FALSE, result="hide", message=FALSE>>=
-# we also show a subset of this figure in supplementary materials
+# we also show a subset of this figure in 4A
 figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
             # bars n the z axis could 
             #  one could also use stat_tile_etho
@@ -162,15 +162,19 @@ fig4A <- ggetho(dt[xmv(label) %in% fig_4_picked_labels],
   theme(strip.text= element_text(size = 11))
 
 ylabs <- ggplot_build(fig4A)$layout$panel_ranges[[1]]$y.labels
+
+new_labs <- ifelse(1:length(ylabs) %%2, ylabs, "")
+
 fig4A <- fig4A + scale_y_discrete(name="Day",
-                                  limits = ifelse(1:length(ylabs) %%2, ylabs, ""))
+                                  labels=new_labs
+                                  )
 @
 
 
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-In several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid.
-A representative sample of all animals is shown in Fig~\ref{fig:fig-4}B (see \nameref{S1-Fig}B for all individuals).
+Several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodrograms and lay them out in a grid.
+A subset of eight animals is shown in Fig~\ref{fig:fig-4}B (see \nameref{S1-Fig}B for all individuals).
 
 <<cache=TRUE>>=
 dt_ll <- dt[t > days(1)]
@@ -233,7 +237,7 @@ To visualise this at the population scale, we can plot an average periodogram (s
 <<cache=TRUE, warning=FALSE,message=FALSE, result="hide">>=
 fig5A <- ggperio(per_dt, aes(y = power - signif_threshold,
                              colour = genotype)) + 
-          # periododogram a line for population mean
+          # periododogram shown as a line for population mean
           # and bootstrap error bars
           stat_pop_etho(method = ggplot2::mean_cl_boot) +
           # rename x and y axis 
@@ -248,7 +252,7 @@ fig5A <- ggperio(per_dt, aes(y = power - signif_threshold,
 	\caption{{\bf Population statistics on circadian phenotype.}
 			A: Average periodograms. 
 			      The aggregated relative power of the periodogram of all animals.
-			      The lines shows and the shaded areas show population means and their 95\% bootstrap confidence interval, respectively.
+			      The solid lines and the shaded areas show population means and their 95\% bootstrap confidence interval, respectively.
 			B: Peak periodicity power and average.
 			      Values of the peak period for animals with a significant peak.
 			      Individual animals are shown by dots whose size represent power of the peak period.
@@ -276,7 +280,7 @@ summary_dt <- per_dt[,.(
 summary_dt <- rejoin(summary_dt)
 @
 
-\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and such:
+\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and other tools:
 
 <<>>=
 # standard ggplot
@@ -307,7 +311,7 @@ fig5C <- ggplot(summary_dt, aes(x = genotype,
 @
 
 \texttt{R} provides one of the richest statistical toolbox available, which allows users to go deeper in he analysis of the extracted variables.
-One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic vs arhythmic flies in both genotypes.
+One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic \emph{vs} arhythmic flies in both genotypes.
 To address the same question, we fit a binomial generalised linear model, which shows a strong positive effect of genotype Tim/NKCCOX on the probability of being rhythmic ($p$-value $< 10^{-5}$):
 <<>>=
 fit <- glm(is_rhythmic ~ genotype, summary_dt, family="binomial")
