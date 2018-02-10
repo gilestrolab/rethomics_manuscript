@@ -343,8 +343,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70710678"
-     inkscape:cx="-246.60832"
-     inkscape:cy="201.26833"
+     inkscape:cx="644.31387"
+     inkscape:cy="467.53407"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -6528,7 +6528,7 @@
          sodipodi:role="line"
          id="tspan10175">&gt; dt[, t := NULL] <tspan
    id="tspan10211"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome">#delete</tspan> t</tspan></text>
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"># delete</tspan> t</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -6539,7 +6539,9 @@
          sodipodi:role="line"
          x="-14.011044"
          y="231.90364"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; dt[, sex := NULL] #delete sex</tspan></text>
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; dt[, sex := NULL, meta = TRUE] <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
+   id="tspan2426"># delete</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -6590,12 +6592,18 @@
          sodipodi:role="line"
          x="-13.398464"
          y="281.11621"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; dt &lt;- dt[xmv(sex) == &quot;M&quot;]</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; dt &lt;- dt[xmv(sex) == &quot;M&quot;] # <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
+   id="tspan2430">select </tspan>data<tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
+   id="tspan2428"> with </tspan>sex</tspan><tspan
          sodipodi:role="line"
          x="-13.398464"
          y="288.28064"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         id="tspan11769">&gt; dt[, s := xmv(sex)]</tspan></text>
+         id="tspan11769">&gt; dt[, s := xmv(sex)] # <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
+   id="tspan2432">copy metavariable as variable </tspan></tspan></text>
     <g
        transform="matrix(0.69261962,0,0,0.69261962,115.49537,23.034217)"
        id="g11125">
@@ -7156,20 +7164,27 @@
          sodipodi:role="line"
          x="-13.398465"
          y="344.61621"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; dt &lt;- dt[,.(</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; <tspan
+   style="-inkscape-font-specification:FontAwesome;font-family:FontAwesome;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+   id="tspan2436"># mean activity, per individual</tspan></tspan><tspan
          sodipodi:role="line"
          x="-13.398465"
          y="351.78064"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         id="tspan12204">            mean_act = mean(activity)</tspan><tspan
+         id="tspan2434">&gt; dt &lt;- dt[,.(</tspan><tspan
          sodipodi:role="line"
          x="-13.398465"
          y="358.94504"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         id="tspan12206">              ), by = id]</tspan><tspan
+         id="tspan12204">            mean_act = mean(activity)</tspan><tspan
          sodipodi:role="line"
          x="-13.398465"
          y="366.10947"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         id="tspan12206">              ), by = id]</tspan><tspan
+         sodipodi:role="line"
+         x="-13.398465"
+         y="373.2739"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
          id="tspan12210" /></text>
     <path

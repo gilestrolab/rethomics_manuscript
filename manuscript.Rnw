@@ -240,8 +240,9 @@ For instance, when one wants to update variable according to the value of a meta
 		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual $i$.
 		Data and metadata are implicitly joined with the \texttt{id} field.
 		Names used for variables and metavariable are only plausible examples that will likely differ in practice. 
-		B: Non exhaustive list of use of a \texttt{behavr} table, refered as \texttt{dt}. 
-		In addition of operations on data inherited from \texttt{data.table}, we provide utilities designed specifically to act on both            metadata and data.  
+		B: Non exhaustive list of uses of a \texttt{behavr} table, refered as \texttt{dt}. 
+		In addition to operations on data, which are inherited from \texttt{data.table},
+		we provide utilities designed specifically to act on both metadata and data.  
 	}
 	\label{fig:fig-2}
 \end{figure}

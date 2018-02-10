@@ -289,8 +289,9 @@ For instance, when one wants to update variable according to the value of a meta
 		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual $i$.
 		Data and metadata are implicitly joined with the \texttt{id} field.
 		Names used for variables and metavariable are only plausible examples that will likely differ in practice. 
-		B: Non exhaustive list of use of a \texttt{behavr} table, refered as \texttt{dt}. 
-		In addition of operations on data inherited from \texttt{data.table}, we provide utilities designed specifically to act on both            metadata and data.  
+		B: Non exhaustive list of uses of a \texttt{behavr} table, refered as \texttt{dt}. 
+		In addition to operations on data, which are inherited from \texttt{data.table},
+		we provide utilities designed specifically to act on both metadata and data.  
 	}
 	\label{fig:fig-2}
 \end{figure}
@@ -525,12 +526,7 @@ In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animals:
 \end{kframe}
 \end{knitrout}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Scale for 'y' is already present. Adding another scale for 'y', which\\\#\# will replace the existing scale.}}\end{kframe}
-\end{knitrout}
 
 
 \subsection*{Periodograms}
@@ -675,9 +671,9 @@ To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the prop
 \end{kframe}
 \end{knitrout}
 
-\texttt{R} provide one of the richest statistical toolbox available, which allows users to go deeper in he analysis of the extracted variables.
+\texttt{R} provides one of the richest statistical toolbox available, which allows users to go deeper in he analysis of the extracted variables.
 One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic vs arhythmic flies in both genotypes.
-To address the same question, we fit a binomial generalised linear model, which shows a strong positive effect of ($p$-value $< 10^{-5}$):
+To address the same question, we fit a binomial generalised linear model, which shows a strong positive effect of genotype Tim/NKCCOX on the probability of being rhythmic ($p$-value $< 10^{-5}$):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
