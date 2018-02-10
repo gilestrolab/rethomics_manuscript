@@ -343,13 +343,14 @@ fig3 <- cowplot::plot_grid(
                           fig3A +  my_theme,
                           fig3B +  my_theme,
                           nrow=1,
-                          labels=c("", "A", "B"),
+                          labels=c("A", "", "B"),
                           rel_widths = c(1, 2, 2),
-                          label_size = 20,
+                          label_size = 32,
                           axis="b",
-                          align="h"
+                          align="h",
+                          hjust=0, vjust=1.01
                           )
-pdf("../fig/fig-3.pdf",w=10,h=10)
+pdf("../fig/fig-3.pdf",w=12,h=12)
 print(fig3)
 tmp  <- dev.off()
 
@@ -362,8 +363,10 @@ figS1 <- cowplot::plot_grid(
                           figS1B,
                           nrow=1,
                           labels=c( "A", "B"),
-                          label_size = 20,
-                          align="v"
+                          label_size = 32,
+                          align="v",
+                          axis="b",
+                          hjust=0, vjust=1.01
                           )
 
 pdf("../fig/fig-S1.pdf",w=12,h=16)
@@ -377,10 +380,13 @@ fig4 <- cowplot::plot_grid(
 				fig4B,
 				nrow=1,
 				labels=c("A", "B"),
-				align="v"
+				align="v",
+				axis="b",
+				label_size = 32,
+				hjust=0, vjust=1.01
 )
 
-pdf("../fig/fig-4.pdf",w=10,h=3)
+pdf("../fig/fig-4.pdf",w=12,h=4)
 print(fig4)
 tmp  <- dev.off()
 
@@ -391,13 +397,14 @@ fig5 <- cowplot::plot_grid(fig5A + theme(legend.position="none"),
                            fig5B + theme(legend.position="bottom"),
                            fig5C + theme(legend.position="none"),
                            nrow=1,
-                           label_size = 20,
+                           label_size = 32,
                            align = "hv",
                            axis="b",
-                           labels=c( "A", "B", "C")
+                           labels=c( "A", "B", "C"),
+                           hjust=0, vjust=1.01
                            #?cowplot::plot_grid
                            )
-pdf("../fig/fig-5.pdf",w=10,h=5)
+pdf("../fig/fig-5.pdf",w=12,h=6)
 print(fig5)
 tmp <- dev.off()
 @
