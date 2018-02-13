@@ -343,7 +343,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70710678"
-     inkscape:cx="644.31387"
+     inkscape:cx="322.58028"
      inkscape:cy="467.53407"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -7165,7 +7165,7 @@
          x="-13.398465"
          y="344.61621"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; <tspan
-   style="-inkscape-font-specification:FontAwesome;font-family:FontAwesome;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
    id="tspan2436"># mean activity, per individual</tspan></tspan><tspan
          sodipodi:role="line"
          x="-13.398465"
@@ -7176,12 +7176,12 @@
          x="-13.398465"
          y="358.94504"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         id="tspan12204">            mean_act = mean(activity)</tspan><tspan
+         id="tspan12204">          mean_act = mean(activity)</tspan><tspan
          sodipodi:role="line"
          x="-13.398465"
          y="366.10947"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         id="tspan12206">              ), by = id]</tspan><tspan
+         id="tspan12206">             ), by = id]</tspan><tspan
          sodipodi:role="line"
          x="-13.398465"
          y="373.2739"

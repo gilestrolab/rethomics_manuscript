@@ -340,19 +340,20 @@ Together, they offer a suite of methods to compute periodograms and find their p
 
 \section*{Results}
 
-\TODO{resut intro here}
+In order to illustrate the workflow of \texttt{rethomics}, we decided to provide an example that is simple and reproducible, but which could be readily modified for more complicated cases.
+DAM2 being widely adopted, and fruit flies being a model of choice for high throughput studies,
+we decided to show how \texttt{rethomics} can be used to study circadian rhythm in fruit flies, using this type data.
 
-* experiment goal
-
-* design
-
-* source
-
-* express the idea that this is just simple example that could be scaled up
-
+We gathered a subset of the data from a recent publication \citationneeded{}, which was gracefully made publicly available by the authors\citationneeded{zenodo}.
+It shows that flies, which normally become arrhythmic in a Light-Light (LL) regime, are rhythmic (with an period greater than 24h\TODO{phrasing}) when the gene NKCCox is expressed in clock neurons.
+The authors have recorded the activity of both TIM/NKCCOK (NKCCox is expressed in their clock neurons) and TIM/+ (the appropriate control) in LL for six days.
+Prior to LL, the animals were recorded for a baseline three or four days in normal LD, 12h:12h, conditions.
+Two repetitions were performed resulting in a total of 58 animals.
+The \texttt{metadata.csv} file, which describes exhaustively all individuals, as well as all the associated result files can be downloaded on zenodo\citationneeded{ibid}.
 
 
-First of all, we load the necessary libraries (see availability section for installation instructions):
+As a prerequisite, we downloaded the data, extracted the zip archive in our working directory.
+We start the analysis by loading the necessary \texttt{rethomics} packages (see availability section for installation instructions):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -717,15 +718,10 @@ Lastly, we can generate a table that compute arbitrary population statistics for
 \end{kframe}
 \end{knitrout}
 
-\TODO{some concluding remarks}
+This examples shows how \texttt{rethomics} can be used from the raw data to making publication quality figures and statistics.
+We were able to comprehensively analyse classical circadian data with a few line of code.
+Since the interface is programmatic, it adapts really well to much larger data sets and provides a large degree of freedom and flexibility.
 
-* high scalability
-
-* reproducibility
-
-* from raw data to publication-quality figures
-
-* flexibility
 
 
 
@@ -745,6 +741,8 @@ All packages in the \texttt{rethomics} framework are available under the terms o
 Extensive installation instructions as well as reproducible demos and tutorials are available at
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
 All packages are continuously integrated and unit tested on several version of \texttt{R} to minimise the risk of present and future issues.
+
+* How we have already used rethomics in two impactful papers
 
 * Other inputs 
 
@@ -773,7 +771,7 @@ Maite
 
 Hannah, Alice, Diana
 
-Markus, Patrick Kr{\"a}tschmer Rob
+Marcus Gosh, Patrick Kr{\"a}tschmer Rob
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.

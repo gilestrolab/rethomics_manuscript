@@ -305,6 +305,8 @@ Extensive installation instructions as well as reproducible demos and tutorials 
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
 All packages are continuously integrated and unit tested on several version of \texttt{R} to minimise the risk of present and future issues.
 
+* How we have already used rethomics in two impactful papers
+
 * Other inputs 
 
 * Position analysis
@@ -332,7 +334,7 @@ Maite
 
 Hannah, Alice, Diana
 
-Markus, Patrick Kr{\"a}tschmer Rob
+Marcus Gosh, Patrick Kr{\"a}tschmer Rob
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.

@@ -6,19 +6,20 @@ setwd("results")
 
 \section*{Results}
 
-\TODO{resut intro here}
+In order to illustrate the workflow of \texttt{rethomics}, we decided to provide an example that is simple and reproducible, but which could be readily modified for more complicated cases.
+DAM2 being widely adopted, and fruit flies being a model of choice for high throughput studies,
+we decided to show how \texttt{rethomics} can be used to study circadian rhythm in fruit flies, using this type data.
 
-* experiment goal
-
-* design
-
-* source
-
-* express the idea that this is just simple example that could be scaled up
-
+We gathered a subset of the data from a recent publication \citationneeded{}, which was gracefully made publicly available by the authors\citationneeded{zenodo}.
+It shows that flies, which normally become arrhythmic in a Light-Light (LL) regime, are rhythmic (with an period greater than 24h\TODO{phrasing}) when the gene NKCCox is expressed in clock neurons.
+The authors have recorded the activity of both TIM/NKCCOK (NKCCox is expressed in their clock neurons) and TIM/+ (the appropriate control) in LL for six days.
+Prior to LL, the animals were recorded for a baseline three or four days in normal LD, 12h:12h, conditions.
+Two repetitions were performed resulting in a total of 58 animals.
+The \texttt{metadata.csv} file, which describes exhaustively all individuals, as well as all the associated result files can be downloaded on zenodo\citationneeded{ibid}.
 
 
-First of all, we load the necessary libraries (see availability section for installation instructions):
+As a prerequisite, we downloaded the data, extracted the zip archive in our working directory.
+We start the analysis by loading the necessary \texttt{rethomics} packages (see availability section for installation instructions):
 <<message=FALSE>>=
 library(damr)      # input DAM2 data
 library(zeitgebr)  # periodogram computation
@@ -333,15 +334,10 @@ result_dt <- summary_dt[,
 result_dt
 @
 
-\TODO{some concluding remarks}
+This examples shows how \texttt{rethomics} can be used from the raw data to making publication quality figures and statistics.
+We were able to comprehensively analyse classical circadian data with a few line of code.
+Since the interface is programmatic, it adapts really well to much larger data sets and provides a large degree of freedom and flexibility.
 
-* high scalability
-
-* reproducibility
-
-* from raw data to publication-quality figures
-
-* flexibility
 
 
 <<r, eval=TRUE, echo=FALSE, message=FALSE, result="hide",cache=TRUE, warning=FALSE>>=
