@@ -6,7 +6,7 @@ setwd("results")
 
 \section*{Results}
 
-TODO description of the dataset here
+\TODO{resut intro here}
 
 * experiment goal
 
@@ -14,7 +14,7 @@ TODO description of the dataset here
 
 * source
 
-* express the idea that shis is just simple example that could be scaled up
+* express the idea that this is just simple example that could be scaled up
 
 
 
@@ -333,8 +333,7 @@ result_dt <- summary_dt[,
 result_dt
 @
 
-
-Some conclusion here, TODO:
+\TODO{some concluding remarks}
 
 * high scalability
 

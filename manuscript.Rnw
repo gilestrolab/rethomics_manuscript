@@ -94,11 +94,16 @@
 \lfoot{\sf PLOS}
 
 
+\reversemarginpar
 \usepackage[colorinlistoftodos]{todonotes}
 %\usepackage[colorinlistoftodos,disable]{todonotes}
 
 %% Include all macros below
 \newcommand{\citationneeded}[2][]{\todo[color=brown, fancyline, #1]{\textbf{Citation Needed:} #2}}
+\newcommand{\TODO}[2][]{\todo[color=red, fancyline, #1]{\textbf{TODO:} #2}}
+
+
+
 
 
 \newcommand{\lorem}{{\bf LOREM}}
@@ -149,6 +154,8 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 
 
 
+\listoftodos
+
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
@@ -163,7 +170,7 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 Animal behaviours are complex phenotypical manifestations of the interaction between nervous systems and external or internal environments.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
 Behaviour scoring is certainly not an exception to this trend.
-Indeed, many platforms (TODO citations) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
+Indeed, many platforms (\citationneeded{}) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
 
 The availability of large amounts of data is very exciting as it paves the way for in-depth quantitative analyses.
 Clearly, the multiplicity of model organisms, hypotheses and paradigms should be matched by a diverse range of recording tools.
@@ -248,7 +255,7 @@ For instance, when one wants to update variable according to the value of a meta
 
 \subsection*{Data import}
 Data import package translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
-Currently, we provide a package to read Drosophila Activity Monitor (DAM2) data and another one for Ethoscope data.
+Currently, we provide a package to read Drosophila Activity Monitor (DAM2) data and another one for Ethoscope data\citationneeded{plos biol. 2017}.
 Although the structure of the raw results if very different, conceptually, loading data is very similar.
 In all cases, the user is asked to generate a metadata table (one row per individual). 
 In it, there will be both mandatory and optional columns.
@@ -317,7 +324,7 @@ See Fig~\ref{fig:fig-4} for legend.
 
 
 \section*{Acknowledgements}
-TODO:
+\TODO{Thank people here}
 
 Han Kim
 
