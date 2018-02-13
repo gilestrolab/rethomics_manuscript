@@ -99,7 +99,7 @@
 %\usepackage[colorinlistoftodos,disable]{todonotes}
 
 %% Include all macros below
-\newcommand{\citationneeded}[2][]{\todo[color=brown, fancyline, #1]{\textbf{Citation Needed:} #2}}
+\newcommand{\citationneeded}[2][]{\todo[color=blue, fancyline, #1]{\textbf{Citation Needed:} #2}}
 \newcommand{\TODO}[2][]{\todo[color=red, fancyline, #1]{\textbf{TODO:} #2}}
 
 
@@ -246,7 +246,7 @@ For instance, when one wants to update variable according to the value of a meta
 		It is formed of $q$ variables and is expected to have a very large number of reads $k$ for each individual $i$.
 		Data and metadata are implicitly joined with the \texttt{id} field.
 		Note that the names used in this for variables and metavariable in this example are only plausible cases that will likely differ in practice. 
-		B: Non exhaustive list of uses of a \texttt{behavr} table (refered as \texttt{dt}). 
+		B: Non exhaustive list of uses of a \texttt{behavr} table (referred as \texttt{dt}). 
 		In addition to operations on data, which are inherited from \texttt{data.table},
 		we provide utilities designed specifically to act on both metadata and data.  
 	}
@@ -255,7 +255,7 @@ For instance, when one wants to update variable according to the value of a meta
 
 \subsection*{Data import}
 Data import package translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
-Currently, we provide a package to read Drosophila Activity Monitor (DAM2) data and another one for Ethoscope data\citationneeded{plos biol. 2017}.
+Currently, we provide a package to read Drosophila Activity Monitor (DAM2) data and another one for Ethoscope data\cite{geissmann_ethoscopes:_2017}.
 Although the structure of the raw results if very different, conceptually, loading data is very similar.
 In all cases, the user is asked to generate a metadata table (one row per individual). 
 In it, there will be both mandatory and optional columns.
