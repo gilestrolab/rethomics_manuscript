@@ -11,7 +11,7 @@ In order to illustrate the workflow of \texttt{rethomics}, we decided to provide
 DAM2 being widely adopted, and fruit flies being a model of choice for high throughput studies,
 we decided to show how \texttt{rethomics} can be used to study circadian rhythm in fruit flies, using this type data.
 
-We gathered a subset of the data from a recent publication \citationneeded{}, which was gracefully made publicly available by the authors\citationneeded{zenodo}.
+We gathered a subset of the data from a recent publication \cite{buhl_quasimodo_2016}, which was gracefully made publicly available by the authors\citationneeded{zenodo}.
 It shows that flies, which normally become arrhythmic in a Light-Light (LL) regime, are rhythmic (with an period greater than 24h\TODO{phrasing}) when the gene NKCCox is expressed in clock neurons.
 The authors have recorded the activity of both TIM/NKCCOK (NKCCox is expressed in their clock neurons) and NKCCOK/+ (the appropriate control) in LL for six days.
 Prior to LL, the animals were recorded for a baseline three or four days in normal LD, 12h:12h, conditions.

@@ -279,7 +279,7 @@ Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}.
 
 \subsection*{Circadian and sleep analysis}
 The packages \texttt{zeitgebr} and \texttt{sleepr} provide tools to analyse circadian behaviours and sleep, respectively.
-Together, they offer a suite of methods to compute autocorrelogram, $\chi{}^2$\citationneeded{} and Lomb-Scargle\citationneeded{}
+Together, they offer a suite of methods to compute autocorrelogram, $\chi{}^2$\cite{sokolove_chi_1978} and Lomb-Scargle\cite{ruf_lomb-scargle_1999}
 periodograms and find their peaks, score sleep from inactivity (\emph{i.e.} using the ``five-minute rule''), and characterise the architecture of sleep bouts (\emph{e.g.} number, length and latency).
 
 
