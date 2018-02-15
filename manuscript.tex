@@ -338,6 +338,7 @@ periodograms and find their peaks, score sleep from inactivity (\emph{i.e.} usin
 
 
 \section*{Results}
+\TODO{@esteban rewrite this please ;)}
 
 In order to illustrate the workflow of \texttt{rethomics}, we decided to provide an example that is simple and reproducible, but which could be readily modified for more complicated cases.
 DAM2 being widely adopted, and fruit flies being a model of choice for high throughput studies,
@@ -345,7 +346,7 @@ we decided to show how \texttt{rethomics} can be used to study circadian rhythm 
 
 We gathered a subset of the data from a recent publication \citationneeded{}, which was gracefully made publicly available by the authors\citationneeded{zenodo}.
 It shows that flies, which normally become arrhythmic in a Light-Light (LL) regime, are rhythmic (with an period greater than 24h\TODO{phrasing}) when the gene NKCCox is expressed in clock neurons.
-The authors have recorded the activity of both TIM/NKCCOK (NKCCox is expressed in their clock neurons) and TIM/+ (the appropriate control) in LL for six days.
+The authors have recorded the activity of both TIM/NKCCOK (NKCCox is expressed in their clock neurons) and NKCCOK/+ (the appropriate control) in LL for six days.
 Prior to LL, the animals were recorded for a baseline three or four days in normal LD, 12h:12h, conditions.
 Two repetitions were performed resulting in a total of 58 animals.
 The \texttt{metadata.csv} file, which describes exhaustively all individuals, as well as all the associated result files can be downloaded on zenodo\citationneeded{ibid}.
@@ -386,9 +387,9 @@ Then, the metadata file is read and linked to the \texttt{.txt} result files.
 \end{knitrout}
 
 \subsection*{Preprocessing}
-We notice, from the metadata, that the two replicates do not have the same baseline time.
-We would like to express the time relative to the important event: the transition to \texttt{LL}. 
-To do so, we subtract the \texttt{baseline\_days} metavariable from the \texttt{t} variable.
+The two replicates do not have the same baseline time and we would like to express the time relative to the important event:
+the transition from LD to LL. 
+Therefore, we subtract the \texttt{baseline\_days} metavariable from the \texttt{t} variable.
 This gives us an opportunity to illustrate the use \texttt{xmv()}, which expands metavariables as variables.
 In addition, we use the \texttt{data.table} syntax to create, in place, a \texttt{moving} variable.
 It is \texttt{TRUE} when and only when \texttt{activity} is greater than zero:
@@ -442,7 +443,10 @@ It is important to visualise an overview of how each individual behaved and, if 
 	%\includegraphics[width=1\textwidth]{fig/fig-3.pdf}
 	\caption{{\bf Experiment quality control.}
 			Tile plot representing the fraction of time spent moving as a colour intensity.
-			Each individual is represented by a row and time, on the x-axis, is binned in 30 minutes.}
+			Each individual is represented by a row and time, on the x-axis, is binned in 30 minutes.
+			A: Uncurated raw data.
+			B: Data after the curation step. Time was trimmed and data from dead animals removed. 
+			Red `\textbf{+}' symbols show animals that were removed from the subsequent analysis as they had less than five complete days in LL.}
 	\label{fig:fig-3}
 \end{figure}
 
@@ -466,15 +470,25 @@ It is important to visualise an overview of how each individual behaved and, if 
 \end{kframe}
 \end{knitrout}
 
+
 The activity of dead or escaped animals is falsely scored as long series of zeros (see, for instance, individual 30 and 18 in Fig~\ref{fig:fig-3}A).
 Our \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
-The updated version can be visualised in Fig~\ref{fig:fig-3}B.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# remove data after death}
 \hlstd{dt} \hlkwb{<-} \hlstd{sleepr}\hlopt{::}\hlkwd{curate_dead_animals}\hlstd{(dt, moving)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+In addition, we can trim our data to have the same number of days across experiments and individuals.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{dt} \hlkwb{<-} \hlstd{dt[t} \hlopt{%between%} \hlkwd{days}\hlstd{(}\hlkwd{c}\hlstd{(}\hlopt{-}\hlnum{2}\hlstd{,} \hlnum{6}\hlstd{))]}
 \hlcom{# same as above}
 \hlstd{fig3B} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= label,} \hlkwc{z} \hlstd{= moving))} \hlopt{+}
     \hlkwd{stat_tile_etho}\hlstd{()} \hlopt{+}
@@ -485,7 +499,10 @@ The updated version can be visualised in Fig~\ref{fig:fig-3}B.
 \end{kframe}
 \end{knitrout}
 
-For the purpose of this example, we keep only individuals that have \emph{at least five days in LL}.
+For the purpose of this example, we also exclude animals that died prematurely, and keep only individuals that have \emph{at least five days in LL}. An overview of the curate data can be visualised in Fig~\ref{fig:fig-3}B.
+
+
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -502,7 +519,7 @@ For the purpose of this example, we keep only individuals that have \emph{at lea
 ##  52	individuals
 ##  9	metavariables
 ##  3	variables
-##  1.40609e+05	measurements
+##  1.19546e+05	measurements
 ##  1	key (id)
 \end{verbatim}
 \end{kframe}
@@ -513,7 +530,8 @@ Note that as a result, we now have 52 ``valid''individuals.
 
 \subsection*{Double-plotted actograms}
 ``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
-In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animal. A representative sample of eight individuals is shown in Fig~\ref{fig:fig-4}A.
+In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animal.
+A representative sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -536,8 +554,10 @@ In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animal. A re
 
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-Several methods are implemented in \texttt{zeitbebr}. In this example, we generate $\chi{}^2$ periodograms and lay them out in a grid.
-A subset of eight animals is shown in Fig~\ref{fig:fig-4}B (see \nameref{S1-Fig}B for all individuals).
+Several methods are implemented in \texttt{zeitbebr} ($\chi{}^2$, Lomb-Scargle and autocorrelation).
+In this example, we generate $\chi{}^2$ periodograms and lay them out in a grid.
+Periodograms dor the subset of eight animals used in Fig~\ref{fig:fig-4}A is shown in Fig~\ref{fig:fig-4}B. 
+See \nameref{S1-Fig}B for the visualisation of all individuals.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -572,17 +592,18 @@ A subset of eight animals is shown in Fig~\ref{fig:fig-4}B (see \nameref{S1-Fig}
 \begin{figure}[!h]
 	%\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
 	\caption{{\bf Visualisation of the periodicity in activity of eight representative animals.}
-		A: Double plotted actograms showing activity over the experiment. Transition to LL happens at day 0.
+		A: Double plotted actograms showing activity over the experiment. Transition from LD to LL happens at day 0.
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
-		The blue annotation represents the first peak (if present) above the significance threshold (red line).
+		The blue cross represents the first peak (if present) above the significance threshold (red line).
 		Titles on top of each facet refer to the label allocated to each individual.
-		A version of this figure with all animals is available \nameref{S1-Fig}.
+		See \nameref{S1-Fig} for all 52 animals.
 	}
 	\label{fig:fig-4}
 \end{figure}
 
 \subsection*{Population statistics}
-Both double-plotted actograms and periodograms suggest that NKCCOX/+ flies are mostly 
+
+As shown in the original study, double-plotted actograms and periodograms suggest that NKCCOX/+ flies are mostly 
 arhythmic in LL whilst Tim/NKCCOX appear to have a consistent, long-period rhythm.
 To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-5}A):
 
@@ -609,30 +630,30 @@ To visualise this at the population scale, we can plot an average periodogram (s
 			A: Average periodograms. 
 			      The aggregated relative power of the periodogram of all animals.
 			      The solid lines and the shaded areas show population means and their 95\% bootstrap confidence interval, respectively.
-			B: Peak periodicity power and average.
-			      Values of the peak period for animals with a significant peak.
-			      Individual animals are shown by dots whose size represent power of the peak period.
-			      The error bars are 95\% bootstrap confidence interval on the population mean.
-			C: Frequencies of rhythmic animals.
+			B: Frequencies of rhythmic animals.
 			      Number of rhythmic animals (\emph{i.e.} with a significant peak) in each genotypes.
 			      Dark and clear fillings indicate rhythmic and arhythmic animals, respectively.
+      C: Peak periodicity power and average.
+			      Values of the peak period for animals with a significant peak (\emph{i.e.} rhythmic).
+			      Individual animals are shown by dots whose size represent relative power of the peak period.
+			      The error bars are 95\% bootstrap confidence interval on the population mean.
 			      }
 	\label{fig:fig-5}
 \end{figure}
 
 
-To further quantify this difference, we can show the value of the peak for both groups (see Fig~\ref{fig:fig-5}B). First of all, we compute a summary per individual (\texttt{by=id}):
+To further quantify this difference, we can show the number of rhythmic animals -- \emph{i.e.} individuals for which a peak was found -- in each groups (see Fig~\ref{fig:fig-5}B).
+Then, we can compare the average value of the peak for the rhythmic animals (see Fig~\ref{fig:fig-5}C).
+First of all, we compute a summary per individual (\texttt{by=id}):
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{summary_dt} \hlkwb{<-} \hlstd{per_dt[,}\hlkwd{.}\hlstd{(}
                         \hlkwc{first_peak_period} \hlstd{= period[peak}\hlopt{==}\hlnum{1}\hlstd{],}
-                        \hlkwc{first_peak_power} \hlstd{= power[peak}\hlopt{==}\hlnum{1}\hlstd{],}
+                        \hlkwc{first_peak_rel_power} \hlstd{= power[peak}\hlopt{==}\hlnum{1}\hlstd{]} \hlopt{-} \hlstd{signif_threshold[peak}\hlopt{==}\hlnum{1}\hlstd{],}
                         \hlkwc{is_rhythmic} \hlstd{=} \hlkwd{any}\hlstd{(peak}\hlopt{==}\hlnum{1}\hlstd{)),}
                       \hlkwc{by}\hlstd{=id]}
-
-
 \hlcom{# rejoin metadata}
 \hlstd{summary_dt} \hlkwb{<-} \hlkwd{rejoin}\hlstd{(summary_dt)}
 \end{alltt}
@@ -645,29 +666,7 @@ To further quantify this difference, we can show the value of the peak for both 
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# standard ggplot}
-\hlstd{fig5B} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= first_peak_period,}
-                                \hlkwc{x} \hlstd{= genotype))} \hlopt{+}
-              \hlcom{# draw the mean of each genotype group}
-              \hlkwd{stat_summary}\hlstd{(}\hlkwc{fun.y} \hlstd{= mean,} \hlkwc{geom} \hlstd{=} \hlstr{"point"}\hlstd{,} \hlkwc{shape}\hlstd{=}\hlnum{3}\hlstd{)} \hlopt{+}
-              \hlcom{# draw bootstrap confidence intervals}
-              \hlkwd{stat_summary}\hlstd{(}\hlkwc{fun.data} \hlstd{= mean_cl_boot,} \hlkwc{geom} \hlstd{=} \hlstr{"errorbar"}\hlstd{)} \hlopt{+}
-              \hlcom{# shows all individuals as points. }
-              \hlcom{# the size of the point expresses the power of the peak}
-              \hlkwd{geom_jitter}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{colour}\hlstd{= genotype,}
-                              \hlkwc{size}\hlstd{=first_peak_power),}
-                          \hlkwc{alpha}\hlstd{=}\hlnum{.67}\hlstd{)} \hlopt{+}
-              \hlcom{# We would like to convert time in hour}
-              \hlkwd{scale_y_hours}\hlstd{(}\hlstr{"Period"}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the proportion of rhythmic flies (see Fig~\ref{fig:fig-5}C):
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# standard ggplot}
-\hlstd{fig5C} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= genotype,}
+\hlstd{fig5B} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{x} \hlstd{= genotype,}
                                 \hlkwc{fill} \hlstd{= genotype,}
                                 \hlkwc{alpha} \hlstd{= is_rhythmic}
                                 \hlstd{))} \hlopt{+}
@@ -676,9 +675,32 @@ To convey that Tim/NKCCOX mutants are more rhythmic, we could represent the prop
 \end{kframe}
 \end{knitrout}
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# standard ggplot}
+\hlstd{fig5C} \hlkwb{<-} \hlkwd{ggplot}\hlstd{(summary_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= first_peak_period,}
+                                \hlkwc{x} \hlstd{= genotype))} \hlopt{+}
+              \hlcom{# draw the mean of each genotype group}
+              \hlkwd{stat_summary}\hlstd{(}\hlkwc{fun.y} \hlstd{= mean,} \hlkwc{geom} \hlstd{=} \hlstr{"point"}\hlstd{,} \hlkwc{shape}\hlstd{=}\hlnum{3}\hlstd{)} \hlopt{+}
+              \hlcom{# draw bootstrap confidence intervals}
+              \hlkwd{stat_summary}\hlstd{(}\hlkwc{fun.data} \hlstd{= mean_cl_boot,} \hlkwc{geom} \hlstd{=} \hlstr{"errorbar"}\hlstd{)} \hlopt{+}
+              \hlcom{# shows all individuals as points. }
+              \hlcom{# the size of the point expresses the power of the peak}
+              \hlkwd{geom_jitter}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{colour}\hlstd{= genotype,}
+                              \hlkwc{size}\hlstd{=first_peak_rel_power),}
+                              \hlkwc{alpha}\hlstd{=}\hlnum{.67}\hlstd{)} \hlopt{+}
+              \hlcom{# We would like to convert time in hour}
+              \hlkwd{scale_y_hours}\hlstd{(}\hlstr{"Period"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
 \texttt{R} provides one of the richest statistical toolbox available, which allows users to go deeper tin he analysis of the extracted variables.
 One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic \emph{vs} arhythmic flies in both genotypes.
-To address the same question, we fit a binomial generalised linear model, which shows a strong positive effect of genotype Tim/NKCCOX on the probability of being rhythmic ($p$-value $< 10^{-5}$):
+To address the same question, we fit a binomial generalised linear model:
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -694,6 +716,10 @@ To address the same question, we fit a binomial generalised linear model, which 
 \end{kframe}
 \end{knitrout}
 
+
+
+The result shows a strong positive effect of genotype Tim/NKCCOX on the probability of being rhythmic ($p$-value $6.27 \times 10^{-06}$):
+
 Lastly, we can generate a table that compute arbitrary population statistics for each genotype:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -703,24 +729,25 @@ Lastly, we can generate a table that compute arbitrary population statistics for
             \hlkwc{mean_period} \hlstd{=} \hlkwd{mean}\hlstd{(first_peak_period,} \hlkwc{na.rm} \hlstd{= T)} \hlopt{/} \hlkwd{hours}\hlstd{(}\hlnum{1}\hlstd{),}
             \hlkwc{sd_period} \hlstd{=} \hlkwd{sd}\hlstd{(first_peak_period,} \hlkwc{na.rm} \hlstd{= T)} \hlopt{/} \hlkwd{hours}\hlstd{(}\hlnum{1}\hlstd{),}
             \hlkwc{n_rhythmic} \hlstd{=} \hlkwd{sum}\hlstd{(is_rhythmic),}
-            \hlkwc{n} \hlstd{= .N}
+            \hlkwc{n} \hlstd{= .N,}
+            \hlkwc{percent_rhythmic} \hlstd{=} \hlnum{100} \hlopt{*} \hlkwd{sum}\hlstd{(is_rhythmic)}\hlopt{/}\hlstd{.N}
             \hlstd{),}
           \hlkwc{by} \hlstd{= genotype}
           \hlstd{]}
 \hlstd{result_dt}
 \end{alltt}
 \begin{verbatim}
-##      genotype mean_period sd_period n_rhythmic  n
-## 1:   NKCCOX/+    25.92500  4.133098          4 22
-## 2: Tim/NKCCOX    26.36071  1.834513         28 30
+##      genotype mean_period sd_period n_rhythmic  n percent_rhythmic
+## 1:   NKCCOX/+    25.22500  3.598495          4 22         18.18182
+## 2: Tim/NKCCOX    26.21429  2.363568         28 30         93.33333
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
 This examples shows how \texttt{rethomics} can be used from the raw data to making publication quality figures and statistics.
 We were able to comprehensively analyse classical circadian data with a few line of code.
-Since the interface is programmatic, it adapts really well to much larger data sets and provides a large degree of freedom and flexibility.
-
+This workflow applies  particularly really well to much larger data sets and provides a large degree of flexibility taht will allow
+biologists to tune their analysis to their specific questions.
 
 
 

@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="12in"
-   height="17in"
-   viewBox="0 0 304.8 431.79999"
+   width="12.009111in"
+   height="16.79154in"
+   viewBox="0 0 305.03143 426.50511"
    version="1.1"
    id="svg10014"
    inkscape:version="0.92.2 5c3e80d, 2017-08-06"
@@ -342,9 +342,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="322.58028"
-     inkscape:cy="467.53407"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="1554.5102"
+     inkscape:cy="1346.9313"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -366,7 +366,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -374,7 +374,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(67.975748,-29.726949)">
+     transform="translate(68.207167,-29.726947)">
     <text
        style="font-variant:normal;font-weight:normal;font-size:4.21752882px;font-family:CMMI12;-inkscape-font-specification:CMMI12;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.35277778"
        id="text2649"
@@ -407,7 +407,8 @@
         <tspan
            x="0"
            y="0"
-           id="tspan8374">B</tspan>
+           id="tspan8374"
+           style="font-size:24px">B</tspan>
       </text>
     </g>
     <g
@@ -3943,7 +3944,7 @@
              sodipodi:role="line">Experiment fields</tspan></text>
       </g>
       <g
-         transform="matrix(0.35277777,0,0,-0.35277777,-68.269259,335.31644)"
+         transform="matrix(0.35277777,0,0,-0.35277777,-68.195881,333.25904)"
          id="g3008">
         <text
            transform="matrix(1,0,0,-1,0,840.79)"
@@ -3952,7 +3953,8 @@
           <tspan
              x="0"
              y="0"
-             id="tspan3010">A</tspan>
+             id="tspan3010"
+             style="font-size:24px">A</tspan>
         </text>
       </g>
     </g>
@@ -4401,17 +4403,22 @@
            sodipodi:role="line">dt[CRITERIA, meta = TRUE]</tspan></text>
       <text
          id="text2894-2"
-         y="202.80637"
+         y="200.68973"
          x="-25.652725"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
-           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-           y="202.80637"
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"
+           y="200.68973"
            x="-25.652725"
            sodipodi:role="line"
-           id="tspan4132">&gt; male_meta &lt;- dt[sex == &quot;M&quot;,</tspan><tspan
+           id="tspan4132"># to subet the metadata only for males</tspan><tspan
            style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-           y="209.97078"
+           y="207.85414"
+           x="-25.652725"
+           sodipodi:role="line"
+           id="tspan2463">&gt; male_meta &lt;- dt[sex == &quot;M&quot;,</tspan><tspan
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+           y="215.01857"
            x="-25.652725"
            sodipodi:role="line"
            id="tspan4136">                  meta = TRUE]</tspan></text>
@@ -5285,61 +5292,62 @@
          id="path2766"
          inkscape:connector-curvature="0" />
     </g>
-    <g
-       transform="translate(-12.206634,-32.286058)"
-       id="g5712">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="130.00082"
-         y="188.25896"
-         id="text5501"><tspan
-           sodipodi:role="line"
-           id="tspan5499"
-           x="130.00082"
-           y="188.25896"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">dt[CRITERIA]</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="129.39308"
-         y="202.80637"
-         id="text5507"><tspan
-           id="tspan5505"
-           sodipodi:role="line"
-           x="129.39308"
-           y="202.80637"
-           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; late_dt &lt;- dt[t &gt; 5]</tspan></text>
-      <text
-         id="text5688"
-         y="217.30072"
-         x="129.39308"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.26458332px"
-           y="217.30072"
-           x="129.39308"
-           sodipodi:role="line"
-           id="tspan5692">Note: metadata is updated when</tspan><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.26458332px"
-           y="224.46513"
-           x="129.39308"
-           sodipodi:role="line"
-           id="tspan25218">selection removes all data from </tspan><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.26458332px"
-           y="231.62956"
-           x="129.39308"
-           sodipodi:role="line"
-           id="tspan5694">one id.</tspan><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-           y="238.79398"
-           x="129.39308"
-           sodipodi:role="line"
-           id="tspan5690" /></text>
-    </g>
+    <text
+       id="text5501"
+       y="155.9729"
+       x="117.79419"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         y="155.9729"
+         x="117.79419"
+         id="tspan5499"
+         sodipodi:role="line">dt[CRITERIA]</tspan></text>
+    <text
+       id="text5507"
+       y="168.40367"
+       x="117.18645"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         id="tspan2465"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"
+         y="168.40367"
+         x="117.18645"
+         sodipodi:role="line"># to keep only data &gt; 5s</tspan><tspan
+         id="tspan2469"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         y="175.56808"
+         x="117.18645"
+         sodipodi:role="line">&gt; late_dt &lt;- dt[t &gt; 5]</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="117.18645"
+       y="186.07298"
+       id="text5688"><tspan
+         id="tspan5692"
+         sodipodi:role="line"
+         x="117.18645"
+         y="186.07298"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.26458332px">Note: metadata is updated when</tspan><tspan
+         id="tspan25218"
+         sodipodi:role="line"
+         x="117.18645"
+         y="193.2374"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.26458332px">selection removes all data from </tspan><tspan
+         id="tspan5694"
+         sodipodi:role="line"
+         x="117.18645"
+         y="200.40182"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.26458332px">one id.</tspan><tspan
+         id="tspan5690"
+         sodipodi:role="line"
+         x="117.18645"
+         y="207.56624"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px" /></text>
     <path
        sodipodi:nodetypes="cc"
-       inkscape:original-d="m 112.21101,138.5199 0,120.85927"
+       inkscape:original-d="M 112.21101,138.5199 V 259.37917"
        inkscape:path-effect="#path-effect6009"
        inkscape:connector-curvature="0"
        id="path6007"
@@ -5348,11 +5356,11 @@
     <path
        sodipodi:nodetypes="cc"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m -19.860221,148.82501 c 0,0 0,312.70193 0,312.70193"
+       d="m -19.860221,148.82501 c 0,0 0,307.40704 0,307.40704"
        id="path6015"
        inkscape:connector-curvature="0"
        inkscape:path-effect="#path-effect6017"
-       inkscape:original-d="M -19.860221,148.82501 V 461.52694" />
+       inkscape:original-d="M -19.860221,148.82501 V 456.23205" />
     <path
        inkscape:original-d="M -67.975748,148.57554 H 236.82426"
        inkscape:path-effect="#path-effect6021"
@@ -5403,15 +5411,20 @@
          sodipodi:role="line">dt[, X := value, meta = TRUE]</tspan></text>
     <text
        id="text6207"
-       y="225.55362"
+       y="219.73286"
        x="-14.011044"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         y="225.55362"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"
+         y="219.73286"
          x="-14.011044"
          sodipodi:role="line"
-         id="tspan6205">&gt; dt[, genotype := &quot;wt&quot;, meta = TRUE]</tspan></text>
+         id="tspan6205"># to create a metavariable set to &quot;wt&quot; </tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         y="226.89728"
+         x="-14.011044"
+         sodipodi:role="line"
+         id="tspan2455">&gt; dt[, genotype := &quot;wt&quot;, meta = TRUE]</tspan></text>
     <path
        d="m 78.499699,209.91715 h 4.300399 v -2.27237 h -4.300399 z"
        style="fill:#b3e0b3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.24434079"
@@ -6472,36 +6485,51 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="117.18644"
-       y="225.55362"
+       y="219.73286"
        id="text6568"><tspan
          id="tspan6566"
          sodipodi:role="line"
          x="117.18644"
-         y="225.55362"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; dt[, t_2 := t-1]</tspan></text>
+         y="219.73286"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"># to create t_2 (t - 1)</tspan><tspan
+         sodipodi:role="line"
+         x="117.18644"
+         y="226.89728"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         id="tspan2441">&gt; dt[, t_2 := t - 1]</tspan><tspan
+         sodipodi:role="line"
+         x="117.18644"
+         y="234.06171"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         id="tspan2449" /><tspan
+         sodipodi:role="line"
+         x="117.18644"
+         y="240.67628"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         id="tspan2451" /></text>
     <text
        id="text6578"
-       y="245.33971"
+       y="250.10214"
        x="117.18644"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.26458332px"
-         y="245.33971"
+         y="250.10214"
          x="117.18644"
          sodipodi:role="line"
          id="tspan6574">Note: update data in place.</tspan><tspan
          id="tspan6591"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;stroke-width:0.26458332px"
-         y="252.50412"
+         y="257.26657"
          x="117.18644"
          sodipodi:role="line">No copy of dt in memory.</tspan><tspan
          id="tspan10169"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         y="259.66855"
+         y="264.43097"
          x="117.18644"
          sodipodi:role="line" /><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         y="266.28314"
+         y="271.04556"
          x="117.18644"
          sodipodi:role="line"
          id="tspan6576" /></text>
@@ -6518,30 +6546,36 @@
          sodipodi:role="line">dt[, Y := value]</tspan></text>
     <text
        id="text10177"
-       y="231.90364"
+       y="235.60776"
        x="117.18644"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         y="231.90364"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"
+         y="235.60776"
          x="117.18644"
          sodipodi:role="line"
-         id="tspan10175">&gt; dt[, t := NULL] <tspan
-   id="tspan10211"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"># delete</tspan> t</tspan></text>
+         id="tspan10175"># to delete t</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         y="242.22234"
+         x="117.18644"
+         sodipodi:role="line"
+         id="tspan2433">&gt; dt[, t := NULL]</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="-14.011044"
-       y="231.90364"
+       y="235.60776"
        id="text10185"><tspan
-         id="tspan10183"
          sodipodi:role="line"
          x="-14.011044"
-         y="231.90364"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; dt[, sex := NULL, meta = TRUE] <tspan
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
-   id="tspan2426"># delete</tspan></tspan></text>
+         y="235.60776"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"
+         id="tspan2457"># delete</tspan><tspan
+         sodipodi:role="line"
+         x="-14.011044"
+         y="242.77217"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         id="tspan2459">&gt; dt[, sex := NULL, meta = TRUE]</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -6592,18 +6626,27 @@
          sodipodi:role="line"
          x="-13.398464"
          y="281.11621"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; dt &lt;- dt[xmv(sex) == &quot;M&quot;] # <tspan
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
-   id="tspan2430">select </tspan>data<tspan
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
-   id="tspan2428"> with </tspan>sex</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"># to select data with sex</tspan><tspan
          sodipodi:role="line"
          x="-13.398464"
          y="288.28064"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         id="tspan11769">&gt; dt[, s := xmv(sex)] # <tspan
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
-   id="tspan2432">copy metavariable as variable </tspan></tspan></text>
+         id="tspan2435">&gt; dt &lt;- dt[xmv(sex) == &quot;M&quot;]</tspan><tspan
+         sodipodi:role="line"
+         x="-13.398464"
+         y="295.44504"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         id="tspan2439"> </tspan><tspan
+         sodipodi:role="line"
+         x="-13.398464"
+         y="302.60947"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"
+         id="tspan2437"># to copy a metavariable as a variable </tspan><tspan
+         sodipodi:role="line"
+         x="-13.398464"
+         y="309.7739"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         id="tspan11769">&gt; dt[, s := xmv(sex)]</tspan></text>
     <g
        transform="matrix(0.69261962,0,0,0.69261962,115.49537,23.034217)"
        id="g11125">
@@ -7151,9 +7194,17 @@
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
          y="372.24585"
          x="-13.398465"
-         sodipodi:role="line">&gt; dt[, .N, by = id] <tspan
-   id="tspan12198"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"># count reads per </tspan>id</tspan></text>
+         sodipodi:role="line" /><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"
+         y="378.86044"
+         x="-13.398465"
+         sodipodi:role="line"
+         id="tspan2445"># to count reads per id</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         y="386.02484"
+         x="-13.398465"
+         sodipodi:role="line"
+         id="tspan2443">&gt; dt[, .N, by = id]</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -7164,9 +7215,7 @@
          sodipodi:role="line"
          x="-13.398465"
          y="344.61621"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px">&gt; <tspan
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FontAwesome;-inkscape-font-specification:FontAwesome"
-   id="tspan2436"># mean activity, per individual</tspan></tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"># to compute mean activity, per individual</tspan><tspan
          sodipodi:role="line"
          x="-13.398465"
          y="351.78064"
@@ -7942,22 +7991,6 @@
          x="-13.403291"
          id="tspan17966"
          sodipodi:role="line">rejoin(dt)</tspan></text>
-    <text
-       id="text17974"
-       y="419.758"
-       x="-13.398464"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         y="419.758"
-         x="-13.398464"
-         sodipodi:role="line"
-         id="tspan17970">&gt; full_table &lt;- rejoin(dt)</tspan><tspan
-         id="tspan17972"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         y="426.92242"
-         x="-13.398464"
-         sodipodi:role="line" /></text>
     <g
        id="g23176"
        transform="translate(-26.821492,-41.275001)">
@@ -8620,5 +8653,26 @@
        style="fill:none;stroke:#000000;stroke-width:0.02928526;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
        id="path25256"
        inkscape:connector-curvature="0" />
+    <text
+       id="text17974"
+       y="419.758"
+       x="-13.398464"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05555534px;line-height:6.61458349px;font-family:mono;-inkscape-font-specification:mono;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;fill:#ad95af;fill-opacity:1;stroke-width:0.26458332px"
+         y="419.758"
+         x="-13.398464"
+         sodipodi:role="line"
+         id="tspan17970"># to reunite data and metadata</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         y="426.92242"
+         x="-13.398464"
+         sodipodi:role="line"
+         id="tspan2447">&gt; full_table &lt;- rejoin(dt)</tspan><tspan
+         id="tspan17972"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
+         y="434.08682"
+         x="-13.398464"
+         sodipodi:role="line" /></text>
   </g>
 </svg>
