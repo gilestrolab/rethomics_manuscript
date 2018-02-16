@@ -342,11 +342,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="1554.5102"
-     inkscape:cy="1346.9313"
+     inkscape:zoom="2"
+     inkscape:cx="483.72354"
+     inkscape:cy="1321.2745"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g24610"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -366,7 +366,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -3920,28 +3920,38 @@
            inkscape:export-ydpi="583.71521"
            inkscape:export-xdpi="583.71521"
            xml:space="preserve"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.61769295px;line-height:8.07908726px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.32316348px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           x="-18.34285"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.61769295px;line-height:8.07908726px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.32316348px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="6.5340075"
            y="114.13663"
            id="text10853"><tspan
              sodipodi:role="line"
              id="tspan10851"
-             x="-18.34285"
+             x="6.534009"
              y="114.13663"
-             style="font-size:6.89415455px;stroke-width:0.32316348px">Platform fields</tspan></text>
+             style="font-size:6.89415455px;text-align:center;text-anchor:middle;stroke-width:0.32316348px">Platform fields</tspan><tspan
+             sodipodi:role="line"
+             x="6.534008"
+             y="123.50259"
+             style="font-size:6.89415455px;text-align:center;text-anchor:middle;stroke-width:0.32316348px"
+             id="tspan2438">(mandatory)</tspan></text>
         <text
            id="text10857"
            y="114.13663"
-           x="50.437111"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.61769295px;line-height:8.07908726px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.32316348px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="80.870018"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.61769295px;line-height:8.07908726px;font-family:FontAwesome;-inkscape-font-specification:FontAwesome;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.32316348px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            xml:space="preserve"
            inkscape:export-xdpi="583.71521"
            inkscape:export-ydpi="583.71521"><tspan
-             style="font-size:6.89415455px;stroke-width:0.32316348px"
+             style="font-size:6.89415455px;text-align:center;text-anchor:middle;stroke-width:0.32316348px"
              y="114.13663"
-             x="50.437111"
+             x="80.870018"
              id="tspan10855"
-             sodipodi:role="line">Experiment fields</tspan></text>
+             sodipodi:role="line">Experiment fields</tspan><tspan
+             style="font-size:6.89415455px;text-align:center;text-anchor:middle;stroke-width:0.32316348px"
+             y="123.50259"
+             x="80.870018"
+             sodipodi:role="line"
+             id="tspan2440">(arbitrary &amp; optional)</tspan></text>
       </g>
       <g
          transform="matrix(0.35277777,0,0,-0.35277777,-68.195881,333.25904)"
@@ -6636,7 +6646,7 @@
          x="-13.398464"
          y="295.44504"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:mono;-inkscape-font-specification:mono;stroke-width:0.26458332px"
-         id="tspan2439"> </tspan><tspan
+         id="tspan2439" /><tspan
          sodipodi:role="line"
          x="-13.398464"
          y="302.60947"
