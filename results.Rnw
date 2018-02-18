@@ -5,22 +5,21 @@ setwd("results")
 @
 
 \section*{Results}
-\TODO{@esteban rewrite this please ;)}
+In order to illustrate the workflow of \texttt{rethomics}, we provide a straightforward and simplified example which could be readily modified for more intricate cases. 
 
-In order to illustrate the workflow of \texttt{rethomics}, we decided to provide an example that is simple and reproducible, but which could be readily modified for more complicated cases.
-DAM2 being widely adopted, and fruit flies being a model of choice for high throughput studies,
-we decided to show how \texttt{rethomics} can be used to study circadian rhythm in fruit flies, using this type data.
+The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
+Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
+We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, which was gracefully made publicly available by the authors\cite{ogueta_ll_2018}.
+Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
+In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
+and that the endogenous period in LL is longer than 24 hours.
 
-We gathered a subset of the data from a recent publication \cite{buhl_quasimodo_2016}, which was gracefully made publicly available by the authors\cite{ogueta_ll_2018}.
-It shows that flies, which normally become arrhythmic in a Light-Light (LL) regime, are rhythmic (with an period greater than 24h\TODO{phrasing}) when the gene NKCCox is expressed in clock neurons.
-The authors have recorded the activity of both TIM/NKCCOK (NKCCox is expressed in their clock neurons) and NKCCOK/+ (the appropriate control) in LL for six days.
-Prior to LL, the animals were recorded for a baseline three or four days in normal LD, 12h:12h, conditions.
-Two repetitions were performed resulting in a total of 58 animals.
+We took two genotypes employed in the study, one control group (NKCC\textsuperscript{ox}/+) and one where NKCC\textsuperscript{ox} is overexpressed in all clock neurons (TIM/NKCC\textsuperscript{ox}).
+In particular, we re-analysed two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six days.
 The \texttt{metadata.csv} file, which describes exhaustively all individuals, as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
-
-
 As a prerequisite, we downloaded the data, extracted the zip archive in our working directory.
-We start the analysis by loading the necessary \texttt{rethomics} packages (see availability section for installation instructions):
+We start the analysis by loading the necessary rethomics packages (see availability section for installation instructions):
+
 <<message=FALSE>>=
 library(damr)      # input DAM2 data
 library(zeitgebr)  # periodogram computation
@@ -256,8 +255,8 @@ fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
 
 \subsection*{Population statistics}
 
-As shown in the original study, double-plotted actograms and periodograms suggest that NKCCOX/+ flies are mostly 
-arhythmic in LL whilst Tim/NKCCOX appear to have a consistent, long-period rhythm.
+As shown in the original study, double-plotted actograms and periodograms suggest that NKCC\textsuperscript{ox}/+ flies are mostly 
+arhythmic in LL whilst Tim/NKCC\textsuperscript{ox} appear to have a consistent, long-period rhythm.
 To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-5}A):
 
 <<cache=TRUE, warning=FALSE,message=FALSE, result="hide">>=
@@ -359,7 +358,7 @@ summary(fit)$coefficients
 str <- sapply(strsplit(format(summary(fit)$coefficients[2,4], scientific=TRUE, digits = 3), split="e"), function(x) paste0("$", x[1], " \\times 10^{", x[2], "}$"))
 @
 
-The result shows a strong positive effect of genotype Tim/NKCCOX on the probability of being rhythmic ($p$-value \Sexpr{str}):
+The result shows a strong positive effect of genotype Tim/NKCC\textsuperscript{ox} on the probability of being rhythmic ($p$-value \Sexpr{str}):
 
 Lastly, we can generate a table that compute arbitrary population statistics for each genotype:
 <<warning=FALSE>>=

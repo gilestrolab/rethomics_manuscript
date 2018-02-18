@@ -218,13 +218,13 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 
 The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system and external or internal environments.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
-The scoring of behaviours is certainly not an exception to this trend.
-Indeed, many platforms (\citationneeded{}) have been developed in order to allow biologists to continuously record behaviours such as activity, position\cite{geissmann_ethoscopes:_2017} and feeding\cite{itskov_automated_2014} of multiple animals over long durations (days or weeks).
+The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
+Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014} animals over long durations (days or weeks).
 
 The availability of large amounts of data is very exciting as it paves the way for in-depth quantitative analyses.
 The multiplicity of model organisms, hypotheses and paradigms makes the existence of a diverse range of recording tools important.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
-Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities \cite{gilestro_pysolo:_2009,schmid_new_2011-1}.
+Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities \cite{gilestro_pysolo:_2009,schmid_new_2011}.
 There are, at least, three issues with this approach.
 First of all, state-of-the-art analysis and visualisation require a level of reproducibility, flexibility and scalability that only a programming interface can provide.
 Secondly, it favours replicated work as developers need to create their independent solution to similar problems.
@@ -249,7 +249,7 @@ We expect it to fill the gap between behavioural biology and data sciences, thus
 This paradigm follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse:_2017}, which results in increased testability and maintainability.
 In it, the different tasks of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation)
 are explicitly handled by different packages.
-At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatmentand genotype) in a single \texttt{data.table}-derived object\cite{dowle_data.table:_2017}.
+At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatment and genotype) in a single \texttt{data.table}-derived object\cite{dowle_data.table:_2017}.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be analysed and visualised regardless of the original input platform.
 Results and plots integrate seamlessly into the \texttt{R} ecosystem, hence providing users with state-of-the-art visualisation and statistical tools.
 
@@ -341,22 +341,21 @@ periodograms and find their peaks, score sleep from inactivity (\emph{i.e.} usin
 
 
 \section*{Results}
-\TODO{@esteban rewrite this please ;)}
+In order to illustrate the workflow of \texttt{rethomics}, we provide a straightforward and simplified example which could be readily modified for more intricate cases. 
 
-In order to illustrate the workflow of \texttt{rethomics}, we decided to provide an example that is simple and reproducible, but which could be readily modified for more complicated cases.
-DAM2 being widely adopted, and fruit flies being a model of choice for high throughput studies,
-we decided to show how \texttt{rethomics} can be used to study circadian rhythm in fruit flies, using this type data.
+The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
+Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
+We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, which was gracefully made publicly available by the authors\cite{ogueta_ll_2018}.
+Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
+In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
+and that the endogenous period in LL is longer than 24 hours.
 
-We gathered a subset of the data from a recent publication \cite{buhl_quasimodo_2016}, which was gracefully made publicly available by the authors\cite{ogueta_ll_2018}.
-It shows that flies, which normally become arrhythmic in a Light-Light (LL) regime, are rhythmic (with an period greater than 24h\TODO{phrasing}) when the gene NKCCox is expressed in clock neurons.
-The authors have recorded the activity of both TIM/NKCCOK (NKCCox is expressed in their clock neurons) and NKCCOK/+ (the appropriate control) in LL for six days.
-Prior to LL, the animals were recorded for a baseline three or four days in normal LD, 12h:12h, conditions.
-Two repetitions were performed resulting in a total of 58 animals.
+We took two genotypes employed in the study, one control group (NKCC\textsuperscript{ox}/+) and one where NKCC\textsuperscript{ox} is overexpressed in all clock neurons (TIM/NKCC\textsuperscript{ox}).
+In particular, we re-analysed two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six days.
 The \texttt{metadata.csv} file, which describes exhaustively all individuals, as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
-
-
 As a prerequisite, we downloaded the data, extracted the zip archive in our working directory.
-We start the analysis by loading the necessary \texttt{rethomics} packages (see availability section for installation instructions):
+We start the analysis by loading the necessary rethomics packages (see availability section for installation instructions):
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -609,8 +608,8 @@ See \nameref{S1-Fig}B for the visualisation of all individuals.
 
 \subsection*{Population statistics}
 
-As shown in the original study, double-plotted actograms and periodograms suggest that NKCCOX/+ flies are mostly 
-arhythmic in LL whilst Tim/NKCCOX appear to have a consistent, long-period rhythm.
+As shown in the original study, double-plotted actograms and periodograms suggest that NKCC\textsuperscript{ox}/+ flies are mostly 
+arhythmic in LL whilst Tim/NKCC\textsuperscript{ox} appear to have a consistent, long-period rhythm.
 To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-5}A):
 
 \begin{knitrout}
@@ -734,7 +733,7 @@ To address the same question, we fit a binomial generalised linear model:
 
 
 
-The result shows a strong positive effect of genotype Tim/NKCCOX on the probability of being rhythmic ($p$-value $6.27 \times 10^{-06}$):
+The result shows a strong positive effect of genotype Tim/NKCC\textsuperscript{ox} on the probability of being rhythmic ($p$-value $6.27 \times 10^{-06}$):
 
 Lastly, we can generate a table that compute arbitrary population statistics for each genotype:
 \begin{knitrout}
@@ -784,7 +783,7 @@ All packages are continuously integrated and unit tested on several version of \
 
 Several users, in different research groups, have already adopted and are contributing to the future development framework.
 Several new packages in the \texttt{rethomics} framework are currently envisaged. 
-They include utilities to input new behaviour tracking methods and analyse position and multi-animal interaction.
+They include utilities to input new behaviour tracking methods and analyse position and multi-animal interactions.
 
 \section*{Supporting information}
 
@@ -800,7 +799,7 @@ We would like to thank people who have directly or indirectly contributed to the
 In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials.
 Maite Ogueta, for making the results data available.
 \TODO{@esteban names of the BA users}
-Alice French, Hannah Jones and Diana Bicazan for her comments as early users.
+Alice French, Hannah Jones and Diana Bicazan for their comments as early users.
 Marcus Gosh, for his feed back on the manuscript.
 Brenna Williams, for her help to support multi-beam DAMS.
 Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework.

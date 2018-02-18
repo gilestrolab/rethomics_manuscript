@@ -169,13 +169,13 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 
 The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system and external or internal environments.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
-The scoring of behaviours is certainly not an exception to this trend.
-Indeed, many platforms (\citationneeded{}) have been developed in order to allow biologists to continuously record behaviours such as activity, position\cite{geissmann_ethoscopes:_2017} and feeding\cite{itskov_automated_2014} of multiple animals over long durations (days or weeks).
+The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
+Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014} animals over long durations (days or weeks).
 
 The availability of large amounts of data is very exciting as it paves the way for in-depth quantitative analyses.
 The multiplicity of model organisms, hypotheses and paradigms makes the existence of a diverse range of recording tools important.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
-Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities \cite{gilestro_pysolo:_2009,schmid_new_2011-1}.
+Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities \cite{gilestro_pysolo:_2009,schmid_new_2011}.
 There are, at least, three issues with this approach.
 First of all, state-of-the-art analysis and visualisation require a level of reproducibility, flexibility and scalability that only a programming interface can provide.
 Secondly, it favours replicated work as developers need to create their independent solution to similar problems.
@@ -200,7 +200,7 @@ We expect it to fill the gap between behavioural biology and data sciences, thus
 This paradigm follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse:_2017}, which results in increased testability and maintainability.
 In it, the different tasks of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation)
 are explicitly handled by different packages.
-At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatmentand genotype) in a single \texttt{data.table}-derived object\cite{dowle_data.table:_2017}.
+At the core of \texttt{rethomics}, the \texttt{behavr} package offers a very flexible and efficient solution to store large amounts data (\emph{e.g.} position and activity) as well as metadata (\emph{e.g.} treatment and genotype) in a single \texttt{data.table}-derived object\cite{dowle_data.table:_2017}.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be analysed and visualised regardless of the original input platform.
 Results and plots integrate seamlessly into the \texttt{R} ecosystem, hence providing users with state-of-the-art visualisation and statistical tools.
 
@@ -309,7 +309,7 @@ All packages are continuously integrated and unit tested on several version of \
 
 Several users, in different research groups, have already adopted and are contributing to the future development framework.
 Several new packages in the \texttt{rethomics} framework are currently envisaged. 
-They include utilities to input new behaviour tracking methods and analyse position and multi-animal interaction.
+They include utilities to input new behaviour tracking methods and analyse position and multi-animal interactions.
 
 \section*{Supporting information}
 
@@ -325,7 +325,7 @@ We would like to thank people who have directly or indirectly contributed to the
 In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials.
 Maite Ogueta, for making the results data available.
 \TODO{@esteban names of the BA users}
-Alice French, Hannah Jones and Diana Bicazan for her comments as early users.
+Alice French, Hannah Jones and Diana Bicazan for their comments as early users.
 Marcus Gosh, for his feed back on the manuscript.
 Brenna Williams, for her help to support multi-beam DAMS.
 Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework.
