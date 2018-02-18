@@ -219,12 +219,12 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system and external or internal environments.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
 The scoring of behaviours is certainly not an exception to this trend.
-Indeed, many platforms (\citationneeded{}) have been developed in order to allow biologists to continuously record behaviours such as activity, position and feeding of multiple animals over long durations (days or weeks).
+Indeed, many platforms (\citationneeded{}) have been developed in order to allow biologists to continuously record behaviours such as activity, position\cite{geissmann_ethoscopes:_2017} and feeding\cite{itskov_automated_2014} of multiple animals over long durations (days or weeks).
 
 The availability of large amounts of data is very exciting as it paves the way for in-depth quantitative analyses.
 The multiplicity of model organisms, hypotheses and paradigms makes the existence of a diverse range of recording tools important.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
-Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities.
+Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities \cite{gilestro_pysolo:_2009,schmid_new_2011-1}.
 There are, at least, three issues with this approach.
 First of all, state-of-the-art analysis and visualisation require a level of reproducibility, flexibility and scalability that only a programming interface can provide.
 Secondly, it favours replicated work as developers need to create their independent solution to similar problems.
@@ -306,7 +306,7 @@ For instance, when one wants to update variable according to the value of a meta
 
 \subsection*{Data import}
 Data import package translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
-Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor (DAM)\citationneeded{} data and another one for Ethoscope data\cite{geissmann_ethoscopes:_2017}.
+Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor System (Trikinetics Inc.) data and another one for Ethoscope data\cite{geissmann_ethoscopes:_2017}.
 Although the structure of the raw results is very different, conceptually, loading data is very similar.
 In all cases, the user is asked to generate a metadata table (one row per individual). 
 In it, there will be both mandatory and optional columns.
@@ -660,10 +660,11 @@ First of all, we compute a summary per individual (\texttt{by=id}):
     \hlstd{per_dt[,}
           \hlkwd{.}\hlstd{(}
            \hlkwc{first_peak_period} \hlstd{= period[peak} \hlopt{==} \hlnum{1}\hlstd{],}
-           \hlstd{\{} \hlcom{# \{\} can be used for tmp variables}
+            \hlcom{# \{\} can be used for tmp variables}
+           \hlkwc{first_peak_rel_power} \hlstd{= \{}
              \hlstd{signif} \hlkwb{=} \hlstd{signif_threshold[peak} \hlopt{==} \hlnum{1}\hlstd{]}
              \hlstd{power} \hlkwb{=} \hlstd{power[peak} \hlopt{==} \hlnum{1}\hlstd{]}
-             \hlstd{first_peak_rel_power} \hlkwb{=}  \hlstd{power} \hlopt{-} \hlstd{signif}
+             \hlstd{power} \hlopt{-} \hlstd{signif}
             \hlstd{\},}
            \hlkwc{is_rhythmic} \hlstd{=} \hlkwd{any}\hlstd{(peak} \hlopt{==} \hlnum{1}\hlstd{)}
            \hlstd{),}
@@ -763,18 +764,7 @@ This example shows how \texttt{rethomics} can be used from the raw data to makin
 We were able to comprehensively analyse the data from a circadian experiment with a few line of code.
 This workflow applies particularly to much larger data sets and provides a large degree of flexibility that will allow biologists to tune their analysis to their specific questions.
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in FUN(X[[i]], ...): object 'first\_peak\_rel\_power' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in FUN(X[[i]], ...): object 'first\_peak\_rel\_power' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in cowplot::plot\_grid(fig5, legend, nrow = 2, rel\_heights = c(15, : object 'fig5' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in print(fig5\_final): object 'fig5\_final' not found}}\end{kframe}
-\end{knitrout}
 
 % We present an small example examining the circadian behaviour of 128 fruit flies in recorded in a DAM2 -- a paradigm very widely adopted. 
 % A less formal description of this case and others are explained at \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
@@ -792,16 +782,9 @@ Extensive installation instructions as well as reproducible demos and tutorials 
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
 All packages are continuously integrated and unit tested on several version of \texttt{R} to minimise the risk of present and future issues.
 
-* How we have already used rethomics in two impactful papers
-
-* Other inputs 
-
-* Position analysis
-
-* GUI
-
-* ... 
-
+Several users, in different research groups, have already adopted and are contributing to the future development framework.
+Several new packages in the \texttt{rethomics} framework are currently envisaged. 
+They include utilities to input new behaviour tracking methods and analyse position and multi-animal interaction.
 
 \section*{Supporting information}
 
@@ -813,15 +796,15 @@ See Fig~\ref{fig:fig-4} for legend.
 
 
 \section*{Acknowledgements}
-\TODO{Thank people here}
-
-Han Kim
-
-Maite
-
-Hannah, Alice, Diana
-
-Marcus Gosh, Patrick Kr{\"a}tschmer Rob
+We would like to thank people who have directly or indirectly contributed to the this manuscript.
+In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials.
+Maite Ogueta, for making the results data available.
+\TODO{@esteban names of the BA users}
+Alice French, Hannah Jones and Diana Bicazan for her comments as early users.
+Marcus Gosh, for his feed back on the manuscript.
+Brenna Williams, for her help to support multi-beam DAMS.
+Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework.
+Robert Dickinson, for his support.
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.

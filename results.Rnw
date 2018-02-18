@@ -301,10 +301,11 @@ summary_dt <-
     per_dt[, 
           .(
            first_peak_period = period[peak == 1],
-           { # {} can be used for tmp variables
+            # {} can be used for tmp variables
+           first_peak_rel_power = {
              signif = signif_threshold[peak == 1]
              power = power[peak == 1]
-             first_peak_rel_power =  power - signif
+             power - signif
             },
            is_rhythmic = any(peak == 1)
            ),
