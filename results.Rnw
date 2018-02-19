@@ -193,7 +193,8 @@ fig4A <- fig4A + scale_y_discrete(name = "Day",
 
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-Several methods are implemented in \texttt{zeitbebr} ($\chi{}^2$, Lomb-Scargle and autocorrelation).
+Several methods are implemented in \texttt{zeitbebr} ($\chi{}^2$, Lomb-Scargle and autocorrelation 
+(I will add here Fourier, it is not as smooth but I think it is right implemented).
 In this example, we generate $\chi{}^2$ periodograms and lay them out in a grid.
 Periodograms for the subset of eight animals used in Fig~\ref{fig:fig-4}A is shown in Fig~\ref{fig:fig-4}B. 
 See \nameref{S1-Fig}B for the visualisation of all individuals.
