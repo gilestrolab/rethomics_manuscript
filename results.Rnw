@@ -21,7 +21,7 @@ As a prerequisite, we downloaded the data, extracted the zip archive in our work
 We start the analysis by loading the necessary rethomics packages (see availability section for installation instructions):
 
 <<message=FALSE>>=
-library(damr)      # input DAM2 data
+library(damr)      # input DAM data
 library(zeitgebr)  # periodogram computation
 library(sleepr)    # sleep analysis
 library(ggetho)    # behaviour visualisation
@@ -30,9 +30,9 @@ library(ggetho)    # behaviour visualisation
 Then, the metadata file is read and linked to the \texttt{.txt} result files.
 
 <<cache=TRUE>>=
-metadata <- link_dam2_metadata("metadata.csv", ".")   # linking
+metadata <- link_dam_metadata("metadata.csv", ".")   # linking
 # print(metadata)                                     # check metadata
-dt <- load_dam2(metadata)                             # loading
+dt <- load_dam(metadata)                             # loading
 summary(dt)                                           # quick summary
 @
 
