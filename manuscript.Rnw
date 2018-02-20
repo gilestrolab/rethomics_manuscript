@@ -146,14 +146,12 @@ Ethomics, a quantitative and high-throughput approach to animal behaviour, is a 
 The recent development of automatised methods that can score various behaviours on a large number of animals
 provides biologists with an unprecedented set of tools to decipher these complex phenotypes. 
 Analysing ethomics data comes with many challenges that are largely shared across acquisition platform and paradigms.
-However, there is little effort (I would not say little effort, I will rephrase it, making a genereic framework is not easy or 
-what people is focus on) in providing a generic framework to specifically analyse multiple and long behavioural time series.
-(some conector with previos sentence, for that reason, that is why...) We developed the \texttt{rethomics} framework, 
+However, there is little effort in providing a generic framework to specifically analyse multiple and long behavioural time series.
+To address this limitation, we developed the \texttt{rethomics} framework, 
 a suite of \texttt{R} packages that altogether offers utilities to work through all data manipulation stage:
 import, store, analyse and visualise behavioural data.
 In this article, we describe it and show an example of its application to the study of circadian rhythms and blooming field of sleep fruit flies.
 The \texttt{rethomics} framework is available and documented at \href{https://rethomics.github.io}{https://rethomics.github.io}.
-
 
 
 \listoftodos
@@ -168,8 +166,7 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
-
-The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system and external or internal (input signals) environments.
+The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system and external or internal environments.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
 The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
 Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014} animals over long durations (days or weeks).
@@ -187,13 +184,13 @@ Thankfully, behavioural data is conceptually largely agnostic of the acquisition
 Typically, the behaviour of each individual is described by a long time series (possibly multivariate and irregular).
 Importantly, individuals are labelled with arbitrary metadata defined by the experimenter (\emph{e.g.} sex, treatment and genotype).
 Efficiently combining and manipulating metadata and data from hundreds of individuals, each recorded for days or weeks, 
-is not trivial  (why is not trivial, explain, for example: due to large datasets, memory problems,...).
+is not trivial \TODO{explain why it is not trivial}.
 
 In the article herein, we describe \texttt{rethomics}, a framework that unifies analysis of behavioural dataset in an efficient and flexible manner.
 We implemented it in \texttt{R}\cite{r_core_team_r:_2017} since it is widely taught and adopted by computational biologists.
 It is also complemented with a vast ecosystem of open-source packages.
-\texttt{rethomics} offers an elegant (I will remove subjective opinions like elegant) computational solution to store, manipulate and visualise large amounts of data.
-We see it as a tool to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural scientists.
+\texttt{rethomics} offers a computational solution to store, manipulate and visualise large amounts of data.
+We propose it as a tool to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural scientists.
 \texttt{rethomics} comes with a extensive documentation and a set of both practical and theoretical demos and tutorials.
 
 
@@ -229,7 +226,7 @@ Therefore, the data structure must be computationally efficient -- both in term 
 Secondly, a large number of individuals are often studied (typically $n > 100$).
 Each individual ($i$) is associated with metadata: a set of $p$ ``metavariables'' that describe experimental conditions.
 For instance, metadata stores information regarding the date and location of the experiment, treatment, genotype, sex, \emph{post hoc} observations and other arbitrary metavariables.
-It is interesting to record multiple metavariables in so they can later be used as covariates. 
+It is interesting to record multiple metavariables since they can later be used as covariates. 
 Therefore, typically $p > 10$.
 
 \texttt{behavr} tables link metadata and data within the same object, extending the syntax of \texttt{data.table} to manipulate, join and access metadata (Fig~\ref{fig:fig-2}B).
