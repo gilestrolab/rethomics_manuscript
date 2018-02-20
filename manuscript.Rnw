@@ -146,7 +146,7 @@ Ethomics, a quantitative and high-throughput approach to animal behaviour, is a 
 The recent development of automatised methods that can score various behaviours on a large number of animals
 provides biologists with an unprecedented set of tools to decipher these complex phenotypes. 
 Analysing ethomics data comes with many challenges that are largely shared across acquisition platform and paradigms.
-However, there is little effort in providing a generic framework to specifically analyse multiple and long behavioural time series.
+However, there is little effort in providing a generic toolbox to specifically analyse multiple and long behavioural time series.
 To address this limitation, we developed the \texttt{rethomics} framework, 
 a suite of \texttt{R} packages that altogether offers utilities to work through all data manipulation stage:
 import, store, analyse and visualise behavioural data.
@@ -160,9 +160,11 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
 %\section*{Author summary}
-%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non %sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque %pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
 
-\linenumbers
+% TODO revert for sumbmisson
+% \linenumbers
+\TODO{revert line numbers before submission}
+% TODO also embed bib
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
@@ -171,7 +173,8 @@ In the last few decades, our ability to record vast quantities of various phenot
 The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
 Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014} animals over long durations (days or weeks).
 
-The availability of large amounts of data paves the way for in-depth quantitative analyses.
+The availability of large amounts of data paves the way for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles
+and ultimately a better understanding of biology\cite{brown_study_2017}.
 The multiplicity of model organisms, hypotheses and paradigms makes the existence of a diverse range of recording tools important.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities \cite{gilestro_pysolo:_2009,schmid_new_2011}.
@@ -329,7 +332,7 @@ Alice French, Hannah Jones and Diana Bicazan for their comments as early users.
 Marcus Gosh, for his feed back on the manuscript.
 Brenna Williams, for her help to support multi-beam DAMS.
 Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework.
-Robert Dickinson, for his support.
+\TODO{@giorgio do you think it is ok to thank Rob?} Robert Dickinson, for his support.
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.

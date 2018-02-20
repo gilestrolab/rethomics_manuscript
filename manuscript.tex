@@ -195,12 +195,12 @@ Ethomics, a quantitative and high-throughput approach to animal behaviour, is a 
 The recent development of automatised methods that can score various behaviours on a large number of animals
 provides biologists with an unprecedented set of tools to decipher these complex phenotypes. 
 Analysing ethomics data comes with many challenges that are largely shared across acquisition platform and paradigms.
-However, there is little effort in providing a generic framework to specifically analyse multiple and long behavioural time series.
-We developed the \texttt{rethomics} framework, a suite of \texttt{R} packages that altogether offers utilities to:
+However, there is little effort in providing a generic toolbox to specifically analyse multiple and long behavioural time series.
+To address this limitation, we developed the \texttt{rethomics} framework, 
+a suite of \texttt{R} packages that altogether offers utilities to work through all data manipulation stage:
 import, store, analyse and visualise behavioural data.
 In this article, we describe it and show an example of its application to the study of circadian rhythms and blooming field of sleep fruit flies.
 The \texttt{rethomics} framework is available and documented at \href{https://rethomics.github.io}{https://rethomics.github.io}.
-
 
 
 \listoftodos
@@ -209,19 +209,21 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 % Use first person. PLOS ONE authors please skip this step. 
 % Author Summary not valid for PLOS ONE submissions.   
 %\section*{Author summary}
-%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget porta erat. Morbi consectetur est vel gravida pretium. Suspendisse ut dui eu ante cursus gravida non %sed sem. Nullam sapien tellus, commodo id velit id, eleifend volutpat quam. Phasellus mauris velit, dapibus finibus elementum vel, pulvinar non tellus. Nunc pellentesque %pretium diam, quis maximus dolor faucibus id. Nunc convallis sodales ante, ut ullamcorper est egestas vitae. Nam sit amet enim ultrices, ultrices elit pulvinar, volutpat risus.
 
-\linenumbers
+% TODO revert for sumbmisson
+% \linenumbers
+\TODO{revert line numbers before submission}
+% TODO also embed bib
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
-
 The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system and external or internal environments.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
 The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
 Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014} animals over long durations (days or weeks).
 
-The availability of large amounts of data is very exciting as it paves the way for in-depth quantitative analyses.
+The availability of large amounts of data paves the way for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles
+and ultimately a better understanding of biology\cite{brown_study_2017}.
 The multiplicity of model organisms, hypotheses and paradigms makes the existence of a diverse range of recording tools important.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities \cite{gilestro_pysolo:_2009,schmid_new_2011}.
@@ -233,13 +235,14 @@ Lastly, it links analysis and visualisation to the target acquisition tool, whic
 Thankfully, behavioural data is conceptually largely agnostic of the acquisition platform and paradigm. 	
 Typically, the behaviour of each individual is described by a long time series (possibly multivariate and irregular).
 Importantly, individuals are labelled with arbitrary metadata defined by the experimenter (\emph{e.g.} sex, treatment and genotype).
-Efficiently combining and manipulating metadata and data from hundreds of individuals, each recorded for days or weeks, is not trivial.
+Efficiently combining and manipulating metadata and data from hundreds of individuals, each recorded for days or weeks, 
+is not trivial \TODO{explain why it is not trivial}.
 
 In the article herein, we describe \texttt{rethomics}, a framework that unifies analysis of behavioural dataset in an efficient and flexible manner.
 We implemented it in \texttt{R}\cite{r_core_team_r:_2017} since it is widely taught and adopted by computational biologists.
 It is also complemented with a vast ecosystem of open-source packages.
-\texttt{rethomics} offers an elegant computational solution to store, manipulate and visualise large amounts of data.
-We expect it to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural scientists.
+\texttt{rethomics} offers a computational solution to store, manipulate and visualise large amounts of data.
+We propose it as a tool to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural scientists.
 \texttt{rethomics} comes with a extensive documentation and a set of both practical and theoretical demos and tutorials.
 
 
@@ -275,7 +278,7 @@ Therefore, the data structure must be computationally efficient -- both in term 
 Secondly, a large number of individuals are often studied (typically $n > 100$).
 Each individual ($i$) is associated with metadata: a set of $p$ ``metavariables'' that describe experimental conditions.
 For instance, metadata stores information regarding the date and location of the experiment, treatment, genotype, sex, \emph{post hoc} observations and other arbitrary metavariables.
-It is interesting to record multiple metavariables in so far as they so they can later be used as covariates. 
+It is interesting to record multiple metavariables since they can later be used as covariates. 
 Therefore, typically $p > 10$.
 
 \texttt{behavr} tables link metadata and data within the same object, extending the syntax of \texttt{data.table} to manipulate, join and access metadata (Fig~\ref{fig:fig-2}B).
@@ -283,7 +286,7 @@ This approach guarantees that any data point can be mapped correctly to its pare
 It also allows implicit update of metadata when data is altered.
 For instance, when is data filtered, only the remaining individuals should be in the new metadata. 
 It is also important that metadata and data can interoperate.
-For instance, when one wants to update variable according to the value of a metavariable (say, alter the variable $x$ only for animals with the metavariable $sex=``male"$). The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
+For instance, when one wants to update a variable according to the value of a metavariable (say, alter the variable $x$ only for animals with the metavariable $sex=``male"$). The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
 
 
 \begin{figure}[!h]
@@ -305,7 +308,7 @@ For instance, when one wants to update variable according to the value of a meta
 \end{figure}
 
 \subsection*{Data import}
-Data import package translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
+Data import packages translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
 Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor System (Trikinetics Inc.) data and another one for Ethoscope data\cite{geissmann_ethoscopes:_2017}.
 Although the structure of the raw results is very different, conceptually, loading data is very similar.
 In all cases, the user is asked to generate a metadata table (one row per individual). 
@@ -345,7 +348,7 @@ In order to illustrate the workflow of \texttt{rethomics}, we provide a straight
 
 The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
 Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
-We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, which was gracefully made publicly available by the authors\cite{ogueta_ll_2018}.
+We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, which was graciously made publicly available by the authors\cite{ogueta_ll_2018}.
 Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
 In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
 and that the endogenous period in LL is longer than 24 hours.
@@ -359,7 +362,7 @@ We start the analysis by loading the necessary rethomics packages (see availabil
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{library}\hlstd{(damr)}      \hlcom{# input DAM2 data}
+\hlkwd{library}\hlstd{(damr)}      \hlcom{# input DAM data}
 \hlkwd{library}\hlstd{(zeitgebr)}  \hlcom{# periodogram computation}
 \hlkwd{library}\hlstd{(sleepr)}    \hlcom{# sleep analysis}
 \hlkwd{library}\hlstd{(ggetho)}    \hlcom{# behaviour visualisation}
@@ -372,9 +375,9 @@ Then, the metadata file is read and linked to the \texttt{.txt} result files.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{metadata} \hlkwb{<-} \hlkwd{link_dam2_metadata}\hlstd{(}\hlstr{"metadata.csv"}\hlstd{,} \hlstr{"."}\hlstd{)}   \hlcom{# linking}
+\hlstd{metadata} \hlkwb{<-} \hlkwd{link_dam_metadata}\hlstd{(}\hlstr{"metadata.csv"}\hlstd{,} \hlstr{"."}\hlstd{)}   \hlcom{# linking}
 \hlcom{# print(metadata)                                     # check metadata}
-\hlstd{dt} \hlkwb{<-} \hlkwd{load_dam2}\hlstd{(metadata)}                             \hlcom{# loading}
+\hlstd{dt} \hlkwb{<-} \hlkwd{load_dam}\hlstd{(metadata)}                             \hlcom{# loading}
 \hlkwd{summary}\hlstd{(dt)}                                           \hlcom{# quick summary}
 \end{alltt}
 \begin{verbatim}
@@ -557,7 +560,8 @@ A representative sample of four individuals for each genotype is shown in Fig~\r
 
 \subsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-Several methods are implemented in \texttt{zeitbebr} ($\chi{}^2$, Lomb-Scargle and autocorrelation).
+Several methods are implemented in \texttt{zeitbebr}: $\chi{}^2$, Lomb-Scargle, autocorrelation 
+and Fourier.
 In this example, we generate $\chi{}^2$ periodograms and lay them out in a grid.
 Periodograms for the subset of eight animals used in Fig~\ref{fig:fig-4}A is shown in Fig~\ref{fig:fig-4}B. 
 See \nameref{S1-Fig}B for the visualisation of all individuals.
@@ -803,7 +807,7 @@ Alice French, Hannah Jones and Diana Bicazan for their comments as early users.
 Marcus Gosh, for his feed back on the manuscript.
 Brenna Williams, for her help to support multi-beam DAMS.
 Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework.
-Robert Dickinson, for his support.
+\TODO{@giorgio do you think it is ok to thank Rob?} Robert Dickinson, for his support.
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
