@@ -147,11 +147,11 @@ The recent development of automatised methods that can score various behaviours 
 provides biologists with an unprecedented set of tools to decipher these complex phenotypes. 
 Analysing ethomics data comes with many challenges that are largely shared across acquisition platform and paradigms.
 However, there is little effort in providing a generic framework to specifically analyse multiple and long behavioural time series.
-We developed the \texttt{rethomics} framework, a suite of \texttt{R} packages that altogether offers utilities to:
+To address this limitation, we developed the \texttt{rethomics} framework, 
+a suite of \texttt{R} packages that altogether offers utilities to work through all data manipulation stage:
 import, store, analyse and visualise behavioural data.
 In this article, we describe it and show an example of its application to the study of circadian rhythms and blooming field of sleep fruit flies.
 The \texttt{rethomics} framework is available and documented at \href{https://rethomics.github.io}{https://rethomics.github.io}.
-
 
 
 \listoftodos
@@ -166,13 +166,12 @@ The \texttt{rethomics} framework is available and documented at \href{https://re
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
-
 The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system and external or internal environments.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased.
 The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
 Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014} animals over long durations (days or weeks).
 
-The availability of large amounts of data is very exciting as it paves the way for in-depth quantitative analyses.
+The availability of large amounts of data paves the way for in-depth quantitative analyses.
 The multiplicity of model organisms, hypotheses and paradigms makes the existence of a diverse range of recording tools important.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 Instead, tools tend to consist of graphical interfaces that import data from a single platform and provide somewhat rigid functionalities \cite{gilestro_pysolo:_2009,schmid_new_2011}.
@@ -184,13 +183,14 @@ Lastly, it links analysis and visualisation to the target acquisition tool, whic
 Thankfully, behavioural data is conceptually largely agnostic of the acquisition platform and paradigm. 	
 Typically, the behaviour of each individual is described by a long time series (possibly multivariate and irregular).
 Importantly, individuals are labelled with arbitrary metadata defined by the experimenter (\emph{e.g.} sex, treatment and genotype).
-Efficiently combining and manipulating metadata and data from hundreds of individuals, each recorded for days or weeks, is not trivial.
+Efficiently combining and manipulating metadata and data from hundreds of individuals, each recorded for days or weeks, 
+is not trivial \TODO{explain why it is not trivial}.
 
 In the article herein, we describe \texttt{rethomics}, a framework that unifies analysis of behavioural dataset in an efficient and flexible manner.
 We implemented it in \texttt{R}\cite{r_core_team_r:_2017} since it is widely taught and adopted by computational biologists.
 It is also complemented with a vast ecosystem of open-source packages.
-\texttt{rethomics} offers an elegant computational solution to store, manipulate and visualise large amounts of data.
-We expect it to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural scientists.
+\texttt{rethomics} offers a computational solution to store, manipulate and visualise large amounts of data.
+We propose it as a tool to fill the gap between behavioural biology and data sciences, thus promoting collaboration between computational and behavioural scientists.
 \texttt{rethomics} comes with a extensive documentation and a set of both practical and theoretical demos and tutorials.
 
 
@@ -226,7 +226,7 @@ Therefore, the data structure must be computationally efficient -- both in term 
 Secondly, a large number of individuals are often studied (typically $n > 100$).
 Each individual ($i$) is associated with metadata: a set of $p$ ``metavariables'' that describe experimental conditions.
 For instance, metadata stores information regarding the date and location of the experiment, treatment, genotype, sex, \emph{post hoc} observations and other arbitrary metavariables.
-It is interesting to record multiple metavariables in so far as they so they can later be used as covariates. 
+It is interesting to record multiple metavariables since they can later be used as covariates. 
 Therefore, typically $p > 10$.
 
 \texttt{behavr} tables link metadata and data within the same object, extending the syntax of \texttt{data.table} to manipulate, join and access metadata (Fig~\ref{fig:fig-2}B).
@@ -234,7 +234,7 @@ This approach guarantees that any data point can be mapped correctly to its pare
 It also allows implicit update of metadata when data is altered.
 For instance, when is data filtered, only the remaining individuals should be in the new metadata. 
 It is also important that metadata and data can interoperate.
-For instance, when one wants to update variable according to the value of a metavariable (say, alter the variable $x$ only for animals with the metavariable $sex=``male"$). The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
+For instance, when one wants to update a variable according to the value of a metavariable (say, alter the variable $x$ only for animals with the metavariable $sex=``male"$). The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
 
 
 \begin{figure}[!h]
@@ -256,7 +256,7 @@ For instance, when one wants to update variable according to the value of a meta
 \end{figure}
 
 \subsection*{Data import}
-Data import package translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
+Data import packages translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
 Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor System (Trikinetics Inc.) data and another one for Ethoscope data\cite{geissmann_ethoscopes:_2017}.
 Although the structure of the raw results is very different, conceptually, loading data is very similar.
 In all cases, the user is asked to generate a metadata table (one row per individual). 
