@@ -5,14 +5,23 @@ setwd("results")
 @
 
 \section*{Results}
-In order to illustrate the workflow of \texttt{rethomics}, we provide a straightforward and simplified example which could be readily modified for more intricate cases. 
+%In order to illustrate the workflow of \texttt{rethomics}, we provide a simplified and reproducible example, which could be readily modified to suit more intricate cases.
+
+In order to illustrate the usefulness of \texttt{rethomics}, we provide two use cases examples.
+The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
+The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with an advanced case of a multi-scale analysis of a periodic behaviour using continuous wavelet transform and ethoscope data \cite{geissmann_ethoscopes:_2017}.
+
+\subsection*{Drosophila Activity Monitor}
+It uses the package \texttt{zeitgebr} which implements a suite of methods to compute autocorrelogram,
+ $\chi{}^2$\cite{sokolove_chi_1978} and Lomb-Scargle\cite{ruf_lomb-scargle_1999} periodograms, and find their peaks.
 
 The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
 Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
-We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, which was graciously made publicly available by the authors\cite{ogueta_ll_2018}.
+We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, kindly made publicly available by the authors\cite{ogueta_ll_2018}.
 Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
 In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
 and that the endogenous period in LL is longer than 24 hours.
+
 
 We took two genotypes employed in the study, one control group (NKCC\textsuperscript{ox}/+) and one where NKCC\textsuperscript{ox} is overexpressed in all clock neurons (TIM/NKCC\textsuperscript{ox}).
 In particular, we re-analysed two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six days.
@@ -36,7 +45,7 @@ dt <- load_dam(metadata)                             # loading
 summary(dt)                                           # quick summary
 @
 
-\subsection*{Preprocessing}
+\subsubsection*{Preprocessing}
 The two replicates do not have the same baseline time and we would like to express the time relative to the important event:
 the transition from LD to LL. 
 Therefore, we subtract the \texttt{baseline\_days} metavariable from the \texttt{t} variable.
@@ -56,7 +65,11 @@ summary(dt)
 
 To simplify visualisation, we create our own \texttt{label} metavariable, as the combination of a number and \texttt{genotype}.
 In the restricted context of this analysis, \texttt{label} acts as a unique identifier.
-Importantly, we keep \texttt{id}, which is more rigorous and universal.
+Importantly, we also keep \texttt{id} as an \emph{unambiguous} unique identifier.
+Indeed, two animals in different experiments may have the same label, but different \texttt{id}s.
+in addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id},
+which could lead to confusion.
+
 
 
 
@@ -66,7 +79,7 @@ print(dt)
 @
 
 
-\subsection*{Curation}
+\subsubsection*{Curation}
 It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
 
 \begin{figure}[!h]
@@ -98,7 +111,7 @@ fig3A <- ggetho(dt, aes(y = label, z = moving)) +
 
 
 The activity of dead or escaped animals is falsely scored as long series of zeros (see, for instance, individual 30 and 18 in Fig~\ref{fig:fig-3}A).
-Our \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
+The \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
 
 <<cache=TRUE>>=
 # remove data after death
@@ -137,11 +150,11 @@ dt <- dt[id %in% valid_ids]
 summary(dt)
 @
 
-Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} ``valid''individuals.
+Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} `valid' individuals.
 
 
-\subsection*{Double-plotted actograms}
-``Double-plotted actograms'' are a common visualisation of periodicity and rhythmicity in circadian experiments.
+\subsubsection*{Double-plotted actograms}
+`Double-plotted actograms' are a common visualisation of periodicity and rhythmicity in circadian experiments.
 In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animal.
 A representative sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
@@ -191,7 +204,7 @@ fig4A <- fig4A + scale_y_discrete(name = "Day",
 @
 
 
-\subsection*{Periodograms}
+\subsubsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
 Several methods are implemented in \texttt{zeitbebr}: $\chi{}^2$, Lomb-Scargle, autocorrelation 
 and Fourier.
@@ -254,7 +267,7 @@ fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
 	\label{fig:fig-4}
 \end{figure}
 
-\subsection*{Population statistics}
+\subsubsection*{Population statistics}
 
 As shown in the original study, double-plotted actograms and periodograms suggest that NKCC\textsuperscript{ox}/+ flies are mostly 
 arhythmic in LL whilst Tim/NKCC\textsuperscript{ox} appear to have a consistent, long-period rhythm.
@@ -379,6 +392,61 @@ result_dt
 This example shows how \texttt{rethomics} can be used from the raw data to making publication-quality figures and statistics.
 We were able to comprehensively analyse the data from a circadian experiment with a few line of code.
 This workflow applies particularly to much larger data sets and provides a large degree of flexibility that will allow biologists to tune their analysis to their specific questions.
+
+
+\subsection*{Multi-scale analysis of position}
+
+One of the challenges of behaviour analysis is the `nesting' of events happening over different time scales.
+In other words, a behavioural variable can be modulated by the circadian rhythm, but also by co-occurring ultradian and infradian rhythms.
+For instance, an animal could have rhythmic bursts of activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian  (\emph{i.e.} 24~h) regulation of the same variable, activity.
+In this example, both rhythms happen at time scales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate in the same analysis.
+Being able to keep frequency information over multiple scales is however important in some cases.
+In particular, when interested in the frequency modulation of one rhythm by another --
+that is, if the periodicity of a high frequency rhythm itself can be driven by a lower frequency one.
+%For instance, the frequency of rhythmic activity bursts could itself be regulated by another rhythm such as the circadian rhythm.
+
+The problem of understanding time series at different scales in not uncommon in fields such as economics\cite{aguiar-conraria_business_2011}, climate sciences\cite{lau_climate_1995} and ecology\cite{cazelles_wavelet_2008} where variables are governed by multiple underlying rhythms (\emph{e.g.} tidal, daily, yearly and multi-yearly).
+One approach is to study a variable of interest in the time/period domain using, for instance, continuous wavelet transform (CWT)\cite{grossmann_decomposition_1984}. 
+
+To illustrate how this analysis can be adapted to the study of behaviour, we studied the position of 40 males and 40 virgins females in their glass tubes.
+The male data was collected from our previous study \cite{geissmann_ethoscopes:_2017} (controls in figure~5M-P).
+We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled it at 0.1 Hz.
+Our variable of interest is the position of animals in their tube (from the food end, 0,  to the cotton end, 1).
+Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for two representative animals.
+
+
+
+\begin{figure}[!h]
+	%  	\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
+	\caption{{\bf Wavelet analysis of positional data.}
+		A: Raw position data for a representative male (top) and virgin female (bottom) \emph{Drosophila} over five days, in black. 
+		The thick coloured lines show the local average position.
+		The green rectangles in the background shows the two time windows selected for B and C.
+		B: Close up of A, showing position over one hour, in the beginning of the L phase ($t \in [24, 25]h$).
+		C: Close up of A, showing position over one hour, in the middle of the L phase ($t \in [30, 31]h$).
+		D: Continuous wavelet transform spectrogram for the two representative animals.
+		E: Average spectrogram across 40 males and 40 females.
+		In D and E, the lines on the right shows the marginal power spectra corresponding to the shown spectrograms (average on the period domain).
+	}
+	\label{fig:fig-6}
+\end{figure}
+
+
+
+In order to compute CWT, we used the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp:_2018}.
+We then averaged the result of the five consecutive days in the time/period domain over one circadian day (Fig~\ref{fig:fig-6}D~and~E).
+
+As expected, we observe strong, high period (12~h and 24~h), rhythms of the position.
+In addition, a large amount of signal is detected for low period (around 60~s) events.
+This correspond to the position of animals walking along (back and forward) their tubes in a very paced manner.
+
+Interestingly, in females, this low period pace appears to be frequency modulated during the L phase, suggesting a slower walking speed around ZT6~h.
+In contrast, males shows only a high frequency rhythm around the phase transitions (L to D and D to L).
+Surprisingly, the peak of high frequency rhythm imply a faster pace in males (approximately 60~s) than in females (approximately 120~s) --
+indicating that, when active, males walk faster than females. 
+
+This non-exhaustive proof of principle illustrates how analysis of behavioural data can be taken further by adapting the wide range of numerical tools already available in the \texttt{R} ecosystem. 
+
 
 <<r, eval=TRUE, echo=FALSE, message=FALSE, result="hide",cache=TRUE, warning=FALSE>>=
 ################################ CODE BELOW FOR COSMETIC ALTERATIONS OF FIGURES

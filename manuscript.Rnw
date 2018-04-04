@@ -155,8 +155,8 @@ In the article herein, we present \texttt{rethomics}, a set of \texttt{R} packag
 %We implemented it in \texttt{R}\cite{r_core_team_r:_2017} since it is widely taught and adopted by computational biologists.
 %It is also complemented with a vast ecosystem of open-source packages.
 \texttt{rethomics} offers a computational solution to store, manipulate and visualise large amounts of behavioural data.
-We propose it as a tool to fill the gap between behavioural biology and data sciences, thus connecting computational and behavioural scientists.
-Our software comes with a extensive documentation as well as a set of both practical and theoretical tutorials (available \href{https://rethomics.github.io}{https://rethomics.github.io}).
+We propose it as a tool to breach the gap between behavioural biology and data sciences, thus connecting computational and behavioural scientists.
+Our software comes with a extensive documentation as well as a set of both practical and theoretical tutorials (available at \href{https://rethomics.github.io}{https://rethomics.github.io}).
 
 %In this article, we describe it and show an example of its application to the study of circadian rhythms and blooming field of sleep fruit flies.
 %The \texttt{rethomics} framework is available and documented at \href{https://rethomics.github.io}{https://rethomics.github.io}.
@@ -183,24 +183,24 @@ Indeed, many platforms have been developed in order to allow biologists to conti
 
 The availability of large amounts of data paves the way for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles
 and ultimately a better understanding of their underlying biology\cite{brown_study_2017,berman_measuring_2018}.
-The multiplicity of model organisms, hypotheses and paradigms makes the existence of a diverse palette of recording tools important.
+The multiplicity of model organisms, hypotheses and paradigms justifies the existence of a diverse palette of recording techniques important.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 
 Scripting interfaces are the standard in data sciences and statistics since they help delivering reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
-In addition, they can be used on remote resources such as computer clusters, which makes them more scalable to the context of `big data'\cite{hashem_rise_2015}.
-For example, the field of bioinformatics benefits from sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled to build pipelines\cite{leipzig_review_2017}.
-Since many aspect of behaviour analysis are becoming increasingly linked to data sciences, the development of common tools and data structures would be valuable to the community.
+In addition, they can be used on remote resources such as computer clusters, which makes them more scalable in the context of `big data'\cite{hashem_rise_2015}.
+The field of bioinformatics is a good example of a community that has taken advantage of sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled to build pipelines\cite{leipzig_review_2017}.
+Since many aspect of behaviour analysis are also becoming increasingly linked to data sciences, the development of such common tools and data structures would be very valuable.
 
-At first, it may seem as though behavioural experiments are prohibitively heterogeneous -- in terms of model organisms, paradigm and time scale -- for an analogous ecosystem to arise.
+At first, it may seem as though behavioural experiments are prohibitively heterogeneous -- in terms of model organisms, paradigm and time scale -- for a similar community to arise.
 However, some low-level conceptual consistencies and methodological challenges are common between experiments.
 For instance, the results (\emph{i.e.} the `data')  feature a set of long time series (sometimes multivariate and irregular), but also contain a formal description of the treatment applied to each individual, the `metadata'.
 Storing and accessing data and metadata efficiently involves the implementation of a nested data structure which, in principle,
 can be shared between acquisition platforms and experimental paradigms.
 % it broaden the scope for developing of utilities an shared principles.
 
-In the article herein, we describe the \texttt{rethomics} platform, a collection of packages offering a solution to import, store, manipulate and visualise large amounts of behavioural results
-in a data mining and statistical framework.
-We also present two examples of application of this tool to the analysis of circadian rhythm in fruit flies, a widely studied behaviour.
+In the article herein, we describe the \texttt{rethomics} platform, an effort to promote the interaction between behavioural biology and data science.
+\texttt{rethomics} is implemented as a collection of packages, altogether offering a solution to import, store, manipulate and visualise large amounts of behavioural results.
+We also present two practical examples of its application to the analysis of circadian rhythm in fruit flies, a widely studied behaviour.
 
 
 \section*{Design and Implementation}
@@ -239,7 +239,7 @@ This approach guarantees that any data point can be mapped correctly to its pare
 Furthermore, it allows implicit update of metadata when data is altered.
 For instance, when is data filtered, only the remaining individuals should be in the new metadata. 
 It is also important that metadata and data can interoperate.
-For example, when one wants to update a variable according to the value of a metavariable (say, alter the variable $x$ only for animals with the metavariable $sex=`male'$).
+For example, when one wants to update a variable according to the value of a metavariable (say, alter the variable \texttt{x} only for animals with the metavariable \texttt{sex = `male'}).
 The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
 
 
@@ -271,7 +271,7 @@ The mandatory ones are the necessary and sufficient information to fetch data (\
 The optional columns are user-defined arbitrary fields that translate experimental conditions (\emph{e.g.} treatment, genotype and sex).
 
 In this respect, the metadata file is a standardised and comprehensive data frame describing an experiment.
-It explicitly lists all treatments and individuals, which facilitates interspersion of conditions (indeed, without it, users are tempted to simplify their experimental design by, for instance, confounding device/location and treatment).
+It explicitly lists all treatments and individuals, which facilitates interspersion of conditions (without it, users are tempted to simplify their experimental design by, for instance, confounding device/location and treatment).
 Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow.
 Indeed, additional replicates can simply be added as new rows -- and the ID of the replicate later used, if needed, as a covariate.	
 
@@ -319,14 +319,14 @@ See Fig~\ref{fig:fig-4} for legend.
 
 \section*{Acknowledgements}
 We would like to thank people who have directly or indirectly contributed to the this manuscript.
-In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials.
-Maite Ogueta, for making the results data available.
+In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials;
+Maite Ogueta, for making the results data available;
 \TODO{@esteban names of the BA users}
-Alice French, Hannah Jones and Diana Bicazan for their comments as early users.
-Marcus Gosh, for his feed back on the manuscript.
-Brenna Williams, for her help to support multi-beam DAMS.
-Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework.
-\TODO{@giorgio do you think it is ok to thank Rob?} Robert Dickinson, for his support.
+Alice French, Hannah Jones and Diana Bicazan for their comments as early users;
+Marcus Gosh, for his feed back on the manuscript;
+Brenna Williams, for her help to support multi-beam DAMS;
+Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework;
+and Robert Dickinson, for his support.
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
