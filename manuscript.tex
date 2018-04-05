@@ -228,11 +228,11 @@ Our software comes with a extensive documentation as well as a set of both pract
 The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system, its internal state and its environment.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased\cite{stephens_big_2015}.
 The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
-Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014} animals over long durations (days or weeks).
+Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014,robie_mapping_2017} animals over long durations (days or weeks).
 
 The availability of large amounts of data paves the way for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles
 and ultimately a better understanding of their underlying biology\cite{brown_study_2017,berman_measuring_2018}.
-The multiplicity of model organisms, hypotheses and paradigms justifies the existence of a diverse palette of recording techniques important.
+The multiplicity of model organisms, hypotheses and paradigms justifies the existence of a diverse palette of recording techniques.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 
 Scripting interfaces are the standard in data sciences and statistics since they help delivering reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
@@ -249,7 +249,7 @@ can be shared between acquisition platforms and experimental paradigms.
 
 In the article herein, we describe the \texttt{rethomics} platform, an effort to promote the interaction between behavioural biology and data science.
 \texttt{rethomics} is implemented as a collection of packages, altogether offering a solution to import, store, manipulate and visualise large amounts of behavioural results.
-We also present two practical examples of its application to the analysis of circadian rhythm in fruit flies, a widely studied behaviour.
+We also present two practical examples of its application to the analysis of behavioural rhythm in fruit flies, a widely studied behaviour.
 
 
 \section*{Design and Implementation}
@@ -259,7 +259,7 @@ This architecture follows the model of modern frameworks such as the \texttt{tid
 In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package.
 At the core of \texttt{rethomics}, lies the \texttt{behavr} package, used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table:_2017}.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be analysed and visualised regardless of the original input platform.
-Visualisation and other results are standard objects, and can therefore be further analysed inside the wide \texttt{R} package ecosystem.
+Numerical results and plots are standard objects that can therefore be further analysed inside the wide \texttt{R} package ecosystem.
 
 % Place figure captions after the first paragraph in which they are cited.
 
@@ -284,9 +284,9 @@ For instance, metadata stores information regarding the date and location of the
 A large set of metavariables is an important asset since they can later be used as covariates. 
 
 \texttt{behavr} tables link metadata and data within the same object, extending the syntax of \texttt{data.table} to manipulate, join and access metadata (Fig~\ref{fig:fig-2}A~and~B).
-This approach guarantees that any data point can be mapped correctly to its parent metadata.
+This approach guarantees that any data point can be mapped correctly to its parent metadata thanks to a shared key (\texttt{id}).
 Furthermore, it allows implicit update of metadata when data is altered.
-For instance, when is data filtered, only the remaining individuals should be in the new metadata. 
+For instance, when data is filtered, only the remaining individuals should be in the new metadata. 
 It is also important that metadata and data can interoperate.
 For example, when one wants to update a variable according to the value of a metavariable (say, alter the variable \texttt{x} only for animals with the metavariable \texttt{sex = `male'}).
 The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
@@ -301,7 +301,7 @@ The online tutorials and documentation provide a detailed set of examples and co
 		In the data, each row is a `read' (\emph{i.e.} information about one individual at one time-point).
 		It is formed of $q$ variables and is expected to have a very large number of reads, $k$, for each individual $i$.
 		Data and metadata are implicitly joined on the \texttt{id} field.
-		Note that the names used in this for variables and metavariable in this example are only plausible cases which will likely differ in practice. 
+		Note that the names used for variables and metavariable in this example are only plausible cases which will likely differ in practice. 
 		B: Non exhaustive list of uses of a \texttt{behavr} table (referred as \texttt{dt}). 
 		In addition to operations on data, which are inherited from \texttt{data.table},
 		we provide utilities designed specifically to act on both metadata and data.  
@@ -315,12 +315,13 @@ Data import packages translate results from a recording platform (\emph{e.g.} te
 Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor System (Trikinetics Inc.) data and another one for Ethoscope data\cite{geissmann_ethoscopes:_2017}.
 Although the structure of the raw results is very different, conceptually, loading data is very similar.
 In all cases, the user is asked to generate a metadata table (one row per individual). 
-In it, there will be both mandatory and optional columns.
+In it, there will be both mandatory and optional columns (Fig~\ref{fig:fig-2}A).
 The mandatory ones are the necessary and sufficient information to fetch data (\emph{e.g.} machine id, region of interest and date). 
 The optional columns are user-defined arbitrary fields that translate experimental conditions (\emph{e.g.} treatment, genotype and sex).
 
 In this respect, the metadata file is a standardised and comprehensive data frame describing an experiment.
-It explicitly lists all treatments and individuals, which facilitates interspersion of conditions (without it, users are tempted to simplify their experimental design by, for instance, confounding device/location and treatment).
+It explicitly lists all treatments and individuals, which facilitates interspersion of conditions.
+%(without it, users are tempted to simplify their experimental design by, for instance, confounding device/location and treatment).
 Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow.
 Indeed, additional replicates can simply be added as new rows -- and the ID of the replicate later used, if needed, as a covariate.	
 
@@ -329,7 +330,7 @@ Indeed, additional replicates can simply be added as new rows -- and the ID of t
 
 To integrate visualisation in \texttt{rethomics}, we implemented \texttt{ggetho},
 a package that offers new tools that extent the widely adopted \texttt{ggplot2}\cite{wickham_ggplot2:_2016}.
-\texttt{ggetho} makes full use of the internal \texttt{behavr} structure to summarise of temporal trends.
+\texttt{ggetho} makes full use of the internal \texttt{behavr} structure to summarise temporal trends.
 We implemented a set of new `layers' and `scales' that particularly applies to the visualisation of long experiments, with the ability to, for instance, display `double-plotted actograms', periodograms, annotate light and dark phases and wrap time over a given period. 
 Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}. 
 For instance, \texttt{ggplot2} operations such as faceting, transforming axes and adding new layers will function natively with \texttt{ggetho}.
@@ -342,7 +343,7 @@ For instance, \texttt{ggplot2} operations such as faceting, transforming axes an
 
 In order to illustrate the usefulness of \texttt{rethomics}, we provide two use cases examples.
 The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
-The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with an advanced case of a multi-scale analysis of a periodic behaviour using continuous wavelet transform and ethoscope data \cite{geissmann_ethoscopes:_2017}.
+The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with the advanced case of a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes:_2017}.
 
 \subsection*{Drosophila Activity Monitor}
 It uses the package \texttt{zeitgebr} which implements a suite of methods to compute autocorrelogram,
@@ -357,10 +358,10 @@ and that the endogenous period in LL is longer than 24 hours.
 
 
 We took two genotypes employed in the study, one control group (NKCC\textsuperscript{ox}/+) and one where NKCC\textsuperscript{ox} is overexpressed in all clock neurons (TIM/NKCC\textsuperscript{ox}).
-In particular, we re-analysed two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six days.
+In particular, we re-analysed two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six or seven days.
 The \texttt{metadata.csv} file, which describes exhaustively all individuals, as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
-As a prerequisite, we downloaded the data, extracted the zip archive in our working directory.
-We start the analysis by loading the necessary rethomics packages (see availability section for installation instructions):
+As a prerequisite, we downloaded the data and extracted the zip archive in our working directory.
+We start the analysis by loading the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -431,9 +432,9 @@ It is \texttt{TRUE} when and only when \texttt{activity} is greater than zero:
 To simplify visualisation, we create our own \texttt{label} metavariable, as the combination of a number and \texttt{genotype}.
 In the restricted context of this analysis, \texttt{label} acts as a unique identifier.
 Importantly, we also keep \texttt{id} as an \emph{unambiguous} unique identifier.
-Indeed, two animals in different experiments may have the same label, but different \texttt{id}s.
-in addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id},
-which could lead to confusion.
+Indeed, two animals in separate experiments may have the same label, but different \texttt{id}s.
+in addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id}.
+%,which could lead to confusion.
 
 
 
@@ -490,7 +491,7 @@ The \texttt{sleepr} package offers a tool to detect and remove such artefactual 
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# remove data after death}
-\hlstd{dt} \hlkwb{<-} \hlstd{sleepr}\hlopt{::}\hlkwd{curate_dead_animals}\hlstd{(dt, moving)}
+\hlstd{dt} \hlkwb{<-} \hlkwd{curate_dead_animals}\hlstd{(dt, moving)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -543,8 +544,8 @@ Note that as a result, we now have 52 `valid' individuals.
 
 \subsubsection*{Double-plotted actograms}
 `Double-plotted actograms' are a common visualisation of periodicity and rhythmicity in circadian experiments.
-In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animal.
-A representative sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
+In  \nameref{S1-Fig}A, we show a double-plotted actogram for each animal.
+A selected sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -607,7 +608,7 @@ See \nameref{S1-Fig}B for the visualisation of all individuals.
 
 \begin{figure}[!h]
 %	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
-	\caption{{\bf Visualisation of the periodicity in activity of eight representative animals.}
+	\caption{{\bf Visualisation of the periodicity in activity of eight selected animals.}
 		A: Double-plotted actograms showing activity over the experiment. Transition from LD to LL happens at day 0.
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
 		The blue cross represents the first peak (if present) above the significance threshold (red line).
@@ -752,26 +753,27 @@ Lastly, we can generate a table that compute arbitrary population statistics for
 \begin{alltt}
 \hlstd{result_dt} \hlkwb{<-} \hlstd{summary_dt[,}
           \hlkwd{.}\hlstd{(}
-            \hlkwc{mean_period} \hlstd{=} \hlkwd{mean}\hlstd{(first_peak_period,} \hlkwc{na.rm} \hlstd{= T)} \hlopt{/} \hlkwd{hours}\hlstd{(}\hlnum{1}\hlstd{),}
-            \hlkwc{sd_period} \hlstd{=} \hlkwd{sd}\hlstd{(first_peak_period,} \hlkwc{na.rm} \hlstd{= T)} \hlopt{/} \hlkwd{hours}\hlstd{(}\hlnum{1}\hlstd{),}
+            \hlkwc{mean_period} \hlstd{=} \hlkwd{round}\hlstd{(}\hlkwd{mean}\hlstd{(first_peak_period,} \hlkwc{na.rm} \hlstd{= T)} \hlopt{/} \hlkwd{hours}\hlstd{(}\hlnum{1}\hlstd{),} \hlnum{2}\hlstd{),}
+            \hlkwc{sd_period} \hlstd{=} \hlkwd{round}\hlstd{(}\hlkwd{sd}\hlstd{(first_peak_period,} \hlkwc{na.rm} \hlstd{= T)} \hlopt{/} \hlkwd{hours}\hlstd{(}\hlnum{1}\hlstd{),} \hlnum{2}\hlstd{),}
+            \hlkwc{percent_rhythmic} \hlstd{=} \hlkwd{round}\hlstd{(}\hlnum{100} \hlopt{*} \hlkwd{sum}\hlstd{(is_rhythmic)} \hlopt{/} \hlstd{.N,} \hlnum{2}\hlstd{),}
             \hlkwc{n_rhythmic} \hlstd{=} \hlkwd{sum}\hlstd{(is_rhythmic),}
-            \hlkwc{n} \hlstd{= .N,}
-            \hlkwc{percent_rhythmic} \hlstd{=} \hlnum{100} \hlopt{*} \hlkwd{sum}\hlstd{(is_rhythmic)} \hlopt{/} \hlstd{.N}
+            \hlkwc{n} \hlstd{= .N}
             \hlstd{),}
           \hlkwc{by} \hlstd{= genotype}
           \hlstd{]}
 \hlstd{result_dt}
 \end{alltt}
 \begin{verbatim}
-##      genotype mean_period sd_period n_rhythmic  n percent_rhythmic
-## 1:   NKCCOX/+    25.22500  3.598495          4 22         18.18182
-## 2: Tim/NKCCOX    26.21429  2.363568         28 30         93.33333
+##      genotype mean_period sd_period percent_rhythmic n_rhythmic  n
+## 1:   NKCCOX/+       25.23      3.60            18.18          4 22
+## 2: Tim/NKCCOX       26.21      2.36            93.33         28 30
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
+
 This example shows how \texttt{rethomics} can be used from the raw data to making publication-quality figures and statistics.
-We were able to comprehensively analyse the data from a circadian experiment with a few line of code.
+We were able to comprehensively analyse the data from a circadian experiment with a few lines of code.
 This workflow applies particularly to much larger data sets and provides a large degree of flexibility that will allow biologists to tune their analysis to their specific questions.
 
 
@@ -779,19 +781,20 @@ This workflow applies particularly to much larger data sets and provides a large
 
 One of the challenges of behaviour analysis is the `nesting' of events happening over different time scales.
 In other words, a behavioural variable can be modulated by the circadian rhythm, but also by co-occurring ultradian and infradian rhythms.
-For instance, an animal could have rhythmic bursts of activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian  (\emph{i.e.} 24~h) regulation of the same variable, activity.
+For instance, an animal could have rhythmic bursts of locomotor activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian  (\emph{i.e.} 24~h) regulation of the same variable.
 In this example, both rhythms happen at time scales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate in the same analysis.
 Being able to keep frequency information over multiple scales is however important in some cases.
 In particular, when interested in the frequency modulation of one rhythm by another --
-that is, if the periodicity of a high frequency rhythm itself can be driven by a lower frequency one.
+that is, if the periodicity of a high frequency rhythm itself can be function of a lower frequency one.
 %For instance, the frequency of rhythmic activity bursts could itself be regulated by another rhythm such as the circadian rhythm.
 
 The problem of understanding time series at different scales in not uncommon in fields such as economics\cite{aguiar-conraria_business_2011}, climate sciences\cite{lau_climate_1995} and ecology\cite{cazelles_wavelet_2008} where variables are governed by multiple underlying rhythms (\emph{e.g.} tidal, daily, yearly and multi-yearly).
-One approach is to study a variable of interest in the time/period domain using, for instance, continuous wavelet transform (CWT)\cite{grossmann_decomposition_1984}. 
+One approach is to study a variable of interest in the time/period domain using, for instance, continuous wavelet transform (CWT)\cite{grossmann_decomposition_1984}.
+In the context of chronobiology, CWT has been suggested as a tool to investigate ultradian rhythms \cite{leise_wavelet_2013}.
 
-To illustrate how this analysis can be adapted to the study of behaviour, we studied the position of 40 males and 40 virgins females in their glass tubes.
-The male data was collected from our previous study \cite{geissmann_ethoscopes:_2017} (controls in figure~5M-P).
-We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled it at 0.1 Hz.
+To illustrate how \texttt{rethomic} integrates with other packages to render type of less traditional analysis possible,
+we performed a wavelet analysis of the position of 80 naive fruit flies (40 females and 40 males) in their glass tubes.
+We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled at 0.1 Hz.
 Our variable of interest is the position of animals in their tube (from the food end, 0,  to the cotton end, 1).
 Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for two representative animals.
 
@@ -800,14 +803,15 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 \begin{figure}[!h]
 	%  	\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
 	\caption{{\bf Wavelet analysis of positional data.}
-		A: Raw position data for a representative male (top) and virgin female (bottom) \emph{Drosophila} over five days, in black. 
-		The thick coloured lines show the local average position.
+		A: Raw position data for a representative female (top) and male (bottom) \emph{Drosophila} over five days, in black. 
+		The thick coloured lines show the average position every two.
 		The green rectangles in the background shows the two time windows selected for B and C.
-		B: Close up of A, showing position over one hour, in the beginning of the L phase ($t \in [24, 25]h$).
-		C: Close up of A, showing position over one hour, in the middle of the L phase ($t \in [30, 31]h$).
+		B: Close up of A, showing position over one hour, in the beginning of the L phase of day 1.
+		C: Close up of A, showing position over one hour, in the middle of the L phase of day 1.
 		D: Continuous wavelet transform spectrogram for the two representative animals.
 		E: Average spectrogram across 40 males and 40 females.
-		In D and E, the lines on the right shows the marginal power spectra corresponding to the shown spectrograms (average on the period domain).
+		In D and E, the lines on the right shows the marginal power spectra corresponding to the shown spectrograms (average across all time).
+		The male data was collected and described in our previous study \cite{geissmann_ethoscopes:_2017} (controls in figure~5M-P) and the females data was acquired in parallel, in the same experimental conditions, but not previously published.
 	}
 	\label{fig:fig-6}
 \end{figure}
@@ -815,9 +819,10 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 
 
 In order to compute CWT, we used the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp:_2018}.
-We then averaged the result of the five consecutive days in the time/period domain over one circadian day (Fig~\ref{fig:fig-6}D~and~E).
+We then averaged the result of the five consecutive days in the time/period domain over one circadian day both for the two representative animals (Fig~\ref{fig:fig-6}D)
+and for the population(Fig~\ref{fig:fig-6}E).
 
-As expected, we observe strong, high period (12~h and 24~h), rhythms of the position.
+As suggested by the slow oscilations of the mean position (Fig~\ref{fig:fig-6}A), we observe strong, high period (12~h and 24~h), rhythms.
 In addition, a large amount of signal is detected for low period (around 60~s) events.
 This correspond to the position of animals walking along (back and forward) their tubes in a very paced manner.
 
@@ -849,7 +854,7 @@ All packages are continuously integrated and unit tested on several version of \
 
 Several users, in different research groups, have already adopted and are contributing to the future development framework.
 Several new packages in the \texttt{rethomics} framework are currently envisaged. 
-They include utilities to input new behaviour tracking methods and analyse position and multi-animal interactions.
+They include utilities to input new behaviour tracking methods and analyse multi-animal interactions.
 
 \section*{Supporting information}
 
@@ -863,9 +868,8 @@ See Fig~\ref{fig:fig-4} for legend.
 \section*{Acknowledgements}
 We would like to thank people who have directly or indirectly contributed to the this manuscript.
 In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials;
-Maite Ogueta, for making the results data available;
-\TODO{@esteban names of the BA users}
-Alice French, Hannah Jones and Diana Bicazan for their comments as early users;
+Maite Ogueta, for making the DAMS results data available;
+Alice French, Hannah Jones, Diana Bicazan and Florencia Fernandez-Chiappe for their comments as early users;
 Marcus Gosh, for his feed back on the manuscript;
 Brenna Williams, for her help to support multi-beam DAMS;
 Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework;

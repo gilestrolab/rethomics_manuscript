@@ -14,7 +14,7 @@
    viewBox="0 0 304.79999 110.5059"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:version="0.92.2 2405546, 2018-03-11"
    sodipodi:docname="fig-1.svg"
    inkscape:export-filename="/home/quentin/comput/rethomics/rethomics.github.io/assets/framework.png"
    inkscape:export-xdpi="61.66346"
@@ -369,17 +369,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.2996365"
-     inkscape:cx="1353.4062"
-     inkscape:cy="-172.37791"
+     inkscape:zoom="1.695"
+     inkscape:cx="345.7232"
+     inkscape:cy="239.56063"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g1206"
      showgrid="false"
      units="in"
-     inkscape:window-width="1920"
-     inkscape:window-height="1050"
-     inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-width="1080"
+     inkscape:window-height="1920"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -393,7 +393,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -830,7 +830,7 @@
            id="tspan5884"
            x="10.489849"
            y="300.54034"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.52604914px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';stroke-width:0.10196952px">...</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.52604914px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono';stroke-width:0.10196952px;fill:#0000ff;fill-opacity:1">...</tspan></text>
       <path
          style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.15618992;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.46856972, 1.15618991;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
          d="m -6.4003006,306.23752 c 0,0 47.1202846,-4.07878 47.1202846,-4.07878"

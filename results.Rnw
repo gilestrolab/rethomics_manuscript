@@ -9,7 +9,7 @@ setwd("results")
 
 In order to illustrate the usefulness of \texttt{rethomics}, we provide two use cases examples.
 The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
-The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with an advanced case of a multi-scale analysis of a periodic behaviour using continuous wavelet transform and ethoscope data \cite{geissmann_ethoscopes:_2017}.
+The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with the advanced case of a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes:_2017}.
 
 \subsection*{Drosophila Activity Monitor}
 It uses the package \texttt{zeitgebr} which implements a suite of methods to compute autocorrelogram,
@@ -24,10 +24,10 @@ and that the endogenous period in LL is longer than 24 hours.
 
 
 We took two genotypes employed in the study, one control group (NKCC\textsuperscript{ox}/+) and one where NKCC\textsuperscript{ox} is overexpressed in all clock neurons (TIM/NKCC\textsuperscript{ox}).
-In particular, we re-analysed two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six days.
+In particular, we re-analysed two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six or seven days.
 The \texttt{metadata.csv} file, which describes exhaustively all individuals, as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
-As a prerequisite, we downloaded the data, extracted the zip archive in our working directory.
-We start the analysis by loading the necessary rethomics packages (see availability section for installation instructions):
+As a prerequisite, we downloaded the data and extracted the zip archive in our working directory.
+We start the analysis by loading the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
 
 <<message=FALSE>>=
 library(damr)      # input DAM data
@@ -66,9 +66,9 @@ summary(dt)
 To simplify visualisation, we create our own \texttt{label} metavariable, as the combination of a number and \texttt{genotype}.
 In the restricted context of this analysis, \texttt{label} acts as a unique identifier.
 Importantly, we also keep \texttt{id} as an \emph{unambiguous} unique identifier.
-Indeed, two animals in different experiments may have the same label, but different \texttt{id}s.
-in addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id},
-which could lead to confusion.
+Indeed, two animals in separate experiments may have the same label, but different \texttt{id}s.
+in addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id}.
+%,which could lead to confusion.
 
 
 
@@ -115,7 +115,7 @@ The \texttt{sleepr} package offers a tool to detect and remove such artefactual 
 
 <<cache=TRUE>>=
 # remove data after death
-dt <- sleepr::curate_dead_animals(dt, moving)
+dt <- curate_dead_animals(dt, moving)
 @
 
 
@@ -155,8 +155,8 @@ Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} `valid' individuals.
 
 \subsubsection*{Double-plotted actograms}
 `Double-plotted actograms' are a common visualisation of periodicity and rhythmicity in circadian experiments.
-In  \nameref{S1-Fig}A, we show the double-plotted actograms of each animal.
-A representative sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
+In  \nameref{S1-Fig}A, we show a double-plotted actogram for each animal.
+A selected sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
 <<cache=TRUE, warning=FALSE, result="hide", message=FALSE>>=
 # we also show a subset of this figure in 4A
@@ -257,7 +257,7 @@ fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
 
 \begin{figure}[!h]
 %	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
-	\caption{{\bf Visualisation of the periodicity in activity of eight representative animals.}
+	\caption{{\bf Visualisation of the periodicity in activity of eight selected animals.}
 		A: Double-plotted actograms showing activity over the experiment. Transition from LD to LL happens at day 0.
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
 		The blue cross represents the first peak (if present) above the significance threshold (red line).
@@ -378,19 +378,20 @@ Lastly, we can generate a table that compute arbitrary population statistics for
 <<warning=FALSE>>=
 result_dt <- summary_dt[,
           .(
-            mean_period = mean(first_peak_period, na.rm = T) / hours(1),
-            sd_period = sd(first_peak_period, na.rm = T) / hours(1),
+            mean_period = round(mean(first_peak_period, na.rm = T) / hours(1), 2),
+            sd_period = round(sd(first_peak_period, na.rm = T) / hours(1), 2),
+            percent_rhythmic = round(100 * sum(is_rhythmic) / .N, 2),
             n_rhythmic = sum(is_rhythmic),
-            n = .N,
-            percent_rhythmic = 100 * sum(is_rhythmic) / .N
+            n = .N
             ),
           by = genotype
           ]
 result_dt
 @
 
+
 This example shows how \texttt{rethomics} can be used from the raw data to making publication-quality figures and statistics.
-We were able to comprehensively analyse the data from a circadian experiment with a few line of code.
+We were able to comprehensively analyse the data from a circadian experiment with a few lines of code.
 This workflow applies particularly to much larger data sets and provides a large degree of flexibility that will allow biologists to tune their analysis to their specific questions.
 
 
@@ -398,19 +399,20 @@ This workflow applies particularly to much larger data sets and provides a large
 
 One of the challenges of behaviour analysis is the `nesting' of events happening over different time scales.
 In other words, a behavioural variable can be modulated by the circadian rhythm, but also by co-occurring ultradian and infradian rhythms.
-For instance, an animal could have rhythmic bursts of activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian  (\emph{i.e.} 24~h) regulation of the same variable, activity.
+For instance, an animal could have rhythmic bursts of locomotor activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian  (\emph{i.e.} 24~h) regulation of the same variable.
 In this example, both rhythms happen at time scales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate in the same analysis.
 Being able to keep frequency information over multiple scales is however important in some cases.
 In particular, when interested in the frequency modulation of one rhythm by another --
-that is, if the periodicity of a high frequency rhythm itself can be driven by a lower frequency one.
+that is, if the periodicity of a high frequency rhythm itself can be function of a lower frequency one.
 %For instance, the frequency of rhythmic activity bursts could itself be regulated by another rhythm such as the circadian rhythm.
 
 The problem of understanding time series at different scales in not uncommon in fields such as economics\cite{aguiar-conraria_business_2011}, climate sciences\cite{lau_climate_1995} and ecology\cite{cazelles_wavelet_2008} where variables are governed by multiple underlying rhythms (\emph{e.g.} tidal, daily, yearly and multi-yearly).
-One approach is to study a variable of interest in the time/period domain using, for instance, continuous wavelet transform (CWT)\cite{grossmann_decomposition_1984}. 
+One approach is to study a variable of interest in the time/period domain using, for instance, continuous wavelet transform (CWT)\cite{grossmann_decomposition_1984}.
+In the context of chronobiology, CWT has been suggested as a tool to investigate ultradian rhythms \cite{leise_wavelet_2013}.
 
-To illustrate how this analysis can be adapted to the study of behaviour, we studied the position of 40 males and 40 virgins females in their glass tubes.
-The male data was collected from our previous study \cite{geissmann_ethoscopes:_2017} (controls in figure~5M-P).
-We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled it at 0.1 Hz.
+To illustrate how \texttt{rethomic} integrates with other packages to render type of less traditional analysis possible,
+we performed a wavelet analysis of the position of 80 naive fruit flies (40 females and 40 males) in their glass tubes.
+We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled at 0.1 Hz.
 Our variable of interest is the position of animals in their tube (from the food end, 0,  to the cotton end, 1).
 Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for two representative animals.
 
@@ -419,14 +421,15 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 \begin{figure}[!h]
 	%  	\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
 	\caption{{\bf Wavelet analysis of positional data.}
-		A: Raw position data for a representative male (top) and virgin female (bottom) \emph{Drosophila} over five days, in black. 
-		The thick coloured lines show the local average position.
+		A: Raw position data for a representative female (top) and male (bottom) \emph{Drosophila} over five days, in black. 
+		The thick coloured lines show the average position every two.
 		The green rectangles in the background shows the two time windows selected for B and C.
-		B: Close up of A, showing position over one hour, in the beginning of the L phase ($t \in [24, 25]h$).
-		C: Close up of A, showing position over one hour, in the middle of the L phase ($t \in [30, 31]h$).
+		B: Close up of A, showing position over one hour, in the beginning of the L phase of day 1.
+		C: Close up of A, showing position over one hour, in the middle of the L phase of day 1.
 		D: Continuous wavelet transform spectrogram for the two representative animals.
 		E: Average spectrogram across 40 males and 40 females.
-		In D and E, the lines on the right shows the marginal power spectra corresponding to the shown spectrograms (average on the period domain).
+		In D and E, the lines on the right shows the marginal power spectra corresponding to the shown spectrograms (average across all time).
+		The male data was collected and described in our previous study \cite{geissmann_ethoscopes:_2017} (controls in figure~5M-P) and the females data was acquired in parallel, in the same experimental conditions, but not previously published.
 	}
 	\label{fig:fig-6}
 \end{figure}
@@ -434,9 +437,10 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 
 
 In order to compute CWT, we used the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp:_2018}.
-We then averaged the result of the five consecutive days in the time/period domain over one circadian day (Fig~\ref{fig:fig-6}D~and~E).
+We then averaged the result of the five consecutive days in the time/period domain over one circadian day both for the two representative animals (Fig~\ref{fig:fig-6}D)
+and for the population(Fig~\ref{fig:fig-6}E).
 
-As expected, we observe strong, high period (12~h and 24~h), rhythms of the position.
+As suggested by the slow oscilations of the mean position (Fig~\ref{fig:fig-6}A), we observe strong, high period (12~h and 24~h), rhythms.
 In addition, a large amount of signal is detected for low period (around 60~s) events.
 This correspond to the position of animals walking along (back and forward) their tubes in a very paced manner.
 

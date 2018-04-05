@@ -179,11 +179,11 @@ Our software comes with a extensive documentation as well as a set of both pract
 The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system, its internal state and its environment.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased\cite{stephens_big_2015}.
 The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
-Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014} animals over long durations (days or weeks).
+Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014,robie_mapping_2017} animals over long durations (days or weeks).
 
 The availability of large amounts of data paves the way for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles
 and ultimately a better understanding of their underlying biology\cite{brown_study_2017,berman_measuring_2018}.
-The multiplicity of model organisms, hypotheses and paradigms justifies the existence of a diverse palette of recording techniques important.
+The multiplicity of model organisms, hypotheses and paradigms justifies the existence of a diverse palette of recording techniques.
 However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
 
 Scripting interfaces are the standard in data sciences and statistics since they help delivering reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
@@ -200,7 +200,7 @@ can be shared between acquisition platforms and experimental paradigms.
 
 In the article herein, we describe the \texttt{rethomics} platform, an effort to promote the interaction between behavioural biology and data science.
 \texttt{rethomics} is implemented as a collection of packages, altogether offering a solution to import, store, manipulate and visualise large amounts of behavioural results.
-We also present two practical examples of its application to the analysis of circadian rhythm in fruit flies, a widely studied behaviour.
+We also present two practical examples of its application to the analysis of behavioural rhythm in fruit flies, a widely studied behaviour.
 
 
 \section*{Design and Implementation}
@@ -210,7 +210,7 @@ This architecture follows the model of modern frameworks such as the \texttt{tid
 In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package.
 At the core of \texttt{rethomics}, lies the \texttt{behavr} package, used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table:_2017}.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be analysed and visualised regardless of the original input platform.
-Visualisation and other results are standard objects, and can therefore be further analysed inside the wide \texttt{R} package ecosystem.
+Numerical results and plots are standard objects that can therefore be further analysed inside the wide \texttt{R} package ecosystem.
 
 % Place figure captions after the first paragraph in which they are cited.
 
@@ -235,9 +235,9 @@ For instance, metadata stores information regarding the date and location of the
 A large set of metavariables is an important asset since they can later be used as covariates. 
 
 \texttt{behavr} tables link metadata and data within the same object, extending the syntax of \texttt{data.table} to manipulate, join and access metadata (Fig~\ref{fig:fig-2}A~and~B).
-This approach guarantees that any data point can be mapped correctly to its parent metadata.
+This approach guarantees that any data point can be mapped correctly to its parent metadata thanks to a shared key (\texttt{id}).
 Furthermore, it allows implicit update of metadata when data is altered.
-For instance, when is data filtered, only the remaining individuals should be in the new metadata. 
+For instance, when data is filtered, only the remaining individuals should be in the new metadata. 
 It is also important that metadata and data can interoperate.
 For example, when one wants to update a variable according to the value of a metavariable (say, alter the variable \texttt{x} only for animals with the metavariable \texttt{sex = `male'}).
 The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
@@ -252,7 +252,7 @@ The online tutorials and documentation provide a detailed set of examples and co
 		In the data, each row is a `read' (\emph{i.e.} information about one individual at one time-point).
 		It is formed of $q$ variables and is expected to have a very large number of reads, $k$, for each individual $i$.
 		Data and metadata are implicitly joined on the \texttt{id} field.
-		Note that the names used in this for variables and metavariable in this example are only plausible cases which will likely differ in practice. 
+		Note that the names used for variables and metavariable in this example are only plausible cases which will likely differ in practice. 
 		B: Non exhaustive list of uses of a \texttt{behavr} table (referred as \texttt{dt}). 
 		In addition to operations on data, which are inherited from \texttt{data.table},
 		we provide utilities designed specifically to act on both metadata and data.  
@@ -266,12 +266,13 @@ Data import packages translate results from a recording platform (\emph{e.g.} te
 Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor System (Trikinetics Inc.) data and another one for Ethoscope data\cite{geissmann_ethoscopes:_2017}.
 Although the structure of the raw results is very different, conceptually, loading data is very similar.
 In all cases, the user is asked to generate a metadata table (one row per individual). 
-In it, there will be both mandatory and optional columns.
+In it, there will be both mandatory and optional columns (Fig~\ref{fig:fig-2}A).
 The mandatory ones are the necessary and sufficient information to fetch data (\emph{e.g.} machine id, region of interest and date). 
 The optional columns are user-defined arbitrary fields that translate experimental conditions (\emph{e.g.} treatment, genotype and sex).
 
 In this respect, the metadata file is a standardised and comprehensive data frame describing an experiment.
-It explicitly lists all treatments and individuals, which facilitates interspersion of conditions (without it, users are tempted to simplify their experimental design by, for instance, confounding device/location and treatment).
+It explicitly lists all treatments and individuals, which facilitates interspersion of conditions.
+%(without it, users are tempted to simplify their experimental design by, for instance, confounding device/location and treatment).
 Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow.
 Indeed, additional replicates can simply be added as new rows -- and the ID of the replicate later used, if needed, as a covariate.	
 
@@ -280,7 +281,7 @@ Indeed, additional replicates can simply be added as new rows -- and the ID of t
 
 To integrate visualisation in \texttt{rethomics}, we implemented \texttt{ggetho},
 a package that offers new tools that extent the widely adopted \texttt{ggplot2}\cite{wickham_ggplot2:_2016}.
-\texttt{ggetho} makes full use of the internal \texttt{behavr} structure to summarise of temporal trends.
+\texttt{ggetho} makes full use of the internal \texttt{behavr} structure to summarise temporal trends.
 We implemented a set of new `layers' and `scales' that particularly applies to the visualisation of long experiments, with the ability to, for instance, display `double-plotted actograms', periodograms, annotate light and dark phases and wrap time over a given period. 
 Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}. 
 For instance, \texttt{ggplot2} operations such as faceting, transforming axes and adding new layers will function natively with \texttt{ggetho}.
@@ -306,7 +307,7 @@ All packages are continuously integrated and unit tested on several version of \
 
 Several users, in different research groups, have already adopted and are contributing to the future development framework.
 Several new packages in the \texttt{rethomics} framework are currently envisaged. 
-They include utilities to input new behaviour tracking methods and analyse position and multi-animal interactions.
+They include utilities to input new behaviour tracking methods and analyse multi-animal interactions.
 
 \section*{Supporting information}
 
@@ -320,9 +321,8 @@ See Fig~\ref{fig:fig-4} for legend.
 \section*{Acknowledgements}
 We would like to thank people who have directly or indirectly contributed to the this manuscript.
 In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials;
-Maite Ogueta, for making the results data available;
-\TODO{@esteban names of the BA users}
-Alice French, Hannah Jones and Diana Bicazan for their comments as early users;
+Maite Ogueta, for making the DAMS results data available;
+Alice French, Hannah Jones, Diana Bicazan and Florencia Fernandez-Chiappe for their comments as early users;
 Marcus Gosh, for his feed back on the manuscript;
 Brenna Williams, for her help to support multi-beam DAMS;
 Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework;
