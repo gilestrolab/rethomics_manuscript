@@ -179,7 +179,7 @@ Our software comes with a extensive documentation as well as a set of both pract
 The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system, its internal state and its environment.
 In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased\cite{stephens_big_2015}.
 The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
-Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic:_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker:_2014,robie_mapping_2017} animals over long durations (days or weeks).
+Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker_2014,robie_mapping_2017} animals over long durations (days or weeks).
 
 The availability of large amounts of data paves the way for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles
 and ultimately a better understanding of their underlying biology\cite{brown_study_2017,berman_measuring_2018}.
@@ -188,11 +188,11 @@ However, when it comes to the subsequent processing of the results, there is no 
 
 Scripting interfaces are the standard in data sciences and statistics since they help delivering reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
 In addition, they can be used on remote resources such as computer clusters, which makes them more scalable in the context of `big data'\cite{hashem_rise_2015}.
-The field of bioinformatics is a good example of a community that has taken advantage of sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled to build pipelines\cite{leipzig_review_2017}.
+The field of bioinformatics is a good example of a community that has taken advantage of sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled into pipelines\cite{leipzig_review_2017}.
 Since many aspect of behaviour analysis are also becoming increasingly linked to data sciences, the development of such common tools and data structures would be very valuable.
 
 At first, it may seem as though behavioural experiments are prohibitively heterogeneous -- in terms of model organisms, paradigm and time scale -- for a similar community to arise.
-However, some low-level conceptual consistencies and methodological challenges are common between experiments.
+However, some low-level conceptual consistencies and methodological challenges are common across experiments.
 For instance, the results (\emph{i.e.} the `data')  feature a set of long time series (sometimes multivariate and irregular), but also contain a formal description of the treatment applied to each individual, the `metadata'.
 Storing and accessing data and metadata efficiently involves the implementation of a nested data structure which, in principle,
 can be shared between acquisition platforms and experimental paradigms.
@@ -200,15 +200,15 @@ can be shared between acquisition platforms and experimental paradigms.
 
 In the article herein, we describe the \texttt{rethomics} platform, an effort to promote the interaction between behavioural biology and data science.
 \texttt{rethomics} is implemented as a collection of packages, altogether offering a solution to import, store, manipulate and visualise large amounts of behavioural results.
-We also present two practical examples of its application to the analysis of behavioural rhythm in fruit flies, a widely studied behaviour.
+We also present two practical examples of its application to the analysis of behavioural rhythm in fruit flies, a widely studied subject.
 
 
 \section*{Design and Implementation}
-\texttt{rethomics} is implemented in \texttt{R}\cite{r_core_team_r:_2017}, which is widely taught and adopted by computational biologists,
+\texttt{rethomics} is implemented in \texttt{R}\cite{r_core_team_r_2017}, which is widely taught and adopted by computational biologists,
 as a collection of packages (Fig~\ref{fig:fig-1}).
-This architecture follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse:_2017}, which results in increased testability and maintainability.
+This architecture follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse_2017}, which results in increased testability and maintainability.
 In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package.
-At the core of \texttt{rethomics}, lies the \texttt{behavr} package, used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table:_2017}.
+At the core of \texttt{rethomics}, lies the \texttt{behavr} package, used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table_2017}.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be analysed and visualised regardless of the original input platform.
 Numerical results and plots are standard objects that can therefore be further analysed inside the wide \texttt{R} package ecosystem.
 
@@ -228,7 +228,7 @@ Numerical results and plots are standard objects that can therefore be further a
 
 Ethomics results can easily scale and data structure therefore gains from being computationally efficient – both in term of memory footprint and processing speed.
 For instance, there could be very long time series, sampled several times per second, over multiple days, for each individual. %(typically, $k_i > 10^8, \forall i \in [1,n]$) 
-In addition, time series can be multivariate, encoding coordinates, orientation, dimensions, activity, colour intensity and so on.
+In addition, time series can be multivariate -- encoding coordinates, orientation, dimensions, activity, colour intensity and so on.
 Furthermore, experiments may  feature a large number of individuals. %(typically $n > 100$).
 Each individual is also associated with some metadata: a set of `metavariables' that describe experimental conditions.
 For instance, metadata stores information regarding the date and location of the experiment, treatment, genotype, sex, \emph{post hoc} observations and other arbitrary metavariables.
@@ -263,7 +263,7 @@ The online tutorials and documentation provide a detailed set of examples and co
 
 \subsection*{Data import}
 Data import packages translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
-Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor System (Trikinetics Inc.) data and another one for Ethoscope data\cite{geissmann_ethoscopes:_2017}.
+Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor System (Trikinetics Inc.) data and another one for Ethoscope data\cite{geissmann_ethoscopes_2017}.
 Although the structure of the raw results is very different, conceptually, loading data is very similar.
 In all cases, the user is asked to generate a metadata table (one row per individual). 
 In it, there will be both mandatory and optional columns (Fig~\ref{fig:fig-2}A).
@@ -280,7 +280,7 @@ Indeed, additional replicates can simply be added as new rows -- and the ID of t
 \subsection*{Visualisation}
 
 To integrate visualisation in \texttt{rethomics}, we implemented \texttt{ggetho},
-a package that offers new tools that extent the widely adopted \texttt{ggplot2}\cite{wickham_ggplot2:_2016}.
+a package that offers new tools that extent the widely adopted \texttt{ggplot2}\cite{wickham_ggplot2_2016}.
 \texttt{ggetho} makes full use of the internal \texttt{behavr} structure to summarise temporal trends.
 We implemented a set of new `layers' and `scales' that particularly applies to the visualisation of long experiments, with the ability to, for instance, display `double-plotted actograms', periodograms, annotate light and dark phases and wrap time over a given period. 
 Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}. 
@@ -303,7 +303,7 @@ All packages in the \texttt{rethomics} framework are available under the terms o
 \href{https://github.com/rethomics}{https://github.com/rethomics/}.
 Extensive installation instructions as well as reproducible demos and tutorials are available at
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
-All packages are continuously integrated and unit tested on several version of \texttt{R} to minimise the risk of present and future issues.
+All packages are continuously integrated and unit tested on several versions of \texttt{R} to minimise the risk of present and future issues.
 
 Several users, in different research groups, have already adopted and are contributing to the future development framework.
 Several new packages in the \texttt{rethomics} framework are currently envisaged. 

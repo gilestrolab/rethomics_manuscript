@@ -9,7 +9,7 @@ setwd("results")
 
 In order to illustrate the usefulness of \texttt{rethomics}, we provide two use cases examples.
 The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
-The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with the advanced case of a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes:_2017}.
+The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with the advanced case of a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
 
 \subsection*{Drosophila Activity Monitor}
 It uses the package \texttt{zeitgebr} which implements a suite of methods to compute autocorrelogram,
@@ -402,7 +402,7 @@ In other words, a behavioural variable can be modulated by the circadian rhythm,
 For instance, an animal could have rhythmic bursts of locomotor activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian  (\emph{i.e.} 24~h) regulation of the same variable.
 In this example, both rhythms happen at time scales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate in the same analysis.
 Being able to keep frequency information over multiple scales is however important in some cases.
-In particular, when interested in the frequency modulation of one rhythm by another --
+In particular, when interested in the frequency modulation of a rhythm by another --
 that is, if the periodicity of a high frequency rhythm itself can be function of a lower frequency one.
 %For instance, the frequency of rhythmic activity bursts could itself be regulated by another rhythm such as the circadian rhythm.
 
@@ -410,9 +410,9 @@ The problem of understanding time series at different scales in not uncommon in 
 One approach is to study a variable of interest in the time/period domain using, for instance, continuous wavelet transform (CWT)\cite{grossmann_decomposition_1984}.
 In the context of chronobiology, CWT has been suggested as a tool to investigate ultradian rhythms \cite{leise_wavelet_2013}.
 
-To illustrate how \texttt{rethomic} integrates with other packages to render type of less traditional analysis possible,
+To illustrate how \texttt{rethomic} integrates with other packages and render such non-mainstream analysis possible,
 we performed a wavelet analysis of the position of 80 naive fruit flies (40 females and 40 males) in their glass tubes.
-We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled at 0.1 Hz.
+We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled at 0.1~Hz.
 Our variable of interest is the position of animals in their tube (from the food end, 0,  to the cotton end, 1).
 Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for two representative animals.
 
@@ -422,21 +422,21 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 	%  	\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
 	\caption{{\bf Wavelet analysis of positional data.}
 		A: Raw position data for a representative female (top) and male (bottom) \emph{Drosophila} over five days, in black. 
-		The thick coloured lines show the average position every two.
+		The thick coloured lines show the average position every two hours.
 		The green rectangles in the background shows the two time windows selected for B and C.
 		B: Close up of A, showing position over one hour, in the beginning of the L phase of day 1.
 		C: Close up of A, showing position over one hour, in the middle of the L phase of day 1.
 		D: Continuous wavelet transform spectrogram for the two representative animals.
 		E: Average spectrogram across 40 males and 40 females.
 		In D and E, the lines on the right shows the marginal power spectra corresponding to the shown spectrograms (average across all time).
-		The male data was collected and described in our previous study \cite{geissmann_ethoscopes:_2017} (controls in figure~5M-P) and the females data was acquired in parallel, in the same experimental conditions, but not previously published.
+		The male data was collected and described in our previous study \cite{geissmann_ethoscopes_2017} (controls in figure~5M-P) and the females data was acquired in parallel, in the same experimental conditions, but not previously published.
 	}
 	\label{fig:fig-6}
 \end{figure}
 
 
 
-In order to compute CWT, we used the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp:_2018}.
+In order to compute CWT, we used the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp_2018}.
 We then averaged the result of the five consecutive days in the time/period domain over one circadian day both for the two representative animals (Fig~\ref{fig:fig-6}D)
 and for the population(Fig~\ref{fig:fig-6}E).
 
