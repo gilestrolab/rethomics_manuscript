@@ -170,8 +170,8 @@ Our software comes with a extensive documentation as well as a set of both pract
 %\section*{Author summary}
 
 % TODO revert for sumbmisson
-% \linenumbers
-\TODO{revert line numbers before submission}
+\linenumbers
+%\TODO{revert line numbers before submission}
 % TODO also embed bib
 
 % Use "Eq" instead of "Equation" for equation citations.
@@ -184,9 +184,9 @@ Indeed, many platforms have been developed in order to allow biologists to conti
 The availability of large amounts of data paves the way for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles
 and ultimately a better understanding of their underlying biology\cite{brown_study_2017,berman_measuring_2018}.
 The multiplicity of model organisms, hypotheses and paradigms justifies the existence of a diverse palette of recording techniques.
-However, when it comes to the subsequent processing of the results, there is no unified, programmatic, framework that could be used as a set of building blocks in a pipeline.
+However, when it comes to the subsequent processing of the results, there is no unified programmatic framework that could be used as a set of building blocks in a pipeline.
 
-Scripting interfaces are the standard in data sciences and statistics since they help delivering reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
+Scripting interfaces are the standard in data sciences and statistics since they help to deliver reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
 In addition, they can be used on remote resources such as computer clusters, which makes them more scalable in the context of `big data'\cite{hashem_rise_2015}.
 The field of bioinformatics is a good example of a community that has taken advantage of sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled into pipelines\cite{leipzig_review_2017}.
 Since many aspect of behaviour analysis are also becoming increasingly linked to data sciences, the development of such common tools and data structures would be very valuable.
@@ -274,13 +274,13 @@ In this respect, the metadata file is a standardised and comprehensive data fram
 It explicitly lists all treatments and individuals, which facilitates interspersion of conditions.
 %(without it, users are tempted to simplify their experimental design by, for instance, confounding device/location and treatment).
 Furthermore, it streamlines the inclusion and analysis of further replicates in the same workflow.
-Indeed, additional replicates can simply be added as new rows -- and the ID of the replicate later used, if needed, as a covariate.	
+Indeed, additional replicates can simply be added as new rows -- and the \texttt{id} of the replicate later used, if needed, as a covariate.	
 
 
 \subsection*{Visualisation}
 
 To integrate visualisation in \texttt{rethomics}, we implemented \texttt{ggetho},
-a package that offers new tools that extent the widely adopted \texttt{ggplot2}\cite{wickham_ggplot2_2016}.
+a package that offers new tools that extend the widely adopted \texttt{ggplot2}\cite{wickham_ggplot2_2016}.
 \texttt{ggetho} makes full use of the internal \texttt{behavr} structure to summarise temporal trends.
 We implemented a set of new `layers' and `scales' that particularly applies to the visualisation of long experiments, with the ability to, for instance, display `double-plotted actograms', periodograms, annotate light and dark phases and wrap time over a given period. 
 Importantly, \texttt{ggetho} is fully compatible with \texttt{ggplot2}. 
@@ -323,7 +323,7 @@ We would like to thank people who have directly or indirectly contributed to the
 In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials;
 Maite Ogueta, for making the DAMS results data available;
 Alice French, Hannah Jones, Diana Bicazan and Florencia Fernandez-Chiappe for their comments as early users;
-Marcus Gosh, for his feed back on the manuscript;
+Marcus Gosh and Tara Kane for their feed back on the manuscript;
 Brenna Williams, for her help to support multi-beam DAMS;
 Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework;
 and Robert Dickinson, for his support.

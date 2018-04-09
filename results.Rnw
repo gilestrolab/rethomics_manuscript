@@ -112,12 +112,12 @@ fig3A <- ggetho(dt, aes(y = label, z = moving)) +
 
 The activity of dead or escaped animals is falsely scored as long series of zeros (see, for instance, individual 30 and 18 in Fig~\ref{fig:fig-3}A).
 The \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
+It proceeds by detecting the first time an animal is immobile for more than 1~\% of the time (the default) for at least \texttt{time\_window} seconds and discard any subsequent data.
 
 <<cache=TRUE>>=
 # remove data after death
-dt <- curate_dead_animals(dt, moving)
+dt <- curate_dead_animals(dt, moving, time_window = days(1.5))
 @
-
 
 In addition, we can trim our data to have the same number of days across experiments and individuals.
 <<cache=TRUE>>=
@@ -358,7 +358,7 @@ fig5C <- ggplot(summary_dt, aes(y = first_peak_period,
 @
 
 
-\texttt{R} provides one of the richest statistical toolbox available, which allows users to go deeper in the analysis of the extracted variables.
+\texttt{R} provides one of the richest statistical toolboxes available, which allows users to go deeper in the analysis of the extracted variables.
 One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic \emph{vs} arhythmic flies in both genotypes.
 To address the same question, we fit a binomial generalised linear model:
 
@@ -442,7 +442,7 @@ and for the population(Fig~\ref{fig:fig-6}E).
 
 As suggested by the slow oscilations of the mean position (Fig~\ref{fig:fig-6}A), we observe strong, high period (12~h and 24~h), rhythms.
 In addition, a large amount of signal is detected for low period (around 60~s) events.
-This correspond to the position of animals walking along (back and forward) their tubes in a very paced manner.
+This corresponds to the position of animals walking along (back and forward) their tubes in a very paced manner.
 
 Interestingly, in females, this low period pace appears to be frequency modulated during the L phase, suggesting a slower walking speed around ZT6~h.
 In contrast, males shows only a high frequency rhythm around the phase transitions (L to D and D to L).
