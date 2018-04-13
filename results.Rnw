@@ -49,10 +49,9 @@ summary(dt)                                           # quick summary
 @
 
 \subsubsection*{Preprocessing}
-The two original replicates do not have the same baseline duration.
-To include them in the same analysis, we decided to express time relative to the experimental perturbation:
-the transition from LD to LL. 
-Therefore, we subtract the \texttt{baseline\_days} metavariable from the \texttt{t} variable.
+Since the two original replicates do not have the same baseline duration and we want to analyse them together,
+we align their respective times to the experimental perturbation: the transition from LD to LL ($t = 0$). 
+This is achieved by subtracting the \texttt{baseline\_days} metavariable from the \texttt{t} variable.
 This gives us an opportunity to illustrate the use \texttt{xmv()}, which expands metavariables as variables.
 In addition, we use the \texttt{data.table} syntax to create, in place, a \texttt{moving} variable.
 It is \texttt{TRUE} when \texttt{activity} is greater than zero and \texttt{FALSE} otherwise:
@@ -85,7 +84,7 @@ print(dt)
 
 
 \subsubsection*{Curation}
-It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly.
+It is important to visualise an overview of how each individual behaved and, if necessary, amend the metadata accordingly.
 For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
 
 \begin{figure}[!h]
@@ -404,7 +403,7 @@ result_dt[, lapply(.SD, function(x)
 
 
 
-The case study described so far shows how \texttt{rethomics} can be employed to generate publication-quality figures and state of the art statistics.
+The case study described so far shows how \texttt{rethomics} can be employed to generate publication-quality figures and state-of-the-art statistics.
 We were able to comprehensively analyse the data from a circadian experiment with a few lines of code,
 presenting a workflow that applies equally well to much larger datasets.
 
