@@ -376,18 +376,24 @@ The result shows a strong positive effect of genotype Tim/NKCC\textsuperscript{o
 
 Lastly, we can generate a table that compute arbitrary population statistics for each genotype:
 <<warning=FALSE>>=
-result_dt <- summary_dt[,
-          .(
-            mean_period = round(mean(first_peak_period, na.rm = T) / hours(1), 2),
-            sd_period = round(sd(first_peak_period, na.rm = T) / hours(1), 2),
-            percent_rhythmic = round(100 * sum(is_rhythmic) / .N, 2),
-            n_rhythmic = sum(is_rhythmic),
-            n = .N
-            ),
-          by = genotype
-          ]
-result_dt
+result_dt <- 
+  summary_dt[,
+    .(
+       mean_period = mean(first_peak_period, na.rm = T) / hours(1),
+       sd_period = sd(first_peak_period, na.rm = T) / hours(1),
+       percent_rhythmic = 100 * sum(is_rhythmic) / .N,
+       n_rhythmic = sum(is_rhythmic),
+       n = .N
+     ),
+    by = genotype
+  ]
+  
+# to round all numeric columns  to two digits
+result_dt[, lapply(.SD, function(x) 
+				if(is.numeric(x)) round(x, 2) else x
+			)]
 @
+
 
 
 This example shows how \texttt{rethomics} can be used from the raw data to making publication-quality figures and statistics.
