@@ -7,13 +7,14 @@ setwd("results")
 \section*{Results}
 %In order to illustrate the workflow of \texttt{rethomics}, we provide a simplified and reproducible example, which could be readily modified to suit more intricate cases.
 
-In order to illustrate the usefulness of \texttt{rethomics}, we provide two use cases examples.
+In order to illustrate the usefulness of \texttt{rethomics}, we provide two carefully annotated examples.
 The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
 The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with the advanced case of a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
 
 \subsection*{Drosophila Activity Monitor}
-It uses the package \texttt{zeitgebr} which implements a suite of methods to compute autocorrelogram,
- $\chi{}^2$\cite{sokolove_chi_1978} and Lomb-Scargle\cite{ruf_lomb-scargle_1999} periodograms, and find their peaks.
+The \texttt{zeitgebr} package implements a comprehensive suite of methods to analyse circadian rhythms, 
+including the computation of autocorrelograms, $\chi{}^2$\cite{sokolove_chi_1978} and Lomb-Scargle\cite{ruf_lomb-scargle_1999} periodograms,
+and peak detection.
 
 The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
 Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
@@ -23,11 +24,13 @@ In their study, the authors gain understanding of the function of the molecular 
 and that the endogenous period in LL is longer than 24 hours.
 
 
-We took two genotypes employed in the study, one control group (NKCC\textsuperscript{ox}/+) and one where NKCC\textsuperscript{ox} is overexpressed in all clock neurons (TIM/NKCC\textsuperscript{ox}).
-In particular, we re-analysed two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six or seven days.
-The \texttt{metadata.csv} file, which describes exhaustively all individuals, as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
-As a prerequisite, we downloaded the data and extracted the zip archive in our working directory.
-We start the analysis by loading the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
+Here, we guide the reader through the analysis of two of the genotypes employed in that study;
+one control group (NKCC\textsuperscript{ox}/+) and one where NKCC\textsuperscript{ox} is overexpressed in clock neurons (TIM/NKCC\textsuperscript{ox}).
+In particular, we outline the necessary steps to analyse two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six or seven days.
+The \texttt{metadata.csv} file as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
+
+We start by downloading the data and extract the zip archive in our working directory.
+Then we load the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
 
 <<message=FALSE>>=
 library(damr)      # input DAM data
@@ -46,12 +49,13 @@ summary(dt)                                           # quick summary
 @
 
 \subsubsection*{Preprocessing}
-The two replicates do not have the same baseline time and we would like to express the time relative to the important event:
+The two original replicates do not have the same baseline duration.
+To include them in the same analysis, we decided to express time relative to the experimental perturbation:
 the transition from LD to LL. 
 Therefore, we subtract the \texttt{baseline\_days} metavariable from the \texttt{t} variable.
 This gives us an opportunity to illustrate the use \texttt{xmv()}, which expands metavariables as variables.
 In addition, we use the \texttt{data.table} syntax to create, in place, a \texttt{moving} variable.
-It is \texttt{TRUE} when and only when \texttt{activity} is greater than zero:
+It is \texttt{TRUE} when \texttt{activity} is greater than zero and \texttt{FALSE} otherwise:
 
 <<message=F, results="hide", cache=TRUE>>=
 # baseline subtraction -- note the use of xmv
@@ -62,10 +66,11 @@ dt[, moving :=  activity > 0]
 <<cache=TRUE>>=
 summary(dt)
 @
-
-To simplify visualisation, we create our own \texttt{label} metavariable, as the combination of a number and \texttt{genotype}.
+The \texttt{id} is a long and exhaustive string of character, which incidentally 
+makes it difficult to read and display as a label on a plot.
+To address this issue, we create our own \texttt{label} metavariable, as the combination of a number and \texttt{genotype}.
 In the restricted context of this analysis, \texttt{label} acts as a unique identifier.
-Importantly, we also keep \texttt{id} as an \emph{unambiguous} unique identifier.
+Importantly, we also retain \texttt{id} as an \emph{unambiguous} unique identifier.
 Indeed, two animals in separate experiments may have the same label, but different \texttt{id}s.
 in addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id}.
 %,which could lead to confusion.
@@ -80,7 +85,8 @@ print(dt)
 
 
 \subsubsection*{Curation}
-It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly. For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
+It is important to visualise an overview of how each individual behaved and, if necessary, alter the data accordingly.
+For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
 
 \begin{figure}[!h]
 %    \includegraphics[width=1\textwidth]{fig/fig-3.pdf}
@@ -110,7 +116,8 @@ fig3A <- ggetho(dt, aes(y = label, z = moving)) +
 @
 
 
-The activity of dead or escaped animals is falsely scored as long series of zeros (see, for instance, individual 30 and 18 in Fig~\ref{fig:fig-3}A).
+The activity of dead or escaped animals is falsely scored as long series of zeros,
+which may be erroneously interpreted as inactivity (see, for instance, individual 30 and 18 in Fig~\ref{fig:fig-3}A).
 The \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
 It proceeds by detecting the first time an animal is immobile for more than 1~\% of the time (the default) for at least \texttt{time\_window} seconds and discard any subsequent data.
 
@@ -119,7 +126,7 @@ It proceeds by detecting the first time an animal is immobile for more than 1~\%
 dt <- curate_dead_animals(dt, moving, time_window = days(1.5))
 @
 
-In addition, we can trim our data to have the same number of days across experiments and individuals.
+In addition, we can trim the data to the same number of days across experiments and individuals.
 <<cache=TRUE>>=
 # filter dt between -2d and 6d
 dt <- dt[t %between% days(c(-2, 6))]
@@ -131,7 +138,7 @@ fig3B <- ggetho(dt, aes(y = label, z = moving)) +
                         ld_colours = c("white", "grey"))
 @
 
-For the purpose of this example, we also exclude animals that died prematurely, and keep only individuals that have \emph{at least five days in LL}. An overview of the curate data can be visualised in Fig~\ref{fig:fig-3}B.
+For the purpose of this example, we also exclude animals that died prematurely, and keep only individuals that have lived for \emph{at least five days in LL}. An overview of the curate data can be visualised in Fig~\ref{fig:fig-3}B.
 
 <<cache=TRUE, echo=FALSE>>=
 # draw point for invalid animals
@@ -154,7 +161,7 @@ Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} `valid' individuals.
 
 
 \subsubsection*{Double-plotted actograms}
-`Double-plotted actograms' are a common visualisation of periodicity and rhythmicity in circadian experiments.
+`Double-plotted actograms' are a common choice to visualise the periodicity and rhythmicity in circadian experiments.
 In  \nameref{S1-Fig}A, we show a double-plotted actogram for each animal.
 A selected sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
@@ -258,7 +265,8 @@ fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
 \begin{figure}[!h]
 %	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
 	\caption{{\bf Visualisation of the periodicity in activity of eight selected animals.}
-		A: Double-plotted actograms showing activity over the experiment. Transition from LD to LL happens at day 0.
+		A: Double-plotted actograms showing all activity during experiment.
+		Time is defined relative to the transition from LD to LL (at day 0).
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
 		The blue cross represents the first peak (if present) above the significance threshold (red line).
 		Titles on top of each facet refer to the label allocated to each individual.
@@ -269,9 +277,9 @@ fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
 
 \subsubsection*{Population statistics}
 
-As shown in the original study, double-plotted actograms and periodograms suggest that NKCC\textsuperscript{ox}/+ flies are mostly 
-arhythmic in LL whilst Tim/NKCC\textsuperscript{ox} appear to have a consistent, long-period rhythm.
-To visualise this at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-5}A):
+As shown in the original study\cite{buhl_quasimodo_2016}, double-plotted actograms and periodograms suggest that NKCC\textsuperscript{ox}/+ flies are mostly 
+arhythmic in LL whilst Tim/NKCC\textsuperscript{ox} appear to have a long-period rhythm.
+To visualise this difference at the population scale, we can plot an average periodogram (see Fig~\ref{fig:fig-5}A):
 
 <<cache=TRUE, warning=FALSE,message=FALSE, result="hide">>=
 # display periodogram 
@@ -305,7 +313,7 @@ fig5A <- ggperio(per_dt, aes(y = power - signif_threshold,
 \end{figure}
 
 
-To further quantify this difference, we can show the number of rhythmic animals -- \emph{i.e.} individuals for which a peak was found -- in each group (see Fig~\ref{fig:fig-5}B).
+To further quantify this difference, we opt to show the number of rhythmic animals -- \emph{i.e.} individuals for which a peak was found -- in each group (see Fig~\ref{fig:fig-5}B).
 Then, we can compare the average value of the peak for the rhythmic animals (see Fig~\ref{fig:fig-5}C).
 First of all, we compute a summary per individual (\texttt{by=id}):
 
@@ -328,7 +336,8 @@ summary_dt <-
 summary_dt <- rejoin(summary_dt)
 @
 
-\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. It can therefore be used directly by \texttt{ggplot} and other tools:
+\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. 
+It can therefore be used directly by \texttt{ggplot}:
 
 <<cache=TRUE, warning=FALSE, results="hide">>=
 # standard ggplot
@@ -358,13 +367,12 @@ fig5C <- ggplot(summary_dt, aes(y = first_peak_period,
 @
 
 
-\texttt{R} provides one of the richest statistical toolboxes available, which allows users to go deeper in the analysis of the extracted variables.
-One could, for instance, perform a $\chi{}^2$ test on the number of rhythmic \emph{vs} arhythmic flies in both genotypes.
-To address the same question, we fit a binomial generalised linear model:
+\texttt{R} provides one of the richest statistical toolboxes available.
+Using base \texttt{R} we could perform a $\chi{}^2$ test on the number of rhythmic \emph{vs} arhythmic flies in both genotypes, or,
+like in this case, fit a binomial generalised linear model:
 
 <<>>=
 fit <- glm(is_rhythmic ~ genotype, summary_dt, family = "binomial")
-
 summary(fit)$coefficients
 @
 
@@ -396,9 +404,9 @@ result_dt[, lapply(.SD, function(x)
 
 
 
-This example shows how \texttt{rethomics} can be used from the raw data to making publication-quality figures and statistics.
-We were able to comprehensively analyse the data from a circadian experiment with a few lines of code.
-This workflow applies particularly to much larger data sets and provides a large degree of flexibility that will allow biologists to tune their analysis to their specific questions.
+The case study described so far shows how \texttt{rethomics} can be employed to generate publication-quality figures and state of the art statistics.
+We were able to comprehensively analyse the data from a circadian experiment with a few lines of code,
+presenting a workflow that applies equally well to much larger datasets.
 
 
 \subsection*{Multi-scale analysis of position}
@@ -419,7 +427,7 @@ In the context of chronobiology, CWT has been suggested as a tool to investigate
 To illustrate how \texttt{rethomic} integrates with other packages and render such non-mainstream analysis possible,
 we performed a wavelet analysis of the position of 80 naive fruit flies (40 females and 40 males) in their glass tubes.
 We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled at 0.1~Hz.
-Our variable of interest is the position of animals in their tube (from the food end, 0,  to the cotton end, 1).
+Our variable of interest is the position of animals in their tube (from the food end, $Position = 0$,  to the cotton end, $Position = 1$).
 Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for two representative animals.
 
 
@@ -446,9 +454,9 @@ In order to compute CWT, we used the \texttt{WaveletComp} package\cite{schmidbau
 We then averaged the result of the five consecutive days in the time/period domain over one circadian day both for the two representative animals (Fig~\ref{fig:fig-6}D)
 and for the population(Fig~\ref{fig:fig-6}E).
 
-As suggested by the slow oscilations of the mean position (Fig~\ref{fig:fig-6}A), we observe strong, high period (12~h and 24~h), rhythms.
-In addition, a large amount of signal is detected for low period (around 60~s) events.
-This corresponds to the position of animals walking along (back and forward) their tubes in a very paced manner.
+As suggested by the slow oscillations of the mean position (Fig~\ref{fig:fig-6}A), we observe peaks in power corresponding to high-period (12~h and 24~h) rhythms.
+In addition, a large amount of signal is detected for low period (around 60~s) events -- 
+likely corresponding to the position of animals walking along (back and forward) their tubes in a very paced manner.
 
 Interestingly, in females, this low period pace appears to be frequency modulated during the L phase, suggesting a slower walking speed around ZT6~h.
 In contrast, males shows only a high frequency rhythm around the phase transitions (L to D and D to L).

@@ -143,20 +143,15 @@ Giorgio F Gilestro\textsuperscript{1*}
 % Please keep the abstract below 300 words
 \section*{Abstract}
 %Ethomics, a quantitative and high-throughput approach to animal behaviour, is a new and exciting field.
-The recent development of automatised methods that can score various behaviours on a large number of animals
+The recent development of automatised methods to score various behaviours on a large number of animals
 provides biologists with an unprecedented set of tools to decipher these complex phenotypes. 
 Analysing such data comes with several challenges that are largely shared across acquisition platform and paradigms.
-%However, there is little effort in providing a generic toolbox to specifically analyse multiple and long behavioural time series.
-%To address this limitation, we developed the \texttt{rethomics} framework, 
-%We present the \texttt{rethomics} framework, 
-%a suite of \texttt{R} packages that altogether offers utilities to work through all data manipulation stage:
-%import, store, analyse and visualise behavioural data.
-In the article herein, we present \texttt{rethomics}, a set of \texttt{R} packages that unifies analysis of behavioural dataset in an efficient and flexible manner.
+Here, we present \texttt{rethomics}, a set of \texttt{R} packages that unifies analysis of behavioural dataset in an efficient and flexible manner.
 %We implemented it in \texttt{R}\cite{r_core_team_r:_2017} since it is widely taught and adopted by computational biologists.
 %It is also complemented with a vast ecosystem of open-source packages.
-\texttt{rethomics} offers a computational solution to store, manipulate and visualise large amounts of behavioural data.
+\texttt{rethomics} offers a computational solution to storing, manipulating and visualising large amounts of behavioural data.
 We propose it as a tool to breach the gap between behavioural biology and data sciences, thus connecting computational and behavioural scientists.
-Our software comes with a extensive documentation as well as a set of both practical and theoretical tutorials (available at \href{https://rethomics.github.io}{https://rethomics.github.io}).
+\texttt{rethomics} comes with a extensive documentation as well as a set of both practical and theoretical tutorials (available at \href{https://rethomics.github.io}{https://rethomics.github.io}).
 
 %In this article, we describe it and show an example of its application to the study of circadian rhythms and blooming field of sleep fruit flies.
 %The \texttt{rethomics} framework is available and documented at \href{https://rethomics.github.io}{https://rethomics.github.io}.
@@ -198,16 +193,16 @@ Storing and accessing data and metadata efficiently involves the implementation 
 can be shared between acquisition platforms and experimental paradigms.
 % it broaden the scope for developing of utilities an shared principles.
 
-In the article herein, we describe the \texttt{rethomics} platform, an effort to promote the interaction between behavioural biology and data science.
-\texttt{rethomics} is implemented as a collection of packages, altogether offering a solution to import, store, manipulate and visualise large amounts of behavioural results.
+Here, we describe the \texttt{rethomics} platform, an effort to promote the interaction between behavioural biologists and data scientists.
+\texttt{rethomics} is implemented as a collection of interconnected packages, offering solutions to importing, storing, manipulating and visualising large amounts of behavioural results.
 We also present two practical examples of its application to the analysis of behavioural rhythm in fruit flies, a widely studied subject.
 
 
 \section*{Design and Implementation}
 \texttt{rethomics} is implemented in \texttt{R}\cite{r_core_team_r_2017}, which is widely taught and adopted by computational biologists,
 as a collection of packages (Fig~\ref{fig:fig-1}).
-This architecture follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse_2017}, which results in increased testability and maintainability.
-In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package.
+Such modular architecture follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse_2017}, which results in increased testability, maintainability and adaptability.
+In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package, and new ones can be designed to suit specific needs.
 At the core of \texttt{rethomics}, lies the \texttt{behavr} package, used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table_2017}.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be analysed and visualised regardless of the original input platform.
 Numerical results and plots are standard objects that can therefore be further analysed inside the wide \texttt{R} package ecosystem.
@@ -226,7 +221,7 @@ Numerical results and plots are standard objects that can therefore be further a
 
 \subsection*{Internal data structure}
 
-Ethomics results can easily scale and data structure therefore gains from being computationally efficient – both in term of memory footprint and processing speed.
+Ethomics results can easily scale and data structure therefore gains from being computationally efficient -- both in term of memory footprint and processing speed.
 For instance, there could be very long time series, sampled several times per second, over multiple days, for each individual. %(typically, $k_i > 10^8, \forall i \in [1,n]$) 
 In addition, time series can be multivariate -- encoding coordinates, orientation, dimensions, activity, colour intensity and so on.
 Furthermore, experiments may  feature a large number of individuals. %(typically $n > 100$).
@@ -238,8 +233,8 @@ A large set of metavariables is an important asset since they can later be used 
 This approach guarantees that any data point can be mapped correctly to its parent metadata thanks to a shared key (\texttt{id}).
 Furthermore, it allows implicit update of metadata when data is altered.
 For instance, when data is filtered, only the remaining individuals should be in the new metadata. 
-It is also important that metadata and data can interoperate.
-For example, when one wants to update a variable according to the value of a metavariable (say, alter the variable \texttt{x} only for animals with the metavariable \texttt{sex = `male'}).
+It is also important that metadata and data can interoperate --
+for example, when updating a variable according to the value of a metavariable (say, alter the variable \texttt{x} only for animals with the metavariable \texttt{sex = `male'}).
 The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
 
 
@@ -262,11 +257,12 @@ The online tutorials and documentation provide a detailed set of examples and co
 \end{figure}
 
 \subsection*{Data import}
-Data import packages translate results from a recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
-Currently, we provide a package to read single or multi-beam Drosophila Activity Monitor System (Trikinetics Inc.) data and another one for Ethoscope data\cite{geissmann_ethoscopes_2017}.
+Data import packages translate results from a specific recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
+Currently, we provide two packages: one to import results from single and multi-beam Drosophila Activity Monitor Systems (Trikinetics Inc.) 
+and another one for Ethoscopes \cite{geissmann_ethoscopes_2017}.
 Although the structure of the raw results is very different, conceptually, loading data is very similar.
-In all cases, the user is asked to generate a metadata table (one row per individual). 
-In it, there will be both mandatory and optional columns (Fig~\ref{fig:fig-2}A).
+In all cases, users must provide a metadata table, with one row per individual,
+and featuring both mandatory and optional columns (Fig~\ref{fig:fig-2}A).
 The mandatory ones are the necessary and sufficient information to fetch data (\emph{e.g.} machine id, region of interest and date). 
 The optional columns are user-defined arbitrary fields that translate experimental conditions (\emph{e.g.} treatment, genotype and sex).
 
@@ -325,8 +321,8 @@ Maite Ogueta, for making the DAMS results data available;
 Alice French, Hannah Jones, Diana Bicazan and Florencia Fernandez-Chiappe for their comments as early users;
 Marcus Gosh and Tara Kane for their feed back on the manuscript;
 Brenna Williams, for her help to support multi-beam DAMS;
-Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework;
-and Robert Dickinson, for his support.
+Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework.
+
 
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
