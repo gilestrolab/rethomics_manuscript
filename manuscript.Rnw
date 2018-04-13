@@ -170,8 +170,8 @@ Our software comes with a extensive documentation as well as a set of both pract
 %\section*{Author summary}
 
 % TODO revert for sumbmisson
-\linenumbers
-%\TODO{revert line numbers before submission}
+%\linenumbers
+\TODO{revert line numbers before submission}
 % TODO also embed bib
 
 % Use "Eq" instead of "Equation" for equation citations.
