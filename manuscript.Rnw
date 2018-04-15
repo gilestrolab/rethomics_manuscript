@@ -174,10 +174,11 @@ We propose it as a tool to breach the gap between behavioural biology and data s
 %The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system, its internal state and its environment.
 
 
-The significANCE AND determinism OF ANIMAL BEHAVIOUR has long been quiestion of prime interest.
-In the 1960s researchers started to identify genetic determinant of behaviours.
-OUr ability to understand genetics has been enpowered by new high throuput methods.
+The significANCE AND determinism OF ANIMAL BEHAVIOUR has long been question of prime interest.
+In the 1960-70s genetics and behaviour inerpenetrated as researchers started to identify genetic determinant of behaviours.
+OUr ability to understand genetics and neurobiology has been enpowered by new high throughput methods and data analysis.
 The scoring of behaviour as well is undergoing a transition towards high througput (ethomics, CE).
+
 
 %In the last few decades, our ability to sequence vast quantities of genetic and phenoypic data has tremendously increased\cite{stephens_big_2015}.
 %The scoring of various behavioural variables is certainly not an exception to this trend.
