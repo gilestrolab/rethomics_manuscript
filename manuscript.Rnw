@@ -171,19 +171,40 @@ We propose it as a tool to breach the gap between behavioural biology and data s
 
 % Use "Eq" instead of "Equation" for equation citations.
 \section*{Introduction}
-The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system, its internal state and its environment.
-In the last few decades, our ability to record vast quantities of various phenotypical data has tremendously increased\cite{stephens_big_2015}.
-The scoring of behaviours is certainly not an exception to this trend \cite{reiser_ethomics_2009}.
-Indeed, many platforms have been developed in order to allow biologists to continuously record behaviours such as activity\cite{faville_how_2015}, position\cite{pelkowski_novel_2011} and feeding\cite{itskov_automated_2014,ro_flic_2014} of single or multiple\cite{swierczek_high-throughput_2011,perez-escudero_idtracker_2014,robie_mapping_2017} animals over long durations (days or weeks).
+%The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system, its internal state and its environment.
 
-The availability of large amounts of data paves the way for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles
-and ultimately a better understanding of their underlying biology\cite{brown_study_2017,berman_measuring_2018}.
-The multiplicity of model organisms, hypotheses and paradigms justifies the existence of a diverse palette of recording techniques.
-However, when it comes to the subsequent processing of the results, there is no unified programmatic framework that could be used as a set of building blocks in a pipeline.
 
-Scripting interfaces are the standard in data sciences and statistics since they help to deliver reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
+The significANCE AND determinism OF ANIMAL BEHAVIOUR has long been quiestion of prime interest.
+In the 1960s researchers started to identify genetic determinant of behaviours.
+OUr ability to understand genetics has been enpowered by new high throuput methods.
+The scoring of behaviour as well is undergoing a transition towards high througput (ethomics, CE).
+
+%In the last few decades, our ability to sequence vast quantities of genetic and phenoypic data has tremendously increased\cite{stephens_big_2015}.
+%The scoring of various behavioural variables is certainly not an exception to this trend.
+%High-throughput approaches to ethology has been proposed as a new discipline, prompting the concepts of `ethomics' \cite{branson_high-throughput_2009, reiser_ethomics_2009} and `computational ethology'\cite{anderson_toward_2014}.
+
+%In the 1960's, Seymounr Benzer had shown:  behavioural genetics
+The availability of large amounts of data, in combination with the use of methods borrowed from the data sciences, allow for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles and ultimately a better understanding of their underlying biology\cite{brown_ethology_2018, berman_measuring_2018}.
+
+%
+
+
+
+
+Although general questions regarding the environmental, evolutionary, neural and genetic determinants of behaviours are shared within the community,
+the multiplicity of model organisms, hypotheses and paradigms has led the existence of a very diverse palette of specific recording techniques.
+Some tools were developed to, for instance:
+continuously record simple behavioural features such as walking activity\cite{faville_how_2015} and  position\cite{pelkowski_novel_2011} over long durations (days or weeks);
+score more complex ones such as feeding\cite{itskov_automated_2014,ro_flic_2014}, aggression \citationneeded{}, and courtship\cite{tsai_image_2012};
+and study the behaviour of multiple interacting animals \cite{swierczek_high-throughput_2011,perez-escudero_idtracker_2014,robie_mapping_2017}.
+Whilst most recording platforms are unrelated to each other, there are also some attempts to build general purpose tools that can be adapted by researchers to
+suit their specific goals \cite{branson_high-throughput_2009,kabra_jaaba_2013,lopes_bonsai_2015,geissmann_ethoscopes_2017}.
+However, when it comes to the subsequent analysis of the generated results, there is still no unified programmatic framework that could be used as a set of building blocks in a pipeline.
+
+
+The fields of structural biology and  bioinformatics are good examples of communities that have taken advantage of sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled into pipelines\cite{leipzig_review_2017}.
+In these research areas, which are closely linked to data sciences and statistics, scripting interfaces are the standard since they help to deliver reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
 In addition, they can be used on remote resources such as computer clusters, which makes them more scalable in the context of `big data'\cite{hashem_rise_2015}.
-The field of bioinformatics is a good example of a community that has taken advantage of sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled into pipelines\cite{leipzig_review_2017}.
 Since many aspect of behaviour analysis are also becoming increasingly linked to data sciences, the development of such common tools and data structures would be very valuable.
 
 At first, it may seem as though behavioural experiments are prohibitively heterogeneous -- in terms of model organisms, paradigm and time scale -- for a similar community to arise.
