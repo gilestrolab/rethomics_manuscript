@@ -9,16 +9,25 @@ setwd("results")
 
 In order to illustrate the usefulness of \texttt{rethomics}, we provide two carefully annotated examples.
 The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
-The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with the advanced case of a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
+The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} to perform a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
 
-\subsection*{Drosophila Activity Monitor}
+\subsection*{Canonical circadian analysis in \emph{Drosophila}}
 The \texttt{zeitgebr} package implements a comprehensive suite of methods to analyse circadian rhythms, 
 including the computation of autocorrelograms, $\chi{}^2$\cite{sokolove_chi_1978} and Lomb-Scargle\cite{ruf_lomb-scargle_1999} periodograms,
 and peak detection.
 
-The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
-Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
-We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, kindly made publicly available by the authors\cite{ogueta_ll_2018}.
+%The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
+%Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
+%We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, kindly made publicly available by the authors\cite{ogueta_ll_2018}.
+%Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
+%In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
+%and that the endogenous period in LL is longer than 24 hours.
+
+The study of the rhythmical activity of fruit flies has played a crucial role in the development of circadian biology\citationneeded{}.
+To date, most of the behavioural data used in the field is acquired through the Drosophila Activity Monitor System (DAMS).
+The package \texttt{damr} was developed to import DAMS results in the \texttt{rethomics} framework, which we envision will be a common use case. 
+To illustrate the ability of \texttt{rethomics} to analyse pre-existing results,
+we gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, kindly made publicly available by the authors\cite{ogueta_ll_2018}.
 Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
 In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
 and that the endogenous period in LL is longer than 24 hours.
@@ -71,7 +80,7 @@ To address this issue, we create our own \texttt{label} metavariable, as the com
 In the restricted context of this analysis, \texttt{label} acts as a unique identifier.
 Importantly, we also retain \texttt{id} as an \emph{unambiguous} unique identifier.
 Indeed, two animals in separate experiments may have the same label, but different \texttt{id}s.
-in addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id}.
+In addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id}.
 %,which could lead to confusion.
 
 
