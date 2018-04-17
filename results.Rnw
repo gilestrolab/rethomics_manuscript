@@ -15,11 +15,11 @@ The second one shows how \texttt{rethomics} integrates with the rest of \texttt{
 It uses the package \texttt{zeitgebr} which implements a suite of methods to compute autocorrelogram,
  $\chi{}^2$\cite{sokolove_chi_1978} and Lomb-Scargle\cite{ruf_lomb-scargle_1999} periodograms, and find their peaks.
 
-The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
+The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded {This is not atemporal, in 10 years will still say recently} with the Nobel Prize in Physiology or Medicine.
 Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
 We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, kindly made publicly available by the authors\cite{ogueta_ll_2018}.
 Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
-In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
+In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in LL,
 and that the endogenous period in LL is longer than 24 hours.
 
 
