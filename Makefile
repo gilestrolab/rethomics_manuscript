@@ -9,6 +9,7 @@ all-figures.pdf: $(FIGS)
 
 manuscript.bib: rethomics_manuscript.bib
 	cat $< | sed 's/journaltitle =/journal =/g' > $@
+	#cat $< | sed 's/journal =/journal =/g' > $@
 
 manuscript.tex: manuscript.Rnw results.Rnw manuscript.bib
 	R -e "library(knitr);knit(\"$<\")"
@@ -22,4 +23,4 @@ manuscript.pdf: manuscript.tex all-figures.pdf
 clean:
 	rm *.log *.aux *.tex *.out  *.pdf *.blg *.bbl *.tdo  -f 
 	rm -rf cache/ 
-	rm manuscript.bib
+	rm manuscript.bib -f

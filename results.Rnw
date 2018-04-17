@@ -23,7 +23,7 @@ and peak detection.
 %In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
 %and that the endogenous period in LL is longer than 24 hours.
 
-The study of the rhythmical activity of fruit flies has played a crucial role in the development of circadian biology\citationneeded{}.
+The study of the rhythmical activity of fruit flies has played a crucial role in the development of circadian biology\cite{dubowy_circadian_2017}.
 To date, most of the behavioural data used in the field is acquired through the Drosophila Activity Monitor System (DAMS).
 The package \texttt{damr} was developed to import DAMS results in the \texttt{rethomics} framework, which we envision will be a common use case. 
 To illustrate the ability of \texttt{rethomics} to analyse pre-existing results,
@@ -39,7 +39,7 @@ In particular, we outline the necessary steps to analyse two repetitions of the 
 The \texttt{metadata.csv} file as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
 
 We start by downloading the data and extract the zip archive in our working directory.
-Then we load the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
+Then, we load the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
 
 <<message=FALSE>>=
 library(damr)      # input DAM data
@@ -52,9 +52,9 @@ Then, the metadata file is read and linked to the \texttt{.txt} result files.
 
 <<cache=TRUE>>=
 metadata <- link_dam_metadata("metadata.csv", ".")   # linking
-# print(metadata)                                     # check metadata
+# print(metadata)                                    # check metadata
 dt <- load_dam(metadata)                             # loading
-summary(dt)                                           # quick summary
+summary(dt)                                          # quick summary
 @
 
 \subsubsection*{Preprocessing}
@@ -100,10 +100,10 @@ For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
 %    \includegraphics[width=1\textwidth]{fig/fig-3.pdf}
 	\caption{{\bf Experiment quality control.}
 			Tile plot showing the fraction of time spent moving as a colour intensity.
-			Each individual is represented by a row and time, on the x-axis, is binned in 30 minutes.
+			Each individual is represented by a row and time, on the x-axis, is binned in 30 minutes consecutive epochs.
 			A: Uncurated raw data.
 			B: Data after the curation step. Time was trimmed and data from dead animals removed. 
-			Red `\textbf{+}' symbols show animals that were removed from the subsequent analysis as they had less than five complete days in LL.}
+			The red `\textbf{+}' symbols show animals that were removed from the subsequent analysis as they did not survive five complete days in LL.}
 	\label{fig:fig-3}
 \end{figure}
 
@@ -125,9 +125,9 @@ fig3A <- ggetho(dt, aes(y = label, z = moving)) +
 
 
 The activity of dead or escaped animals is falsely scored as long series of zeros,
-which may be erroneously interpreted as inactivity (see, for instance, individual 30 and 18 in Fig~\ref{fig:fig-3}A).
+which may be erroneously interpreted as inactivity (see, for instance, individual labelled \texttt{30} and \texttt{18} in Fig~\ref{fig:fig-3}A).
 The \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
-It proceeds by detecting the first time an animal is immobile for more than 1~\% of the time (the default) for at least \texttt{time\_window} seconds and discard any subsequent data.
+It proceeds by detecting the first time an animal is immobile for more than 99~\% of the time (the default) for at least \texttt{time\_window} seconds and then discard any subsequent data.
 
 <<cache=TRUE>>=
 # remove data after death
@@ -174,9 +174,8 @@ In  \nameref{S1-Fig}A, we show a double-plotted actogram for each animal.
 A selected sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
 <<cache=TRUE, warning=FALSE, result="hide", message=FALSE>>=
-# we also show a subset of this figure in 4A
+# we also show a subset of this figure in Fig 4A
 figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
-            # bars n the z axis could 
             # one could also use stat_tile_etho
             stat_bar_tile_etho() + 
             # split plot by individual
@@ -230,7 +229,7 @@ See \nameref{S1-Fig}B for the visualisation of all individuals.
 <<cache=TRUE>>=
 # only the LL data
 dt_ll <- dt[t > days(1)]
-# compute chi sqr periodogram 
+# compute chi square periodograms 
 per_dt <- periodogram(moving, 
                     	dt_ll, 
                     	resample_rate = 1 / mins(10),
@@ -276,7 +275,7 @@ fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
 		A: Double-plotted actograms showing all activity during experiment.
 		Time is defined relative to the transition from LD to LL (at day 0).
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
-		The blue cross represents the first peak (if present) above the significance threshold (red line).
+		The blue cross represents the highest peak (if present) above the significance threshold (red line).
 		Titles on top of each facet refer to the label allocated to each individual.
 		See \nameref{S1-Fig} for all \Sexpr{nrow(dt[meta=TRUE])} animals.
 	}
@@ -326,20 +325,19 @@ Then, we can compare the average value of the peak for the rhythmic animals (see
 First of all, we compute a summary per individual (\texttt{by=id}):
 
 <<cache=TRUE, warning=FALSE, results="hide">>=
-summary_dt <- 
-    per_dt[, 
-          .(
-           first_peak_period = period[peak == 1],
-            # {} can be used for tmp variables
-           first_peak_rel_power = {
-             signif = signif_threshold[peak == 1]
-             power = power[peak == 1]
-             power - signif
-            },
-           is_rhythmic = any(peak == 1)
-           ),
-           by=id]
-      
+summary_dt <- per_dt[, 
+                .(
+                  first_peak_period = period[peak == 1],
+                  # {} can be used for tmp variables
+                  first_peak_rel_power = {
+                    signif = signif_threshold[peak == 1]
+                    power = power[peak == 1]
+                    power - signif
+                  },
+                  is_rhythmic = any(peak == 1)
+                ),
+                by=id]
+
 # rejoin metadata
 summary_dt <- rejoin(summary_dt)
 @
@@ -366,11 +364,11 @@ fig5C <- ggplot(summary_dt, aes(y = first_peak_period,
               # draw bootstrap confidence intervals
               stat_summary(fun.data = mean_cl_boot, geom = "errorbar") +
               # shows all individuals as points
-              # the size of the point expresses the power of the peak
+              # the size of the point represents the power of the peak
               geom_jitter(aes(colour = genotype, 
                               size = first_peak_rel_power),
                               alpha = 0.67) +
-              # We would like to convert time in hour
+              # We would like to show time in hours
               scale_y_hours("Period")
 @
 
@@ -405,9 +403,10 @@ result_dt <-
   ]
   
 # to round all numeric columns  to two digits
-result_dt[, lapply(.SD, function(x) 
-				if(is.numeric(x)) round(x, 2) else x
-			)]
+result_dt[, lapply(.SD,
+                   function(x) if(is.numeric(x)) round(x, 2) else x
+                   )
+           ]
 @
 
 
@@ -463,7 +462,7 @@ We then averaged the result of the five consecutive days in the time/period doma
 and for the population(Fig~\ref{fig:fig-6}E).
 
 As suggested by the slow oscillations of the mean position (Fig~\ref{fig:fig-6}A), we observe peaks in power corresponding to high-period (12~h and 24~h) rhythms.
-In addition, a large amount of signal is detected for low period (around 60~s) events -- 
+In addition, a large amount of signal is detected for low-period (around 60~s) events -- 
 likely corresponding to the position of animals walking along (back and forward) their tubes in a very paced manner.
 
 Interestingly, in females, this low period pace appears to be frequency modulated during the L phase, suggesting a slower walking speed around ZT6~h.

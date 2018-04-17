@@ -70,6 +70,7 @@
 
 % Use the PLoS provided BiBTeX style
 \bibliographystyle{plos2015}
+%\bibliographystyle{apalike}
 
 % Remove brackets from numbering in List of References
 \makeatletter
@@ -150,7 +151,7 @@ Here, we present \texttt{rethomics}, a set of \texttt{R} packages that unifies t
 %We implemented it in \texttt{R}\cite{r_core_team_r:_2017} since it is widely taught and adopted by computational biologists.
 %It is also complemented with a vast ecosystem of open-source packages.
 \texttt{rethomics} offers a computational solution to storing, manipulating and visualising large amounts of behavioural data.
-We propose it as a tool to breach the gap between behavioural biology and data sciences, thus connecting computational and behavioural scientists.
+We propose it as a tool to bridge the gap between behavioural biology and data sciences, thus connecting computational and behavioural scientists.
 \texttt{rethomics} comes with a extensive documentation as well as a set of both practical and theoretical tutorials (available at \href{https://rethomics.github.io}{https://rethomics.github.io}).
 
 %In this article, we describe it and show an example of its application to the study of circadian rhythms and blooming field of sleep fruit flies.
@@ -175,13 +176,12 @@ We propose it as a tool to breach the gap between behavioural biology and data s
 
 
 The biological significance and determinism of animal behaviours have long been a subject of prime scientific interest.
-In the 1960s, behavioural geneticists, such as Seymour Benzer showed that some apparently complex behaviours could be in fact governed by simple genetic determinant,
-which breached the gap between genetics and the study of behaviour\citationneeded{}.
+In the 1960s, behavioural geneticists, such as Seymour Benzer showed that some apparently complex behaviours could be in fact governed by simple genetic determinant, which connected genetics and behaviour\cite{sokolowski_drosophila_2001}.
 In the last few decades, our ability to acquire and analyse vast amount of biological data has tremendously increased\cite{stephens_big_2015},
-which is deeply transforming both genetics\citationneeded{} and neurobiology\citationneeded{}.
+which has been deeply transforming both genetics\cite{schatz_biological_2015} and neuroscience\cite{sejnowski_putting_2014}.
 %The rise of high-throughput methods and computational approaches, have particularly transformed genetics and neurobiology.
 In fact, ethology itself is undergoing its own transition towards data sciences, which has prompted the terms of `ethomics' \cite{branson_high-throughput_2009, reiser_ethomics_2009} and `computational ethology'\cite{anderson_toward_2014}. 
-It is now accepted that the study of behaviour can also benefit from quantitative sciences such as mathematics, physics and computational linguistics \cite{brown_ethology_2018, berman_measuring_2018}.
+It is now accepted that the study of behaviour can also benefit from quantitative sciences such as machine learning, physics and computational linguistics \cite{brown_ethology_2018, berman_measuring_2018}.
 
 %The availability of large amounts of data, in combination with the use of methods borrowed from the data sciences, allow for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles and ultimately a better understanding of their underlying biology\cite{brown_ethology_2018, berman_measuring_2018}.
 %In the last few decades, our ability to sequence vast quantities of genetic and phenoypic data has tremendously increased\cite{stephens_big_2015}.
@@ -195,7 +195,7 @@ Although general questions regarding the environmental, evolutionary, neural and
 the multiplicity of model organisms, hypotheses and paradigms has led to the existence of a very diverse palette of specific recording techniques.
 Some tools were developed, for instance:
 to continuously record simple behavioural features such as walking activity\cite{faville_how_2015} and  position\cite{pelkowski_novel_2011} over long durations (days or weeks);
-to score more complex ones such as feeding\cite{itskov_automated_2014,ro_flic_2014}, aggression \citationneeded{}, and courtship\cite{tsai_image_2012};
+to score more complex ones such as feeding\cite{itskov_automated_2014,ro_flic_2014} and courtship\cite{tsai_image_2012};
 and to study the behaviour of multiple interacting animals \cite{swierczek_high-throughput_2011,perez-escudero_idtracker_2014,robie_mapping_2017}.
 Whilst most recording platforms are unrelated to each other, there are also some attempts to build general purpose tools that can be adapted by researchers to
 suit their specific goals \cite{branson_high-throughput_2009,kabra_jaaba_2013,lopes_bonsai_2015,geissmann_ethoscopes_2017}.
@@ -205,7 +205,7 @@ However, when it comes to the subsequent analysis of the generated results, ther
 The fields of structural biology and  bioinformatics are good examples of communities that have taken advantage of sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled into pipelines\cite{leipzig_review_2017}.
 In these research areas, which are closely linked to data sciences and statistics, scripting interfaces are the standard since they help to deliver reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
 In addition, they can be used on remote resources such as computer clusters, which makes them more scalable to the context of `big data'\cite{hashem_rise_2015}.
-Since many aspect of behaviour analysis are also becoming increasingly linked to data sciences, the development of such common tools and data structures would be very valuable.
+Since many aspect of behaviour analysis are also becoming increasingly dependent on data sciences, the development of such common tools and data structures would be very valuable.
 
 At first, it may seem as though behavioural experiments are prohibitively heterogeneous -- in terms of model organisms, paradigm and time scale -- for a similar community to arise.
 However, some low-level conceptual consistencies and methodological challenges are common across experiments.
@@ -224,7 +224,7 @@ We also present two practical examples of its application to the analysis of beh
 as a collection of packages (Fig~\ref{fig:fig-1}).
 Such modular architecture follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse_2017}, which results in increased testability, maintainability and adaptability.
 In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package, and new ones can be designed to suit specific needs.
-At the core of \texttt{rethomics} lies the \texttt{behavr} data structure, an object used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table_2017}.
+At the core of \texttt{rethomics} lies the \texttt{behavr} table, a structure used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table_2017}.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be analysed and visualised regardless of the original input platform.
 Numerical results and plots are standard objects that can therefore be further analysed inside the wide \texttt{R} package ecosystem.
 

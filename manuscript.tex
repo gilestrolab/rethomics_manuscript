@@ -120,6 +120,7 @@
 
 % Use the PLoS provided BiBTeX style
 \bibliographystyle{plos2015}
+%\bibliographystyle{apalike}
 
 % Remove brackets from numbering in List of References
 \makeatletter
@@ -195,11 +196,11 @@ Giorgio F Gilestro\textsuperscript{1*}
 The recent development of automatised methods to score various behaviours on a large number of animals
 provides biologists with an unprecedented set of tools to decipher these complex phenotypes. 
 Analysing such data comes with several challenges that are largely shared across acquisition platform and paradigms.
-Here, we present \texttt{rethomics}, a set of \texttt{R} packages that unifies analysis of behavioural dataset in an efficient and flexible manner.
+Here, we present \texttt{rethomics}, a set of \texttt{R} packages that unifies the analysis of behavioural datasets in an efficient and flexible manner.
 %We implemented it in \texttt{R}\cite{r_core_team_r:_2017} since it is widely taught and adopted by computational biologists.
 %It is also complemented with a vast ecosystem of open-source packages.
 \texttt{rethomics} offers a computational solution to storing, manipulating and visualising large amounts of behavioural data.
-We propose it as a tool to breach the gap between behavioural biology and data sciences, thus connecting computational and behavioural scientists.
+We propose it as a tool to bridged the gap between behavioural biology and data sciences, thus connecting computational and behavioural scientists.
 \texttt{rethomics} comes with a extensive documentation as well as a set of both practical and theoretical tutorials (available at \href{https://rethomics.github.io}{https://rethomics.github.io}).
 
 %In this article, we describe it and show an example of its application to the study of circadian rhythms and blooming field of sleep fruit flies.
@@ -214,7 +215,7 @@ We propose it as a tool to breach the gap between behavioural biology and data s
 %\section*{Author summary}
 
 % TODO revert for sumbmisson
-%\linenumbers
+\linenumbers
 \TODO{revert line numbers before submission}
 % TODO also embed bib
 
@@ -223,29 +224,28 @@ We propose it as a tool to breach the gap between behavioural biology and data s
 %The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system, its internal state and its environment.
 
 
-The significANCE AND determinism OF ANIMAL BEHAVIOUR has long been quiestion of prime interest.
-In the 1960s researchers started to identify genetic determinant of behaviours.
-OUr ability to understand genetics has been enpowered by new high throuput methods.
-The scoring of behaviour as well is undergoing a transition towards high througput (ethomics, CE).
+The biological significance and determinism of animal behaviours have long been a subject of prime scientific interest.
+In the 1960s, behavioural geneticists, such as Seymour Benzer showed that some apparently complex behaviours could be in fact governed by simple genetic determinant, which connected genetics and behaviour\cite{sokolowski_drosophila_2001}.
+In the last few decades, our ability to acquire and analyse vast amount of biological data has tremendously increased\cite{stephens_big_2015},
+which has been deeply transforming both genetics\cite{schatz_biological_2015} and neuroscience\cite{sejnowski_putting_2014}.
+%The rise of high-throughput methods and computational approaches, have particularly transformed genetics and neurobiology.
+In fact, ethology itself is undergoing its own transition towards data sciences, which has prompted the terms of `ethomics' \cite{branson_high-throughput_2009, reiser_ethomics_2009} and `computational ethology'\cite{anderson_toward_2014}. 
+It is now accepted that the study of behaviour can also benefit from quantitative sciences such as machine learning, physics and computational linguistics \cite{brown_ethology_2018, berman_measuring_2018}.
 
+%The availability of large amounts of data, in combination with the use of methods borrowed from the data sciences, allow for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles and ultimately a better understanding of their underlying biology\cite{brown_ethology_2018, berman_measuring_2018}.
 %In the last few decades, our ability to sequence vast quantities of genetic and phenoypic data has tremendously increased\cite{stephens_big_2015}.
 %The scoring of various behavioural variables is certainly not an exception to this trend.
 %High-throughput approaches to ethology has been proposed as a new discipline, prompting the concepts of `ethomics' \cite{branson_high-throughput_2009, reiser_ethomics_2009} and `computational ethology'\cite{anderson_toward_2014}.
 
 %In the 1960's, Seymounr Benzer had shown:  behavioural genetics
-The availability of large amounts of data, in combination with the use of methods borrowed from the data sciences, allow for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles and ultimately a better understanding of their underlying biology\cite{brown_ethology_2018, berman_measuring_2018}.
-
 %
 
-
-
-
 Although general questions regarding the environmental, evolutionary, neural and genetic determinants of behaviours are shared within the community,
-the multiplicity of model organisms, hypotheses and paradigms has led the existence of a very diverse palette of specific recording techniques.
-Some tools were developed to, for instance:
-continuously record simple behavioural features such as walking activity\cite{faville_how_2015} and  position\cite{pelkowski_novel_2011} over long durations (days or weeks);
-score more complex ones such as feeding\cite{itskov_automated_2014,ro_flic_2014}, aggression \citationneeded{}, and courtship\cite{tsai_image_2012};
-and study the behaviour of multiple interacting animals \cite{swierczek_high-throughput_2011,perez-escudero_idtracker_2014,robie_mapping_2017}.
+the multiplicity of model organisms, hypotheses and paradigms has led to the existence of a very diverse palette of specific recording techniques.
+Some tools were developed, for instance:
+to continuously record simple behavioural features such as walking activity\cite{faville_how_2015} and  position\cite{pelkowski_novel_2011} over long durations (days or weeks);
+to score more complex ones such as feeding\cite{itskov_automated_2014,ro_flic_2014} and courtship\cite{tsai_image_2012};
+and to study the behaviour of multiple interacting animals \cite{swierczek_high-throughput_2011,perez-escudero_idtracker_2014,robie_mapping_2017}.
 Whilst most recording platforms are unrelated to each other, there are also some attempts to build general purpose tools that can be adapted by researchers to
 suit their specific goals \cite{branson_high-throughput_2009,kabra_jaaba_2013,lopes_bonsai_2015,geissmann_ethoscopes_2017}.
 However, when it comes to the subsequent analysis of the generated results, there is still no unified programmatic framework that could be used as a set of building blocks in a pipeline.
@@ -253,8 +253,8 @@ However, when it comes to the subsequent analysis of the generated results, ther
 
 The fields of structural biology and  bioinformatics are good examples of communities that have taken advantage of sharing standard files formats, modular command line tools\cite{roumpeka_review_2017} and software packages\cite{huber_orchestrating_2015} that can be assembled into pipelines\cite{leipzig_review_2017}.
 In these research areas, which are closely linked to data sciences and statistics, scripting interfaces are the standard since they help to deliver reproducible results \cite{peng_reproducible_2011,stodden_toward_2013}.
-In addition, they can be used on remote resources such as computer clusters, which makes them more scalable in the context of `big data'\cite{hashem_rise_2015}.
-Since many aspect of behaviour analysis are also becoming increasingly linked to data sciences, the development of such common tools and data structures would be very valuable.
+In addition, they can be used on remote resources such as computer clusters, which makes them more scalable to the context of `big data'\cite{hashem_rise_2015}.
+Since many aspect of behaviour analysis are also becoming increasingly dependent on data sciences, the development of such common tools and data structures would be very valuable.
 
 At first, it may seem as though behavioural experiments are prohibitively heterogeneous -- in terms of model organisms, paradigm and time scale -- for a similar community to arise.
 However, some low-level conceptual consistencies and methodological challenges are common across experiments.
@@ -273,7 +273,7 @@ We also present two practical examples of its application to the analysis of beh
 as a collection of packages (Fig~\ref{fig:fig-1}).
 Such modular architecture follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse_2017}, which results in increased testability, maintainability and adaptability.
 In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package, and new ones can be designed to suit specific needs.
-At the core of \texttt{rethomics}, lies the \texttt{behavr} package, used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table_2017}.
+At the core of \texttt{rethomics} lies the \texttt{behavr} table, a structure used to store large amounts data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table_2017}.
 Any input package will import experimental data as a \texttt{behavr} table which can, in turn, be analysed and visualised regardless of the original input platform.
 Numerical results and plots are standard objects that can therefore be further analysed inside the wide \texttt{R} package ecosystem.
 
@@ -360,16 +360,25 @@ For instance, \texttt{ggplot2} operations such as faceting, transforming axes an
 
 In order to illustrate the usefulness of \texttt{rethomics}, we provide two carefully annotated examples.
 The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
-The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} with the advanced case of a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
+The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} to perform a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
 
-\subsection*{Drosophila Activity Monitor}
+\subsection*{Canonical circadian analysis in \emph{Drosophila}}
 The \texttt{zeitgebr} package implements a comprehensive suite of methods to analyse circadian rhythms, 
 including the computation of autocorrelograms, $\chi{}^2$\cite{sokolove_chi_1978} and Lomb-Scargle\cite{ruf_lomb-scargle_1999} periodograms,
 and peak detection.
 
-The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
-Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
-We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, kindly made publicly available by the authors\cite{ogueta_ll_2018}.
+%The study of circadian rhythm, employing fruit flies as an animal model, is a well established research field recently awarded with the Nobel Prize in Physiology or Medicine.
+%Importantly, DAM2 (the second, and most popular, version of the Drosophila Activity Monitors System) is the most widely adopted behaviour recording platform in this research field.
+%We gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, kindly made publicly available by the authors\cite{ogueta_ll_2018}.
+%Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
+%In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
+%and that the endogenous period in LL is longer than 24 hours.
+
+The study of the rhythmical activity of fruit flies has played a crucial role in the development of circadian biology\cite{dubowy_circadian_2017}.
+To date, most of the behavioural data used in the field is acquired through the Drosophila Activity Monitor System (DAMS).
+The package \texttt{damr} was developed to import DAMS results in the \texttt{rethomics} framework, which we envision will be a common use case. 
+To illustrate the ability of \texttt{rethomics} to analyse pre-existing results,
+we gathered a subset of the data from a recent publication\cite{buhl_quasimodo_2016}, kindly made publicly available by the authors\cite{ogueta_ll_2018}.
 Wild type flies are highly rhythmic in Light-Dark (LD) cycles and become arrhythmic in constant light (LL).
 In their study, the authors gain understanding of the function of the molecular clock by showing that overexpression of the gene NKCC makes the flies rhythmic in both LD and LL,
 and that the endogenous period in LL is longer than 24 hours.
@@ -381,7 +390,7 @@ In particular, we outline the necessary steps to analyse two repetitions of the 
 The \texttt{metadata.csv} file as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
 
 We start by downloading the data and extract the zip archive in our working directory.
-Then we load the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
+Then, we load the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -400,9 +409,9 @@ Then, the metadata file is read and linked to the \texttt{.txt} result files.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{metadata} \hlkwb{<-} \hlkwd{link_dam_metadata}\hlstd{(}\hlstr{"metadata.csv"}\hlstd{,} \hlstr{"."}\hlstd{)}   \hlcom{# linking}
-\hlcom{# print(metadata)                                     # check metadata}
+\hlcom{# print(metadata)                                    # check metadata}
 \hlstd{dt} \hlkwb{<-} \hlkwd{load_dam}\hlstd{(metadata)}                             \hlcom{# loading}
-\hlkwd{summary}\hlstd{(dt)}                                           \hlcom{# quick summary}
+\hlkwd{summary}\hlstd{(dt)}                                          \hlcom{# quick summary}
 \end{alltt}
 \begin{verbatim}
 ## behavr table with:
@@ -454,7 +463,7 @@ To address this issue, we create our own \texttt{label} metavariable, as the com
 In the restricted context of this analysis, \texttt{label} acts as a unique identifier.
 Importantly, we also retain \texttt{id} as an \emph{unambiguous} unique identifier.
 Indeed, two animals in separate experiments may have the same label, but different \texttt{id}s.
-in addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id}.
+In addition, if the metadata changes -- for instance by the addition or removal of individuals -- the label is likely to change, not the \texttt{id}.
 %,which could lead to confusion.
 
 
@@ -478,10 +487,10 @@ For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
 %    \includegraphics[width=1\textwidth]{fig/fig-3.pdf}
 	\caption{{\bf Experiment quality control.}
 			Tile plot showing the fraction of time spent moving as a colour intensity.
-			Each individual is represented by a row and time, on the x-axis, is binned in 30 minutes.
+			Each individual is represented by a row and time, on the x-axis, is binned in 30 minutes consecutive epochs.
 			A: Uncurated raw data.
 			B: Data after the curation step. Time was trimmed and data from dead animals removed. 
-			Red `\textbf{+}' symbols show animals that were removed from the subsequent analysis as they had less than five complete days in LL.}
+			The red `\textbf{+}' symbols show animals that were removed from the subsequent analysis as they did not survive five complete days in LL.}
 	\label{fig:fig-3}
 \end{figure}
 
@@ -507,9 +516,9 @@ For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
 
 
 The activity of dead or escaped animals is falsely scored as long series of zeros,
-which may be erroneously interpreted as inactivity (see, for instance, individual 30 and 18 in Fig~\ref{fig:fig-3}A).
+which may be erroneously interpreted as inactivity (see, for instance, individual labelled \texttt{30} and \texttt{18} in Fig~\ref{fig:fig-3}A).
 The \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
-It proceeds by detecting the first time an animal is immobile for more than 1~\% of the time (the default) for at least \texttt{time\_window} seconds and discard any subsequent data.
+It proceeds by detecting the first time an animal is immobile for more than 99~\% of the time (the default) for at least \texttt{time\_window} seconds and then discard any subsequent data.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -573,9 +582,8 @@ A selected sample of four individuals for each genotype is shown in Fig~\ref{fig
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# we also show a subset of this figure in 4A}
+\hlcom{# we also show a subset of this figure in Fig 4A}
 \hlstd{figS1A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{z} \hlstd{= moving),} \hlkwc{multiplot} \hlstd{=} \hlnum{2}\hlstd{)} \hlopt{+}
-            \hlcom{# bars n the z axis could }
             \hlcom{# one could also use stat_tile_etho}
             \hlkwd{stat_bar_tile_etho}\hlstd{()} \hlopt{+}
             \hlcom{# split plot by individual}
@@ -602,7 +610,7 @@ See \nameref{S1-Fig}B for the visualisation of all individuals.
 \begin{alltt}
 \hlcom{# only the LL data}
 \hlstd{dt_ll} \hlkwb{<-} \hlstd{dt[t} \hlopt{>} \hlkwd{days}\hlstd{(}\hlnum{1}\hlstd{)]}
-\hlcom{# compute chi sqr periodogram }
+\hlcom{# compute chi square periodograms }
 \hlstd{per_dt} \hlkwb{<-} \hlkwd{periodogram}\hlstd{(moving,}
                         \hlstd{dt_ll,}
                         \hlkwc{resample_rate} \hlstd{=} \hlnum{1} \hlopt{/} \hlkwd{mins}\hlstd{(}\hlnum{10}\hlstd{),}
@@ -635,7 +643,7 @@ See \nameref{S1-Fig}B for the visualisation of all individuals.
 		A: Double-plotted actograms showing all activity during experiment.
 		Time is defined relative to the transition from LD to LL (at day 0).
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
-		The blue cross represents the first peak (if present) above the significance threshold (red line).
+		The blue cross represents the highest peak (if present) above the significance threshold (red line).
 		Titles on top of each facet refer to the label allocated to each individual.
 		See \nameref{S1-Fig} for all 53 animals.
 	}
@@ -691,19 +699,18 @@ First of all, we compute a summary per individual (\texttt{by=id}):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{summary_dt} \hlkwb{<-}
-    \hlstd{per_dt[,}
-          \hlkwd{.}\hlstd{(}
-           \hlkwc{first_peak_period} \hlstd{= period[peak} \hlopt{==} \hlnum{1}\hlstd{],}
-            \hlcom{# \{\} can be used for tmp variables}
-           \hlkwc{first_peak_rel_power} \hlstd{= \{}
-             \hlstd{signif} \hlkwb{=} \hlstd{signif_threshold[peak} \hlopt{==} \hlnum{1}\hlstd{]}
-             \hlstd{power} \hlkwb{=} \hlstd{power[peak} \hlopt{==} \hlnum{1}\hlstd{]}
-             \hlstd{power} \hlopt{-} \hlstd{signif}
-            \hlstd{\},}
-           \hlkwc{is_rhythmic} \hlstd{=} \hlkwd{any}\hlstd{(peak} \hlopt{==} \hlnum{1}\hlstd{)}
-           \hlstd{),}
-           \hlkwc{by}\hlstd{=id]}
+\hlstd{summary_dt} \hlkwb{<-} \hlstd{per_dt[,}
+                \hlkwd{.}\hlstd{(}
+                  \hlkwc{first_peak_period} \hlstd{= period[peak} \hlopt{==} \hlnum{1}\hlstd{],}
+                  \hlcom{# \{\} can be used for tmp variables}
+                  \hlkwc{first_peak_rel_power} \hlstd{= \{}
+                    \hlstd{signif} \hlkwb{=} \hlstd{signif_threshold[peak} \hlopt{==} \hlnum{1}\hlstd{]}
+                    \hlstd{power} \hlkwb{=} \hlstd{power[peak} \hlopt{==} \hlnum{1}\hlstd{]}
+                    \hlstd{power} \hlopt{-} \hlstd{signif}
+                  \hlstd{\},}
+                  \hlkwc{is_rhythmic} \hlstd{=} \hlkwd{any}\hlstd{(peak} \hlopt{==} \hlnum{1}\hlstd{)}
+                \hlstd{),}
+                \hlkwc{by}\hlstd{=id]}
 
 \hlcom{# rejoin metadata}
 \hlstd{summary_dt} \hlkwb{<-} \hlkwd{rejoin}\hlstd{(summary_dt)}
@@ -738,11 +745,11 @@ It can therefore be used directly by \texttt{ggplot}:
               \hlcom{# draw bootstrap confidence intervals}
               \hlkwd{stat_summary}\hlstd{(}\hlkwc{fun.data} \hlstd{= mean_cl_boot,} \hlkwc{geom} \hlstd{=} \hlstr{"errorbar"}\hlstd{)} \hlopt{+}
               \hlcom{# shows all individuals as points}
-              \hlcom{# the size of the point expresses the power of the peak}
+              \hlcom{# the size of the point represents the power of the peak}
               \hlkwd{geom_jitter}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{colour} \hlstd{= genotype,}
                               \hlkwc{size} \hlstd{= first_peak_rel_power),}
                               \hlkwc{alpha} \hlstd{=} \hlnum{0.67}\hlstd{)} \hlopt{+}
-              \hlcom{# We would like to convert time in hour}
+              \hlcom{# We would like to show time in hours}
               \hlkwd{scale_y_hours}\hlstd{(}\hlstr{"Period"}\hlstd{)}
 \end{alltt}
 \end{kframe}
@@ -788,9 +795,10 @@ Lastly, we can generate a table that compute arbitrary population statistics for
   \hlstd{]}
 
 \hlcom{# to round all numeric columns  to two digits}
-\hlstd{result_dt[,} \hlkwd{lapply}\hlstd{(.SD,} \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)}
-                                \hlkwa{if}\hlstd{(}\hlkwd{is.numeric}\hlstd{(x))} \hlkwd{round}\hlstd{(x,} \hlnum{2}\hlstd{)} \hlkwa{else} \hlstd{x}
-                        \hlstd{)]}
+\hlstd{result_dt[,} \hlkwd{lapply}\hlstd{(.SD,}
+                   \hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlkwa{if}\hlstd{(}\hlkwd{is.numeric}\hlstd{(x))} \hlkwd{round}\hlstd{(x,} \hlnum{2}\hlstd{)} \hlkwa{else} \hlstd{x}
+                   \hlstd{)}
+           \hlstd{]}
 \end{alltt}
 \begin{verbatim}
 ##      genotype mean_period sd_period percent_rhythmic n_rhythmic  n
@@ -853,7 +861,7 @@ We then averaged the result of the five consecutive days in the time/period doma
 and for the population(Fig~\ref{fig:fig-6}E).
 
 As suggested by the slow oscillations of the mean position (Fig~\ref{fig:fig-6}A), we observe peaks in power corresponding to high-period (12~h and 24~h) rhythms.
-In addition, a large amount of signal is detected for low period (around 60~s) events -- 
+In addition, a large amount of signal is detected for low-period (around 60~s) events -- 
 likely corresponding to the position of animals walking along (back and forward) their tubes in a very paced manner.
 
 Interestingly, in females, this low period pace appears to be frequency modulated during the L phase, suggesting a slower walking speed around ZT6~h.
