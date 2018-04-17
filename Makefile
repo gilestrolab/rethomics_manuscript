@@ -1,6 +1,7 @@
 
-all: manuscript.pdf all-figures.pdf
-
+geissmann_et_all_2018.pdf: geissmann_et_all_2018.tex manuscript.pdf all-figures.pdf geissmann_et_all_2018.tex
+	pdflatex $<
+	
 FIGS := $(shell ls fig/*.pdf)
 
 all-figures.pdf: $(FIGS)
@@ -21,6 +22,6 @@ manuscript.pdf: manuscript.tex all-figures.pdf
 	pdflatex $<
 	pdflatex $<
 clean:
-	rm *.log *.aux *.tex *.out  *.pdf *.blg *.bbl *.tdo  -f 
+	rm *.log *.aux {manuscript,results}.tex *.out  *.pdf *.blg *.bbl *.tdo  -f 
 	rm -rf cache/ 
 	rm manuscript.bib -f
