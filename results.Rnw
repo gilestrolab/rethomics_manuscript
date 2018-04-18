@@ -7,14 +7,14 @@ setwd("results")
 \section*{Results}
 %In order to illustrate the workflow of \texttt{rethomics}, we provide a simplified and reproducible example, which could be readily modified to suit more intricate cases.
 
-In order to illustrate the usefulness of \texttt{rethomics}, we provide two carefully annotated examples.
+In order to illustrate the usefulness of \texttt{rethomics}, we provide two examples.
 The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
-The second one shows how \texttt{rethomics} integrates with the rest of \texttt{R} to perform a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
+The second one shows how \texttt{rethomics} integrates within \texttt{R} to perform a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
 
 \subsection*{Canonical circadian analysis in \emph{Drosophila}}
 The \texttt{zeitgebr} package implements a comprehensive suite of methods to analyse circadian rhythms, 
 including the computation of autocorrelograms, $\chi{}^2$\cite{sokolove_chi_1978} and Lomb-Scargle\cite{ruf_lomb-scargle_1999} periodograms,
-and peak detection.
+and automatic peak detection.
 
 The study of the rhythmical activity of fruit flies has played a crucial role in the development of circadian biology\cite{dubowy_circadian_2017}.
 To date, most of the behavioural data used in the field is acquired through the Drosophila Activity Monitor System (DAMS).
@@ -27,9 +27,9 @@ In their study, the authors gain understanding of the function of the molecular 
 and that the endogenous period in LL is longer than 24 hours.
 
 Here, we guide the reader through the analysis of two of the genotypes employed in that study;
-one control group (NKCC\textsuperscript{ox}/+) and one where NKCC\textsuperscript{ox} is overexpressed in clock neurons (TIM/NKCC\textsuperscript{ox}).
+one control group (NKCC\textsuperscript{ox}/+, which is arrhythmic under LL) and one where NKCC\textsuperscript{ox} is overexpressed in clock neurons (TIM/NKCC\textsuperscript{ox}, which is rhythmic under LL).
 In particular, we outline the necessary steps to analyse two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six or seven days.
-The \texttt{metadata.csv} file as well as all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
+The \texttt{metadata.csv} file and all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
 
 We start by downloading the data and extract the zip archive in our working directory.
 Then, we load the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
@@ -117,7 +117,7 @@ fig3A <- ggetho(dt, aes(y = label, z = moving)) +
 @
 
 
-The activity of dead or escaped animals is falsely scored as long series of zeros,
+The activity of dead or escaped animals is scored as long series of zeros,
 which may be erroneously interpreted as inactivity (see, for instance, individual labelled \texttt{30} and \texttt{18} in Fig~\ref{fig:fig-3}A).
 The \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
 It proceeds by detecting the first time an animal is immobile for more than 99~\% of the time (the default) for at least \texttt{time\_window} seconds and then discard any subsequent data.
@@ -264,7 +264,7 @@ fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
 
 \begin{figure}[!h]
 %	\includegraphics[width=1\textwidth]{fig/fig-4.pdf}
-	\caption{{\bf Visualisation of the periodicity in activity of eight selected animals.}
+	\caption{{\bf Visualisation of the periodicity in the activity of eight selected animals.}
 		A: Double-plotted actograms showing all activity during experiment.
 		Time is defined relative to the transition from LD to LL (at day 0).
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
@@ -306,7 +306,7 @@ fig5A <- ggperio(per_dt, aes(y = power - signif_threshold,
 			      Dark and clear fillings indicate rhythmic and arhythmic animals, respectively.
       C: Peak periodicity power and average.
 			      Values of the peak period for animals with a significant peak (\emph{i.e.} rhythmic).
-			      Individual animals are shown by dots whose size represent relative power of the peak period.
+			      Individual animals are shown by dots whose size represent the relative power of the peak period.
 			      The error bars are 95\% bootstrap confidence interval on the population mean.
 			      }
 	\label{fig:fig-5}
@@ -411,16 +411,16 @@ presenting a workflow that applies equally well to much larger datasets.
 
 \subsection*{Multi-scale analysis of position}
 
-One of the challenges of behaviour analysis is the `nesting' of events happening over different time scales.
+One of the challenges of behaviour analysis is the `nesting' of events happening over different timescales.
 In other words, a behavioural variable can be modulated by the circadian rhythm, but also by co-occurring ultradian and infradian rhythms.
 For instance, an animal could have rhythmic bursts of locomotor activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian  (\emph{i.e.} 24~h) regulation of the same variable.
-In this example, both rhythms happen at time scales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate in the same analysis.
+In this example, both rhythms happen at timescales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate into the same analysis.
 Being able to keep frequency information over multiple scales is however important in some cases.
 In particular, when interested in the frequency modulation of a rhythm by another --
-that is, if the periodicity of a high frequency rhythm itself can be function of a lower frequency one.
+that is, if the periodicity of a high-frequency rhythm itself can be a function of a lower frequency one.
 %For instance, the frequency of rhythmic activity bursts could itself be regulated by another rhythm such as the circadian rhythm.
 
-The problem of understanding time series at different scales in not uncommon in fields such as economics\cite{aguiar-conraria_business_2011}, climate sciences\cite{lau_climate_1995} and ecology\cite{cazelles_wavelet_2008} where variables are governed by multiple underlying rhythms (\emph{e.g.} tidal, daily, yearly and multi-yearly).
+The problem of understanding time series at different scales is not uncommon in fields such as economics\cite{aguiar-conraria_business_2011}, climate sciences\cite{lau_climate_1995} and ecology\cite{cazelles_wavelet_2008} where variables are governed by multiple underlying rhythms (\emph{e.g.} tidal, daily, yearly and multi-yearly).
 One approach is to study a variable of interest in the time/period domain using, for instance, continuous wavelet transform (CWT)\cite{grossmann_decomposition_1984}.
 In the context of chronobiology, CWT has been suggested as a tool to investigate ultradian rhythms \cite{leise_wavelet_2013}.
 
@@ -437,12 +437,12 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 	\caption{{\bf Wavelet analysis of positional data.}
 		A: Raw position data for a representative female (top) and male (bottom) \emph{Drosophila} over five days, in black. 
 		The thick coloured lines show the average position every two hours.
-		The green rectangles in the background shows the two time windows selected for B and C.
-		B: Close up of A, showing position over one hour, in the beginning of the L phase of day 1.
-		C: Close up of A, showing position over one hour, in the middle of the L phase of day 1.
+		The green rectangles in the background show the two time windows selected for B and C.
+		B: Close up of A, showing position over one hour, starting at the beginning of the L phase of day 1.
+		C: Close up of A, showing position over one hour, starting at the middle of the L phase of day 1.
 		D: Continuous wavelet transform spectrogram for the two representative animals.
 		E: Average spectrogram across 40 males and 40 females.
-		In D and E, the lines on the right shows the marginal power spectra corresponding to the shown spectrograms (average across all time).
+		In D and E, the lines on the right show the marginal power spectra corresponding to the shown spectrograms (average across all time).
 		The male data was collected and described in our previous study \cite{geissmann_ethoscopes_2017} (controls in figure~5M-P) and the females data was acquired in parallel, in the same experimental conditions, but not previously published.
 	}
 	\label{fig:fig-6}
@@ -459,8 +459,8 @@ In addition, a large amount of signal is detected for low-period (around 60~s) e
 likely corresponding to the position of animals walking along (back and forward) their tubes in a very paced manner.
 
 Interestingly, in females, this low period pace appears to be frequency modulated during the L phase, suggesting a slower walking speed around ZT6~h.
-In contrast, males shows only a high frequency rhythm around the phase transitions (L to D and D to L).
-Surprisingly, the peak of high frequency rhythm imply a faster pace in males (approximately 60~s) than in females (approximately 120~s) --
+In contrast, males display only a high-frequency rhythm around the phase transitions (L to D and D to L).
+Surprisingly, the peak of high-frequency rhythm implies a faster pace in males (approximately 60~s) than in females (approximately 120~s) --
 indicating that, when active, males walk faster than females. 
 
 This non-exhaustive proof of principle illustrates how analysis of behavioural data can be taken further by adapting the wide range of numerical tools already available in the \texttt{R} ecosystem. 
