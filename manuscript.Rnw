@@ -96,8 +96,8 @@
 
 
 \reversemarginpar
-\usepackage[colorinlistoftodos]{todonotes}
-%\usepackage[colorinlistoftodos,disable]{todonotes}
+%\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorinlistoftodos,disable]{todonotes}
 
 %% Include all macros below
 \newcommand{\citationneeded}[2][]{\todo[color=blue, fancyline, #1]{\textbf{Citation Needed:} #2}}
@@ -166,7 +166,7 @@ We propose it as a tool to bridge the gap between behavioural biology and data s
 %\section*{Author summary}
 
 % TODO revert for sumbmisson
-%\linenumbers
+\linenumbers
 \TODO{revert line numbers before submission}
 % TODO also embed bib
 
