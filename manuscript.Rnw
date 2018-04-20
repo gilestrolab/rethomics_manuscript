@@ -125,9 +125,9 @@
 % Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
 \\
 Quentin Geissmann\textsuperscript{1*},
-Luis G Rodriguez\textsuperscript{2},
-Esteban J Beckwith\textsuperscript{1},
-Giorgio F Gilestro\textsuperscript{1*}
+Luis Garcia Rodriguez\textsuperscript{2},
+Esteban J. Beckwith\textsuperscript{1},
+Giorgio F. Gilestro\textsuperscript{1*}
 \\
 \bigskip
 \textbf{1} Department of Life Sciences, Imperial College London, London, United Kingdom
