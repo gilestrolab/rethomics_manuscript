@@ -175,12 +175,12 @@ We propose it as a tool to bridge the gap between behavioural biology and data s
 %The behaviour of an animal is a complex phenotypical manifestation of the interaction between its nervous system, its internal state and its environment.
 
 
-The biological significance and determinism of animal behaviours have long been a subject of prime scientific interest.
-In the 1960s, behavioural geneticists, such as Seymour Benzer showed that some apparently complex behaviours could be in fact governed by simple genetic determinant, which connected genetics and behaviour\cite{sokolowski_drosophila_2001}.
+The biological implications and the determinism of animal behaviour have long been a subject of significant scientific interest.
+In the 1960s, behavioural geneticists, such as Seymour Benzer, showed that some apparently complex behaviours could in fact be governed by simple genetic determinants, which connected genetics and behaviour\cite{sokolowski_drosophila_2001}.
 In the last few decades, our ability to acquire and analyse vast amounts of biological data has tremendously increased\cite{stephens_big_2015},
-which has been deeply transforming both genetics\cite{schatz_biological_2015} and neuroscience\cite{sejnowski_putting_2014}.
+deeply transforming both genetics\cite{schatz_biological_2015} and neuroscience\cite{sejnowski_putting_2014}.
 %The rise of high-throughput methods and computational approaches, have particularly transformed genetics and neurobiology.
-In fact, ethology itself is undergoing its own transition towards data sciences, which has prompted the terms of `ethomics' \cite{branson_high-throughput_2009, reiser_ethomics_2009} and `computational ethology'\cite{anderson_toward_2014}. 
+In fact, ethology itself is undergoing its own transition towards data sciences, which has prompted the terms `ethomics' \cite{branson_high-throughput_2009, reiser_ethomics_2009} and `computational ethology'\cite{anderson_toward_2014}. 
 It is now accepted that the study of behaviour can also benefit from quantitative sciences such as machine learning, physics and computational linguistics \cite{brown_ethology_2018, berman_measuring_2018}.
 
 %The availability of large amounts of data, in combination with the use of methods borrowed from the data sciences, allow for in-depth quantitative analyses which, in turn, leads to the characterisation of new principles and ultimately a better understanding of their underlying biology\cite{brown_ethology_2018, berman_measuring_2018}.
@@ -193,7 +193,7 @@ It is now accepted that the study of behaviour can also benefit from quantitativ
 
 Although general questions regarding the environmental, evolutionary, neural and genetic determinants of behaviours are shared within the community,
 the multiplicity of model organisms, hypotheses and paradigms has led to the existence of a very diverse palette of specific recording techniques.
-Some tools were developed, for instance:
+Some tools were developed, for instance,
 to continuously record simple behavioural features such as walking activity\cite{faville_how_2015} and  position\cite{pelkowski_novel_2011} over long durations (days or weeks);
 to score more complex ones such as feeding\cite{itskov_automated_2014,ro_flic_2014}, aggression\cite{dankert_automated_2009} and courtship\cite{tsai_image_2012};
 and to study the behaviour of multiple interacting animals \cite{swierczek_high-throughput_2011,perez-escudero_idtracker_2014,robie_mapping_2017}.
@@ -208,11 +208,10 @@ In addition, they can be used on remote resources such as computer clusters, whi
 Since many aspects of behaviour analysis are also becoming increasingly dependent on data sciences, the development of such common tools and data structures would be very valuable.
 
 At first, it may seem as though behavioural experiments are prohibitively heterogeneous -- in terms of model organisms, paradigm and timescale -- for a similar community to arise.
-However, some low-level conceptual consistencies and methodological challenges are common across experiments.
+However, low-level conceptual consistencies and methodological challenges are shared across experiments.
 For instance, the results (\emph{i.e.} the `data')  feature a set of long time series (sometimes multivariate and irregular), but also contain a formal description of the treatment applied to each individual, the `metadata'.
 Storing and accessing data and metadata efficiently involves the implementation of a nested data structure which, in principle,
 can be shared between acquisition platforms and experimental paradigms.
-% it broaden the scope for developing of utilities an shared principles.
 
 Here, we describe the \texttt{rethomics} platform, an effort to promote the interaction between behavioural biologists and data scientists.
 \texttt{rethomics} is implemented as a collection of interconnected packages, offering solutions to importing, storing, manipulating and visualising large amounts of behavioural results.
@@ -220,7 +219,7 @@ We also present two practical examples of its application to the analysis of beh
 
 
 \section*{Design and Implementation}
-\texttt{rethomics} is implemented in \texttt{R}\cite{r_core_team_r_2017}, which is widely taught and adopted by computational biologists,
+\texttt{rethomics} is implemented in \texttt{R}\cite{r_core_team_r_2017}
 as a collection of packages (Fig~\ref{fig:fig-1}).
 Such modular architecture follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse_2017}, which results in increased testability, maintainability and adaptability.
 In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package, and new ones can be designed to suit specific needs.
@@ -242,48 +241,44 @@ Numerical results and plots are standard objects that can, therefore, be further
 
 \subsection*{Internal data structure}
 
-Ethomics results can easily scale and data structure therefore gains from being computationally efficient -- both in term of memory footprint and processing speed.
+Ethomics results can easily scale and data structure therefore gains from being computationally efficient -- both in terms of memory footprint and processing speed.
 For instance, there could be very long time series, sampled several times per second, over multiple days, for each individual. %(typically, $k_i > 10^8, \forall i \in [1,n]$) 
 In addition, time series can be multivariate -- encoding coordinates, orientation, dimensions, activity, colour intensity and so on.
 Furthermore, experiments may  feature a large number of individuals. %(typically $n > 100$).
 Each individual is also associated with some metadata: a set of `metavariables' that describe experimental conditions.
 For instance, metadata stores information regarding the date and location of the experiment, treatment, genotype, sex, \emph{post hoc} observations and other arbitrary metavariables.
-A large set of metavariables is an important asset since they can later be used as covariates. 
+A large set of metavariables is an important asset since they can later be treated as covariates. 
 
-\texttt{behavr} tables link metadata and data within the same object, extending the syntax of \texttt{data.table} to manipulate, join and access metadata (Fig~\ref{fig:fig-2}A~and~B).
+\texttt{behavr} tables link metadata and data within the same object, extending the syntax of \texttt{data.table} to manipulate, join and access metadata (Fig~\ref{fig:fig-2} and \nameref{S1-Fig}).
 This approach guarantees that any data point can be mapped correctly to its parent metadata thanks to a shared key (\texttt{id}).
 Furthermore, it allows implicit update of metadata when data is altered.
-For instance, when data is filtered, only the remaining individuals should be in the new metadata. 
+For instance, when data is subsetted, only the remaining individuals should be in the new metadata. 
 It is also important that metadata and data can interoperate --
-for example, when updating a variable according to the value of a metavariable (say, alter the variable \texttt{x} only for animals with the metavariable \texttt{sex = `male'}).
+for example, when updating a variable according to the value of a metavariable (say, altering the variable \texttt{x} only for animals with the metavariable \texttt{sex = `male'}).
 The online tutorials and documentation provide a detailed set of examples and concrete use cases of \texttt{behavr}. 
 
 
 \begin{figure}[!h]
 % 	\includegraphics[width=1\textwidth]{fig/fig-2.pdf}
 	\caption{{\bf \texttt{behavr} table.}
-	A: Illustration of a \texttt{behavr} object, the core data structure in \texttt{rethomics}.
+	Illustration of a \texttt{behavr} object, the core data structure in \texttt{rethomics}.
 		The metadata holds a single row for each of the $n$ individuals. 
 		Its columns, the $p$ metavariables, are one of two kinds: either required -- and defined by the acquisition platform (\emph{i.e.} used to fetch the data) -- or user-defined (\emph{i.e.} arbitrary).
 		In the data, each row is a `read' (\emph{i.e.} information about one individual at one time-point).
 		It is formed of $q$ variables and is expected to have a very large number of reads, $k$, for each individual $i\in [1,n]$.
 		Data and metadata are implicitly joined on the \texttt{id} field.
 		Note that the names used for variables and metavariable in this example are only plausible cases which will likely differ in practice. 
-		B: Non-exhaustive list of uses of a \texttt{behavr} table (referred as \texttt{dt}). 
-		In addition to operations on data, which are inherited from \texttt{data.table},
-		we provide utilities designed specifically to act on both metadata and data.  
-		Commented examples are prefixed by `\texttt{>}'.
 	}
 	\label{fig:fig-2}
 \end{figure}
 
 \subsection*{Data import}
-Data import packages translate results from a specific recording platform (\emph{e.g.} text files and databases) into a single \texttt{behavr} object.
-Currently, we provide two packages: one to import results from single and multi-beam Drosophila Activity Monitor Systems (Trikinetics Inc.) 
+Data import packages translate results from a specific recording platform (\emph{e.g.} text files and relational databases) into a single \texttt{behavr} object.
+Currently, we provide two packages: one to import data from single and multi-beam Drosophila Activity Monitor Systems (Trikinetics Inc.) 
 and another one for Ethoscopes \cite{geissmann_ethoscopes_2017}.
 Although the structure of the raw results is very different, conceptually, loading data is very similar.
 In all cases, users must provide a metadata table, with one row per individual,
-and featuring both mandatory and optional columns (Fig~\ref{fig:fig-2}A).
+and featuring both mandatory and optional columns (Fig~\ref{fig:fig-2}).
 The mandatory ones are the necessary and sufficient information to fetch data (\emph{e.g.} machine id, region of interest and date). 
 The optional columns are user-defined arbitrary fields that translate experimental conditions (\emph{e.g.} treatment, genotype and sex).
 
@@ -329,16 +324,24 @@ They include utilities to input new behaviour tracking methods and analyse multi
 \section*{Supporting information}
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
+
+
 \paragraph*{S1 Fig.}
 \label{S1-Fig}
+{\bf Non-exhaustive list of uses of a \texttt{behavr} table (referred as \texttt{dt}).}
+In addition to operations on data, which are inherited from \texttt{data.table},
+we provide utilities designed specifically to act on both metadata and data.  
+Commented examples are prefixed by `\texttt{>}'.
+
+\paragraph*{S2 Fig.}
+\label{S2-Fig}
 {\bf Complete version of Fig~\ref{fig:fig-4}.}
 See Fig~\ref{fig:fig-4} for legend.
-
 
 \section*{Acknowledgements}
 We would like to thank people who have directly or indirectly contributed to the this manuscript.
 In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials;
-Maite Ogueta, for making the DAMS results data available;
+Maite Ogueta and Ralf Stanewsky, for making the DAMS results data available;
 Alice French, Hannah Jones, Diana Bicazan and Florencia Fernandez-Chiappe for their comments as early users;
 Marcus Gosh and Tara Kane for their feedback on the manuscript;
 Brenna Williams, for her help to support multi-beam DAMS;

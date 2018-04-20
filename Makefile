@@ -1,5 +1,5 @@
 
-geissmann_et_al_2018.pdf: geissmann_et_al_2018.tex manuscript.pdf all-figures.pdf
+geissmann_et_al_2018.pdf: geissmann_et_al_2018.tex manuscript.pdf all-figures.pdf manuscript.tex
 	pdflatex $<
 	
 FIGS := $(shell ls fig/*.pdf)

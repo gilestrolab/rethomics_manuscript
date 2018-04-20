@@ -29,10 +29,10 @@ and that the endogenous period in LL is longer than 24 hours.
 Here, we guide the reader through the analysis of two of the genotypes employed in that study;
 one control group (NKCC\textsuperscript{ox}/+, which is arrhythmic under LL) and one where NKCC\textsuperscript{ox} is overexpressed in clock neurons (TIM/NKCC\textsuperscript{ox}, which is rhythmic under LL).
 In particular, we outline the necessary steps to analyse two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six or seven days.
-The \texttt{metadata.csv} file and all the associated result files can be downloaded at \href{https://zenodo.org/record/1172980}{https://zenodo.org/record/1172980}.
+The \texttt{metadata.csv} file and all the associated result files can be downloaded on zenodo\cite{ogueta_ll_2018}.
 
-We start by downloading the data and extract the zip archive in our working directory.
-Then, we load the necessary \texttt{rethomics} packages (see the webpage for installation instructions):
+Fist, we install the \texttt{rethomics} packages (see the webpage for installation instructions) and download the data to extract the zip archive in our working directory.
+Then, we load the necessary \texttt{rethomics} packages:
 
 <<message=FALSE>>=
 library(damr)      # input DAM data
@@ -67,9 +67,10 @@ dt[, moving :=  activity > 0]
 <<cache=TRUE>>=
 summary(dt)
 @
-The \texttt{id} is a long and exhaustive string of character, which incidentally 
-makes it difficult to read and display as a label on a plot.
-To address this issue, we create our own \texttt{label} metavariable, as the combination of a number and \texttt{genotype}.
+
+The \texttt{id} is a long string of character (for instance, `\texttt{2013-11-19~09:00:00|Monitor36.txt|01}'), 
+which makes it difficult to read and display as a label on a plot.
+To address this issue, we create our own \texttt{label} metavariable, as the combination of a number and \texttt{genotype} (\emph{e.g.} `\texttt{1.NKCCOX/+}').
 In the restricted context of this analysis, \texttt{label} acts as a unique identifier.
 Importantly, we also retain \texttt{id} as an \emph{unambiguous} unique identifier.
 Indeed, two animals in separate experiments may have the same label, but different \texttt{id}s.
@@ -97,6 +98,9 @@ For this, we generate a tile plot (Fig~\ref{fig:fig-3}A).
 			A: Uncurated raw data.
 			B: Data after the curation step. Time was trimmed and data from dead animals removed. 
 			The red `\textbf{+}' symbols show animals that were removed from the subsequent analysis as they did not survive five complete days in LL.}
+			The white and black rectangles on the time axis show L and D phases, respectively.
+			In the LL regime (for $t > 0$), grey rectangles represent subjective nights.
+			
 	\label{fig:fig-3}
 \end{figure}
 
@@ -119,7 +123,7 @@ fig3A <- ggetho(dt, aes(y = label, z = moving)) +
 
 The activity of dead or escaped animals is scored as long series of zeros,
 which may be erroneously interpreted as inactivity (see, for instance, individual labelled \texttt{30} and \texttt{18} in Fig~\ref{fig:fig-3}A).
-The \texttt{sleepr} package offers a tool to detect and remove such artefactual data.
+The \texttt{sleepr} package offers a tool to detect and remove such data.
 It proceeds by detecting the first time an animal is immobile for more than 99~\% of the time (the default) for at least \texttt{time\_window} seconds and then discard any subsequent data.
 
 <<cache=TRUE>>=
@@ -139,13 +143,13 @@ fig3B <- ggetho(dt, aes(y = label, z = moving)) +
                         ld_colours = c("white", "grey"))
 @
 
-For the purpose of this example, we also exclude animals that died prematurely, and keep only individuals that have lived for \emph{at least five days in LL}. An overview of the curate data can be visualised in Fig~\ref{fig:fig-3}B.
+For the purpose of this example, we also exclude animals that died prematurely, and keep only individuals that have lived for at least five days in LL. An overview of the curate data can be visualised in Fig~\ref{fig:fig-3}B.
 
 <<cache=TRUE, echo=FALSE>>=
 # draw point for invalid animals
 valid_dt <- dt[, .(valid = max(t) > days(5)), by = id]
 valid_ids <- valid_dt[valid == T, id]
-fig3B <- fig3B + geom_text(data = dt[!id %in% valid_ids,.(label), meta = T], aes(x = days(6), y = label), inherit.aes = F, colour = "red", label = "+", fontface = "bold")
+fig3B <- fig3B + geom_text(data = dt[!id %in% valid_ids,.(label), meta = T], aes(x = days(6.1), y = label), inherit.aes = F, colour = "red", label = "+", fontface = "bold", size=10, vjust=0.35)
 @
 
 <<cache=TRUE>>=
@@ -158,17 +162,17 @@ dt <- dt[id %in% valid_ids]
 summary(dt)
 @
 
-Note that as a result, we now have \Sexpr{nrow(dt[meta=T])} `valid' individuals.
+Note that, as a consequence of the curation procedure, we now have \Sexpr{nrow(dt[meta=T])} `valid' individuals.
 
 
 \subsubsection*{Double-plotted actograms}
-`Double-plotted actograms' are a common choice to visualise the periodicity and rhythmicity in circadian experiments.
-In  \nameref{S1-Fig}A, we show a double-plotted actogram for each animal.
+Double-plotted actograms are a common choice to visualise the periodicity and rhythmicity in circadian experiments.
+In  \nameref{S2-Fig}A, we show a double-plotted actogram for each animal.
 A selected sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
 <<cache=TRUE, warning=FALSE, result="hide", message=FALSE>>=
 # we also show a subset of this figure in Fig 4A
-figS1A <- ggetho(dt, aes(z = moving), multiplot = 2) +
+figS2A <- ggetho(dt, aes(z = moving), multiplot = 2) +
             # one could also use stat_tile_etho
             stat_bar_tile_etho() + 
             # split plot by individual
@@ -213,11 +217,11 @@ fig4A <- fig4A + scale_y_discrete(name = "Day",
 
 \subsubsection*{Periodograms}
 Ultimately, in order to quantify periodicity and rhythmicity, we compute periodograms.
-Several methods are implemented in \texttt{zeitbebr}: $\chi{}^2$, Lomb-Scargle, autocorrelation 
+Several methods are implemented in \texttt{zeitgebr}: $\chi{}^2$, Lomb-Scargle, autocorrelation 
 and Fourier.
 In this example, we generate $\chi{}^2$ periodograms and lay them out in a grid.
-Periodograms for the subset of eight animals used in Fig~\ref{fig:fig-4}A is shown in Fig~\ref{fig:fig-4}B. 
-See \nameref{S1-Fig}B for the visualisation of all individuals.
+Periodograms for the subset of eight animals used in Fig~\ref{fig:fig-4}A are shown in Fig~\ref{fig:fig-4}B. 
+See \nameref{S2-Fig}B for the visualisation of all individuals.
 
 <<cache=TRUE>>=
 # only the LL data
@@ -230,7 +234,7 @@ per_dt <- periodogram(moving,
                     	
 per_dt <- find_peaks(per_dt)
 # we also show a subset of this figure in supplementary materials
-figS1B <- ggperio(per_dt, aes(y = power, peak = peak)) + 
+figS2B <- ggperio(per_dt, aes(y = power, peak = peak)) + 
                   # periododogram drawn as a line
                   geom_line() +
                   # the significance line in red
@@ -268,9 +272,9 @@ fig4B <- ggperio(per_dt[xmv(label) %in% fig_4_picked_labels],
 		A: Double-plotted actograms showing all activity during experiment.
 		Time is defined relative to the transition from LD to LL (at day 0).
 		B: $\chi{}^2$ periodograms over the LL part of the experiment matching the animals in A.
-		The blue cross represents the highest peak (if present) above the significance threshold (red line).
+		The blue cross represents the highest peak (if present) above the significance threshold, at $\alpha = 0.05$, (red line).
 		Titles on top of each facet refer to the label allocated to each individual.
-		See \nameref{S1-Fig} for all \Sexpr{nrow(dt[meta=TRUE])} animals.
+		See \nameref{S2-Fig} for all \Sexpr{nrow(dt[meta=TRUE])} animals.
 	}
 	\label{fig:fig-4}
 \end{figure}
@@ -305,7 +309,7 @@ fig5A <- ggperio(per_dt, aes(y = power - signif_threshold,
 			      Number of rhythmic animals (\emph{i.e.} with a significant peak) in each genotypes.
 			      Dark and clear fillings indicate rhythmic and arhythmic animals, respectively.
       C: Peak periodicity power and average.
-			      Values of the peak period for animals with a significant peak (\emph{i.e.} rhythmic).
+			      Values of the peak period for animals with a peak above the significance threshold, at $\alpha = 0.05$(\emph{i.e.} rhythmic).
 			      Individual animals are shown by dots whose size represent the relative power of the peak period.
 			      The error bars are 95\% bootstrap confidence interval on the population mean.
 			      }
@@ -335,7 +339,7 @@ summary_dt <- per_dt[,
 summary_dt <- rejoin(summary_dt)
 @
 
-\texttt{summary\_dt} is just a regular data frame with one row per individual, containing both metadata and our summary statistics. 
+\texttt{summary\_dt} is a regular data frame with one row per individual, containing both metadata and our summary statistics. 
 It can therefore be used directly by \texttt{ggplot}:
 
 <<cache=TRUE, warning=FALSE, results="hide">>=
@@ -404,7 +408,7 @@ result_dt[, lapply(.SD,
 
 
 
-The case study described so far shows how \texttt{rethomics} can be employed to generate publication-quality figures and state-of-the-art statistics.
+The case study described so far shows how \texttt{rethomics} can be employed to generate publication-quality figures and state-of-the-art statistics on pre-existing data.
 We were able to comprehensively analyse the data from a circadian experiment with a few lines of code,
 presenting a workflow that applies equally well to much larger datasets.
 
@@ -413,8 +417,8 @@ presenting a workflow that applies equally well to much larger datasets.
 
 One of the challenges of behaviour analysis is the `nesting' of events happening over different timescales.
 In other words, a behavioural variable can be modulated by the circadian rhythm, but also by co-occurring ultradian and infradian rhythms.
-For instance, an animal could have rhythmic bursts of locomotor activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian  (\emph{i.e.} 24~h) regulation of the same variable.
-In this example, both rhythms happen at timescales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate into the same analysis.
+For instance, an animal could have rhythmic bursts of locomotor activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian (\emph{i.e.} 24~h) regulation of the same variable,
+both rhythms would then happen at timescales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate into the same analysis.
 Being able to keep frequency information over multiple scales is however important in some cases.
 In particular, when interested in the frequency modulation of a rhythm by another --
 that is, if the periodicity of a high-frequency rhythm itself can be a function of a lower frequency one.
@@ -435,11 +439,11 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 \begin{figure}[!h]
 	%  	\includegraphics[width=1\textwidth]{fig/fig-5.pdf}
 	\caption{{\bf Wavelet analysis of positional data.}
-		A: Raw position data for a representative female (top) and male (bottom) \emph{Drosophila} over five days, in black. 
+		A: Raw position data for a representative female (top) and male (bottom) \emph{Drosophila~melanogaster} over five days, in black. 
 		The thick coloured lines show the average position every two hours.
 		The green rectangles in the background show the two time windows selected for B and C.
-		B: Close up of A, showing position over one hour, starting at the beginning of the L phase of day 1.
-		C: Close up of A, showing position over one hour, starting at the middle of the L phase of day 1.
+		B: Close up of the first time window in A, showing position over one hour, starting at the beginning of the L phase of day 1.
+		C: Close up of the second time window in A, showing position over one hour, starting at the middle of the L phase of day 1.
 		D: Continuous wavelet transform spectrogram for the two representative animals.
 		E: Average spectrogram across 40 males and 40 females.
 		In D and E, the lines on the right show the marginal power spectra corresponding to the shown spectrograms (average across all time).
@@ -468,6 +472,12 @@ This non-exhaustive proof of principle illustrates how analysis of behavioural d
 
 <<r, eval=TRUE, echo=FALSE, message=FALSE, result="hide",cache=TRUE, warning=FALSE>>=
 ################################ CODE BELOW FOR COSMETIC ALTERATIONS OF FIGURES
+
+MUTANT_PALETTES <- c("#babdb6", "#729fcf")
+
+mutant_colours <- list(scale_colour_manual(values = MUTANT_PALETTES),
+                      scale_fill_manual(values = MUTANT_PALETTES))
+
 library(cowplot)
 label_size <- 24 # "A", "B" ...
 my_theme <- theme(axis.title.y=element_blank(),
@@ -515,12 +525,12 @@ print(fig3_final)
 tmp  <- dev.off()
 
 #=================================================
-figS1A <- figS1A +  theme(strip.text.x = element_text(size =8))
-figS1B <- figS1B +  theme(strip.text.x = element_text(size =8))
+figS2A <- figS2A +  theme(strip.text.x = element_text(size =8))
+figS2B <- figS2B +  theme(strip.text.x = element_text(size =8))
 
-figS1 <- cowplot::plot_grid(
-                          figS1A,
-                          figS1B,
+figS2 <- cowplot::plot_grid(
+                          figS2A,
+                          figS2B,
                           nrow=1,
                           labels=c( "A", "B"),
                           label_size = label_size,
@@ -529,15 +539,15 @@ figS1 <- cowplot::plot_grid(
                           hjust=0, vjust=1.01
                           )
 
-pdf("../fig/fig-S1.pdf",w=12,h=16)
-print(figS1)
+pdf("../fig/fig-S2.pdf",w=12,h=16)
+print(figS2)
 tmp <- dev.off()
 
 #===================================================
 
 fig4 <- cowplot::plot_grid(
-				fig4A + theme(legend.position = "none"),
-				fig4B+ theme(legend.position = "none"),
+				fig4A + theme(legend.position = "none") + mutant_colours,
+				fig4B+ theme(legend.position = "none")  + mutant_colours ,
 				nrow=1,
 				labels=c("A", "B"),
 				align="v",
@@ -547,10 +557,11 @@ fig4 <- cowplot::plot_grid(
 )
 
 
+#scale_colour_discrete(palette = MUTANT_PALETTES)
 fill_legend <- 
   cowplot::plot_grid(NULL,
     cowplot::get_legend(
-        fig4A + theme(legend.position = "bottom", legend.direction = "horizontal") + scale_fill_discrete(name="Genotype "))
+        fig4A + theme(legend.position = "bottom", legend.direction = "horizontal") + scale_fill_manual(name="Genotype ", values = MUTANT_PALETTES))
         )
 #?theme
 
@@ -565,9 +576,9 @@ tmp  <- dev.off()
 
 
 
-fig5 <- cowplot::plot_grid(fig5A + theme(legend.position="none"),
-                           fig5B + theme(legend.position="none") + scale_y_continuous(name="Number") + scale_x_discrete(name="Genotype"),
-                           fig5C + theme(legend.position="none") + scale_x_discrete(name="Genotype"),
+fig5 <- cowplot::plot_grid(fig5A + mutant_colours +theme(legend.position="none"),
+                           fig5B + mutant_colours  + theme(legend.position="none") + scale_y_continuous(name="Number") + scale_x_discrete(name="Genotype"),
+                           fig5C + mutant_colours  + theme(legend.position="none") + scale_x_discrete(name="Genotype"),
                            nrow=1,
                            label_size = label_size,
                            align = "hv",
@@ -580,7 +591,7 @@ fig5 <- cowplot::plot_grid(fig5A + theme(legend.position="none"),
 dummy <- ggplot(summary_dt, aes(is_rhythmic, first_peak_period, size= first_peak_power, fill= genotype, colour=genotype)) + 
     geom_bar(aes(x=genotype, alpha= ifelse(is_rhythmic, "Rhythmic", "Arhythmic"), fill=genotype), inherit.aes = F) + 
   geom_jitter(aes(is_rhythmic, first_peak_period, size=first_peak_rel_power), inherit.aes = F) +
-   scale_fill_discrete(name="Genotype")+scale_size(name= "Peak relative power") +  scale_alpha_discrete(name= "") +
+   scale_fill_manual(name="Genotype", values=MUTANT_PALETTES)+scale_size(name= "Peak relative power") +  scale_alpha_discrete(name= "") +
   theme(legend.position = "bottom")  + 
   guides(fill = guide_legend(order=1),
          alpha = guide_legend(order=2),
