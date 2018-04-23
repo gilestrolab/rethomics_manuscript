@@ -29,7 +29,7 @@ and that the endogenous period in LL is longer than 24 hours.
 Here, we guide the reader through the analysis of two of the genotypes employed in that study;
 one control group (NKCC\textsuperscript{ox}/+, which is arrhythmic under LL) and one where NKCC\textsuperscript{ox} is overexpressed in clock neurons (TIM/NKCC\textsuperscript{ox}, which is rhythmic under LL).
 In particular, we outline the necessary steps to analyse two repetitions of the same experiment in which a total of 58 animals were recorded for three to four days in LD and then subjected to constant light for six or seven days.
-The \texttt{metadata.csv} file and all the associated result files can be downloaded on zenodo\cite{ogueta_ll_2018}.
+The \texttt{metadata.csv} file and all the associated result files can be downloaded on zenodo (https://doi.org/10.5281/zenodo.1172980) \cite{ogueta_ll_2018}.
 
 Fist, we install the \texttt{rethomics} packages (see the webpage for installation instructions), download the zip archive containing the raw data and extract all files into our working directory.
 Then, we load the necessary \texttt{rethomics} packages:
