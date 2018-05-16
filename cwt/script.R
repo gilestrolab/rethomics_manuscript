@@ -4,7 +4,7 @@ library(scopr)
 library(ggetho)
 library(sleepr)
 library(gtools)
-library(TSclust)
+#library(TSclust)
 
 FEMALE_MALE_PALETTE <- c("#be2828ff", "#282896ff")
 CONTROL_SD_PALETTE <- c( "#969696ff", "#3caa3cff")
@@ -74,7 +74,7 @@ library(cowplot)
 
 dt_target <- dt
 
-pdf("/tmp/test_wt.pdf", w=16, h=9)
+#~ pdf("/tmp/test_wt.pdf", w=16, h=9)
 
 #for(i in 1:nrow(dt_target[meta=T])){
 #~ for(i in 1:10){
@@ -112,7 +112,7 @@ wt_analysis <- function(dd){
 	plot_dt <- plot_dt[, .(z=mean(z)), by="x,y"]
 	plot_dt <- plot_dt[, z := sqrt(z)]
 
-#~ 	brks <- c(mins(2), hours(12), hours(24))
+	#brks <- c(mins(2), hours(12), hours(24))
 #~ 	a <- ggplot(dtest[t %between% hours(c(24, 48))], aes(x=t, y=x_rel)) + geom_line() + scale_x_hours() + stat_ld_annotations() +ggtitle(dt_target[i,id, meta=T])
 #~ 	b <- ggplot(out, aes(period, power)) + scale_x_log10(breaks=brks) + geom_line()
 #~ 	c <- ggplot(plot_dt, aes(x=x,y=y,fill=z)) + geom_raster() + scale_x_hours() + 
@@ -168,15 +168,44 @@ for(i in unique(out[id %in% selected , id, meta=T])){
 
 tmp_dt
 out[ , .(z=mean(z)), by=y]
+#out_bak <- copy(out)
+out[, phase := ifelse(x < hours(12), "A", "B")]
+tmp_dt <- rejoin(out[ , .SD[ , .(z=mean(z)), by="y,phase"], by=id])#[,.(z = mean(z)),by="y,sex"]
 
-tmp_dt <- rejoin(out[ , .SD[ , .(z=mean(z)), by=y], by=id])#[,.(z = mean(z)),by="y,sex"]
-dm <- ggplot(tmp_dt[sex=="M"], aes(y=z, x=y)) + stat_pop_etho(method= mean_cl_boot) + coord_flip() +
-		scale_x_continuous(breaks = log2(brks/10))   + scale_y_continuous(limits=c(0,1))
+
+#tmp_dt <- rejoin(out[ , .SD[ , .(z=mean(z)), by=y], by=id])#[,.(z = mean(z)),by="y,sex"]
+
+#~ dm <- ggplot(tmp_dt[sex=="M"], aes(y=z, x=y, linetype=phase, colour=sex)) + stat_pop_etho(method= mean_cl_boot) + coord_flip() +
+#~ 		scale_x_continuous(breaks = log2(brks/10))   + scale_y_continuous(limits=c(0,1))
 		
-df <- ggplot(tmp_dt[sex=="F"], aes(y=z, x=y)) + stat_pop_etho(method= mean_cl_boot) + coord_flip() +
-		scale_x_continuous(breaks = log2(brks/10))   + scale_y_continuous(limits=c(0,1))
+#~ df <- ggplot(tmp_dt[sex=="F"], aes(y=z, x=y)) + stat_pop_etho(method= mean_cl_boot) + coord_flip() +
+#~ 		scale_x_continuous(breaks = log2(brks/10))   + scale_y_continuous(limits=c(0,1))
+
+
+marg_pl <- ggplot(tmp_dt, aes(y=z, x=y,  colour=sex)) + stat_pop_etho(method= mean_cl_boot) + coord_flip(ylim=c(0,.6))+
+ 		scale_x_continuous(breaks = log2(brks/10))  + facet_grid( . ~phase) + 
+		theme(
+		  strip.background = element_blank(),
+		  strip.text.x = element_blank()
+		)
+
+sel_marg_pl <- ggplot(tmp_dt[id %in% selected], aes(y=z, x=y,  colour=sex)) + stat_pop_etho(method= mean_cl_boot) + coord_flip(ylim=c(0,.6))+
+ 		scale_x_continuous(breaks = log2(brks/10))  + facet_grid( . ~phase) +
+		theme(
+			strip.background = element_blank(),
+			strip.text.x = element_blank()
+		)
+
+
+pdf("/tmp/test_wt_marg.pdf", w=8, h=9)
+marg_pl
+sel_marg_pl
+dev.off()
+
+
 
 tmp_dt <- out[ xmv(sex)=="M", .(z=mean(z)), by="y,x"]
+
 em <- ggplot(tmp_dt, aes(x=x,y=y,fill=z)) + geom_raster() + scale_x_hours() + 
 				scale_y_continuous(breaks = log2(brks/10)) +
 				stat_ld_annotations()+
