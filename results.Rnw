@@ -446,7 +446,7 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 		C: Close up of the second time window in A, showing position over one hour, starting at the middle of the L phase of day 1.
 		D: Continuous wavelet transform spectrogram for the two representative animals.
 		E: Average spectrogram across 40 males and 40 females.
-		In D and E, the lines on the right show the marginal power spectra corresponding to the shown spectrograms (average across all time).
+		In D and E, the lines on the right show the marginal power spectra corresponding to the spectrograms shown -- that is the average across 12 hours in either the light (white bar) or dark (black bar) phase.
 		The male data was collected and described in our previous study \cite{geissmann_ethoscopes_2017} (controls in figure~5M-P) and the females data was acquired in parallel, in the same experimental conditions, but not previously published.
 	}
 	\label{fig:fig-6}

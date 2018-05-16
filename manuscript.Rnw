@@ -318,7 +318,7 @@ Extensive installation instructions, as well as reproducible demos and tutorials
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
 All packages are continuously integrated and unit tested on several versions of \texttt{R} to minimise the risk of present and future issues.
 
-Several users, in different research groups, have already adopted and are contributing to the future development framework.
+Several users, in different research groups, have already adopted and are contributing to the future development of the framework.
 Several new packages in the \texttt{rethomics} framework are currently envisaged. 
 They include utilities to input new behaviour tracking methods and analyse multi-animal interactions.
 
