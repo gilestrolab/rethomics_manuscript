@@ -343,7 +343,7 @@ See Fig~\ref{fig:fig-4} for legend.
 We would like to thank people who have directly or indirectly contributed to the this manuscript.
 In particular, Han Kim, for his invaluable comments on the early versions of \texttt{rethomics} and his dedicated contribution to the tutorials;
 Maite Ogueta and Ralf Stanewsky, for making the DAMS results data available;
-Alice French, Hannah Jones, Diana Bicazan and Florencia Fernandez-Chiappe for their comments as early users;
+Anne Petzold, Alice French, Hannah Jones, Diana Bicazan and Florencia Fernandez-Chiappe for their comments as early users;
 Marcus Ghosh and Tara Kane for their feedback on the manuscript;
 Brenna Williams, for her help to support multi-beam DAMS;
 Patrick Kr{\"a}tschmer, for his time discussing the conceptual framework.
