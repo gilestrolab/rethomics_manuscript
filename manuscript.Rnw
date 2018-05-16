@@ -311,8 +311,9 @@ For instance, \texttt{ggplot2} operations such as faceting, transforming axes an
 % 
 
 \section*{Availability and Future Directions}
-All packages in the \texttt{rethomics} framework are available under the terms of the GPLv3 license and listed at
-\href{https://github.com/rethomics}{https://github.com/rethomics/}.
+All packages in the \texttt{rethomics} framework are available under the terms of the GPLv3 license and are listed at
+\href{https://rethomics.github.io/intro.html}{https://rethomics.github.io/intro.html}.
+\texttt{behavr} and \texttt{damr} are already hosted on the Comprehensive R Archive Network (CRAN), and all the other packages are either under review or in preparation.
 Extensive installation instructions, as well as reproducible demos and tutorials, are available at
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
 All packages are continuously integrated and unit tested on several versions of \texttt{R} to minimise the risk of present and future issues.
