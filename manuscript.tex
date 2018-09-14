@@ -354,7 +354,7 @@ For instance, \texttt{ggplot2} operations such as faceting, transforming axes an
 %In order to illustrate the workflow of \texttt{rethomics}, we provide a simplified and reproducible example, which could be readily modified to suit more intricate cases.
 
 In order to illustrate the usefulness of \texttt{rethomics}, we provide two examples.
-The first one is a detailed and reproducible description of the loading and analysis activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
+The first one is a detailed and reproducible description of the loading and analysis of activity data in the context of circadian rhythm, using DAM2 (Trikinetics Inc.) data.
 The second one shows how \texttt{rethomics} integrates within \texttt{R} to perform a multi-scale analysis of a periodic behaviour, using continuous wavelet transform, on data generated with ethoscopes\cite{geissmann_ethoscopes_2017}.
 
 \subsection*{Canonical circadian analysis in \emph{Drosophila}}
@@ -446,7 +446,7 @@ It is \texttt{TRUE} when \texttt{activity} is greater than zero and \texttt{FALS
 \end{kframe}
 \end{knitrout}
 
-The \texttt{id} is a long string of character (for instance, `\texttt{2013-11-19~09:00:00|Monitor36.txt|01}'), 
+The \texttt{id} is a long string of characters (for instance, `\texttt{2013-11-19~09:00:00|Monitor36.txt|01}'), 
 which makes it difficult to read and display as a label on a plot.
 To address this issue, we create our own \texttt{label} metavariable, as the combination of a number and \texttt{genotype} (\emph{e.g.} `\texttt{1.NKCCOX/+}').
 In the restricted context of this analysis, \texttt{label} acts as a unique identifier.
@@ -574,7 +574,7 @@ A selected sample of four individuals for each genotype is shown in Fig~\ref{fig
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# we also show a subset of this figure in Fig 4A}
+\hlcom{# we also show a subset of this figure as Figure 4}
 \hlstd{figS2A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{z} \hlstd{= moving),} \hlkwc{multiplot} \hlstd{=} \hlnum{2}\hlstd{)} \hlopt{+}
             \hlcom{# one could also use stat_tile_etho}
             \hlkwd{stat_bar_tile_etho}\hlstd{()} \hlopt{+}
@@ -586,7 +586,14 @@ A selected sample of four individuals for each genotype is shown in Fig~\ref{fig
 \end{kframe}
 \end{knitrout}
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in ans[test \& ok] <- rep(yes, length.out = length(ans))[test \& ok]: replacement has length zero}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in check\_breaks\_labels(breaks, labels): object 'new\_labs' not found}}\end{kframe}
+\end{knitrout}
 
 
 \subsubsection*{Periodograms}
@@ -770,7 +777,7 @@ like in this case, fit a binomial generalised linear model:
 
 The result shows a strong positive effect of genotype Tim/NKCC\textsuperscript{ox} on the probability of being rhythmic ($p$-value $5.15 \times 10^{-06}$):
 
-Lastly, we can generate a table that compute arbitrary population statistics for each genotype:
+Lastly, we can generate a table that computes arbitrary population statistics for each genotype:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -814,7 +821,7 @@ In other words, a behavioural variable can be modulated by the circadian rhythm,
 For instance, an animal could have rhythmic bursts of locomotor activity recurring at high frequency (\emph{e.g.} 1~min), but also a circadian (\emph{i.e.} 24~h) regulation of the same variable,
 both rhythms would then happen at timescales separated by approximately three orders of magnitudes, which makes them difficult to visualise and integrate into the same analysis.
 Being able to keep frequency information over multiple scales is however important in some cases.
-In particular, when interested in the frequency modulation of a rhythm by another --
+In particular, this is relevant to study the frequency modulation of a rhythm by another --
 that is, if the periodicity of a high-frequency rhythm itself can be a function of a lower frequency one.
 %For instance, the frequency of rhythmic activity bursts could itself be regulated by another rhythm such as the circadian rhythm.
 
@@ -873,7 +880,11 @@ This non-exhaustive proof of principle illustrates how analysis of behavioural d
 % Briefly, three monitors were used each containing 16 males and 16 females of a different genotype (A, B and C).
 % Two replicates were performed at different times.
 % raw data and metadata files are publicly available TODO cite zenodo
-% 
+
+
+\section*{Discussion}
+
+something here
 
 \section*{Availability and Future Directions}
 All packages in the \texttt{rethomics} framework are available under the terms of the GPLv3 license and are listed at

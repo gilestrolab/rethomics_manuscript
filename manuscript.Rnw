@@ -308,7 +308,11 @@ For instance, \texttt{ggplot2} operations such as faceting, transforming axes an
 % Briefly, three monitors were used each containing 16 males and 16 females of a different genotype (A, B and C).
 % Two replicates were performed at different times.
 % raw data and metadata files are publicly available TODO cite zenodo
-% 
+
+
+\section*{Discussion}
+
+something here
 
 \section*{Availability and Future Directions}
 All packages in the \texttt{rethomics} framework are available under the terms of the GPLv3 license and are listed at
