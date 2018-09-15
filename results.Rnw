@@ -167,7 +167,7 @@ Note that, as a consequence of the curation procedure, we now have \Sexpr{nrow(d
 
 \subsubsection*{Double-plotted actograms}
 Double-plotted actograms are a common choice to visualise the periodicity and rhythmicity in circadian experiments.
-In  \nameref{S2-Fig}A, we show a double-plotted actogram for each animal.
+In \nameref{S2-Fig}A, we show a double-plotted actogram for each animal.
 A selected sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
 <<cache=TRUE, warning=FALSE, result="hide", message=FALSE>>=
@@ -205,7 +205,12 @@ fig4A <- ggetho(dt[xmv(label) %in% fig_4_picked_labels],
 	scale_y_discrete(name = "Day") +
   theme(strip.text = element_text(size = 11))
 
-ylabs <- ggplot_build(fig4A)$layout$panel_ranges[[1]]$y.labels
+pl <- ggplot_build(fig4A)
+
+if(is.null(pl$layout$panel_ranges[[1]]))
+  ## old ggplot (< 3.0.0)
+  ylabs <- pl$layout$panel_params[[1]]$y.labels else
+  ylabs <- pl$layout$panel_ranges[[1]]$y.labels
 
 new_labs <- ifelse(1:length(ylabs) %%2, ylabs, "")
 

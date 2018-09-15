@@ -6,7 +6,8 @@
 \usepackage{tikz}
 \usepackage{caption}
 \usepackage{floatrow}
-
+\usepackage{makecell}
+\usepackage{lscape}
 \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt} 
 
 \pagenumbering{gobble}
@@ -25,6 +26,18 @@
 	\end{figure}
   \clearpage	
 }	
+
+\begin{figure}[p]
+	\centering  
+	\begin{minipage}[c][\textheight]{\textwidth}
+			\centering  
+%		\includegraphics[width=.90\textwidth,angle=90]{functionalities_table.pdf}
+		\includegraphics[width=.90\textwidth]{functionalities_table.pdf}
+		\caption*{\LARGE{Geissmann et al. 2018, Table S1}}
+		\end{minipage}
+	\end{figure}
+\clearpage	
+
 
 \foreach \x in {7, 8}
 { 	

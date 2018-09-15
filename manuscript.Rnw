@@ -221,6 +221,7 @@ We also present two practical examples of its application to the analysis of beh
 \section*{Design and Implementation}
 \texttt{rethomics} is implemented in \texttt{R}\cite{r_core_team_r_2017}
 as a collection of packages (Fig~\ref{fig:fig-1}).
+A summary of the functionality of all packages is represented in a supplementary table (\nameref{S1-Table}).
 Such modular architecture follows the model of modern frameworks such as the \texttt{tidyverse}\cite{wickham_tidyverse_2017}, which results in increased testability, maintainability and adaptability.
 In this model, each task of the analysis workflow (\emph{i.e.} data import, manipulation and visualisation) is handled by a different package, and new ones can be designed to suit specific needs.
 At the core of \texttt{rethomics} lies the \texttt{behavr} table, a structure used to store large amounts of data (\emph{e.g.} position and activity) and metadata (\emph{e.g.} treatment and genotype) in a unique \texttt{data.table}-derived object\cite{dowle_data.table_2017}.
@@ -310,26 +311,36 @@ For instance, \texttt{ggplot2} operations such as faceting, transforming axes an
 % raw data and metadata files are publicly available TODO cite zenodo
 
 
+
 \section*{Discussion}
+The framework  we presented in this article describes a general computational set of tools to store, manipulate and analyse behavioural data.
+We showed that \texttt{rethomics} can readily be used to analyse specifically circadian data. As such, it already fills a clear gap in the sleep and circadian community by providing an open, extensible and programmatic toolbox as opposed to the rigid array of GUI tools which cannot interoperate.
+In particular, within the \texttt{R} environment, \texttt{rethomic} features a streamlined workflow (Fig.~\ref{fig:fig-1}):
+data loading; quality control (Fig.~\ref{fig:fig-3}); per individual visualisation (Fig.~\ref{fig:fig-4}A) and computation (Fig.~\ref{fig:fig-4}B); group averages and statistics (Fig.~\ref{fig:fig-5}), ultimately resulting in publication-quality figures.
+In addition, to the canonical analysis we demonstrated, the richness of the \texttt{R} environment renders rethomics readily available for exploratory work such as the use of continuous wavelet transform to study the modulation of walking pace(Fig.~\ref{fig:fig-6}).
 
-something here
+Altogether, our tool provides a needed opportunity for the community to share analytic and visualisation tools whilst embracing the diversity of recording equipment. By design, rethomics is very flexible and not limited to the study of circadian rhythms.
+In fact, \texttt{behavr} tables (Fig.~\ref{fig:fig-2}) are a general solution to link data to metadata that come with no assumption regarding the type and number of variables stored. Therefore, we anticipate it will apply to  a variety contexts and scales.
 
-\section*{Availability and Future Directions}
-All packages in the \texttt{rethomics} framework are available under the terms of the GPLv3 license and are listed at
-\href{https://rethomics.github.io/intro.html}{https://rethomics.github.io/intro.html}.
-\texttt{behavr} and \texttt{damr} are already hosted on the Comprehensive R Archive Network (CRAN), and all the other packages are either under review or in preparation.
+
+
+\section*{Availability}
+All \texttt{rethomics} packages are listed at \href{https://rethomics.github.io/intro.html}{https://rethomics.github.io/intro.html}.
+and are hosted on the official Comprehensive \texttt{R} Archive Network (CRAN) under the terms of the GPLv3 license. 
 Extensive installation instructions, as well as reproducible demos and tutorials, are available at
 \href{https://rethomics.github.io/}{https://rethomics.github.io/}.
 All packages are continuously integrated and unit tested on several versions of \texttt{R} to minimise the risk of present and future issues.
-
-Several users, in different research groups, have already adopted and are contributing to the future development of the framework.
-Several new packages in the \texttt{rethomics} framework are currently envisaged. 
-They include utilities to input new behaviour tracking methods and analyse multi-animal interactions.
 
 \section*{Supporting information}
 
 % Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
 
+
+\paragraph*{S1 Table.}
+\label{S1-Table}
+{\bf List of packages and main functionalities implemented in \texttt{rethomics}.}
+The last column shows a list of user-space functions for each role.
+Extensive list of all functions is available in the documentation of each package.
 
 \paragraph*{S1 Fig.}
 \label{S1-Fig}
@@ -338,10 +349,13 @@ In addition to operations on data, which are inherited from \texttt{data.table},
 we provide utilities designed specifically to act on both metadata and data.  
 Commented examples are prefixed by `\texttt{>}'.
 
+
+
 \paragraph*{S2 Fig.}
 \label{S2-Fig}
 {\bf Complete version of Fig~\ref{fig:fig-4}.}
 See Fig~\ref{fig:fig-4} for legend.
+
 
 \section*{Acknowledgements}
 We would like to thank people who have directly or indirectly contributed to the this manuscript.

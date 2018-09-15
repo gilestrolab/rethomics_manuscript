@@ -30,8 +30,6 @@ dt <- load_ethoscope(met,
 					   ncores=1)
 
 
-
-
 curate_data <- function(data){
   #data[, t := t - days(xmv(baseline_days))]
   #data <- data[is_interpolated == F]
@@ -112,7 +110,7 @@ wt_analysis <- function(dd){
 	plot_dt <- plot_dt[, .(z=mean(z)), by="x,y"]
 	plot_dt <- plot_dt[, z := sqrt(z)]
 
-	#brks <- c(mins(2), hours(12), hours(24))
+# brks <- c(mins(2), hours(12), hours(24))
 #~ 	a <- ggplot(dtest[t %between% hours(c(24, 48))], aes(x=t, y=x_rel)) + geom_line() + scale_x_hours() + stat_ld_annotations() +ggtitle(dt_target[i,id, meta=T])
 #~ 	b <- ggplot(out, aes(period, power)) + scale_x_log10(breaks=brks) + geom_line()
 #~ 	c <- ggplot(plot_dt, aes(x=x,y=y,fill=z)) + geom_raster() + scale_x_hours() + 
