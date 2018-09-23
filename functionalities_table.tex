@@ -14,19 +14,21 @@
 	\multicolumn{ 1}{|c|}{} & tile and ``bar tile'' plots (\textbf{\emph{e.g.} Fig. 3 and 4A}) & \texttt{stat\_tile\_etho}, \texttt{stat\_bar\_tile\_etho()} \\ \cline{ 2- 3}
 	\multicolumn{ 1}{|l|}{} & population trends as lines and error bars & \texttt{stat\_pop\_etho()} \\ \cline{ 2- 3}
 	\multicolumn{ 1}{|l|}{} & circadian biology utilities (\textbf{\emph{e.g.} Fig. 4 and 5A}) & \texttt{stat\_ld\_annotations()}, \texttt{geom\_peak()} \\ \cline{ 2- 3}
+	\multicolumn{ 1}{|l|}{} & visualise spectrograms (\textbf{\emph{e.g.} CWT, Fig. 6}) & \texttt{ggspectro()} \\ \cline{ 2- 3}
 	\multicolumn{ 1}{|l|}{} & smart time scales (auto-adjust labels and ticks) & \texttt{scale\_x\_days()}, \texttt{scale\_x\_hours()}, \dots\\ \hline
 	\multicolumn{ 1}{|c|}{damr} & ``link'' metadata to DAM files (\textbf{see main text}) & \texttt{link\_dam\_metadata()} \\ \cline{ 2- 3}
 	\multicolumn{ 1}{|l|}{} & \makecell[vl]{``load'' relevant DAM (2 or 5) data as behavr.\\Detects daylight-saving bugs and such} & \texttt{load\_dam()} \\ \hline
 	\multicolumn{ 1}{|c|}{scopr} & ``link'' metadata to ethoscope files & \texttt{link\_ethoscope\_metadata()} \\ \cline{ 2- 3}
 	\multicolumn{ 1}{|l|}{} & ``load'' relevant ethoscope data as behavr & \texttt{load\_ethoscope()} \\ \cline{ 2- 3}
 	\multicolumn{ 1}{|l|}{} & utilities (list files, fetch remote data, ) & \texttt{experiment\_info()}, \texttt{list\_result\_files()}, \dots \\ \hline
-	\multicolumn{ 1}{|c|}{zeitgebr} & compute periodograms (AC, $\chi^2$,LS,Fourrier) & \small{\texttt{*\_periodogram()} (\texttt{*} $\in$ \texttt{\{ac,chi\_sqr,ls,fourrier\}})}\\ \cline{ 2- 3}
+	\multicolumn{ 1}{|c|}{zeitgebr} & compute periodograms (CWT, AC, $\chi^2$,LS,Fourrier) & \small{\texttt{*\_periodogram()} (\texttt{*} $\in$ \texttt{\{cwt, ac,chi\_sqr,ls,fourrier\}})}\\ \cline{ 2- 3}
 	\multicolumn{ 1}{|l|}{} & preprocess and standardise methods & \texttt{periodogram()} \\ \cline{ 2- 3}
-	\multicolumn{ 1}{|l|}{} & find peak periods in periodograms (\textbf{\emph{e.g.} Fig. 4 and 5A}) & \texttt{find\_peaks()} \\ \hline
+	\multicolumn{ 1}{|l|}{} & find peak periods in periodograms (\textbf{\emph{e.g.} Fig. 4 and 5A}) & \texttt{find\_peaks()} \\ \cline{ 2- 3}
+	\multicolumn{ 1}{|l|}{} & compute CWT spectrograms & \texttt{spectrogram()} \\ \hline	
 	\multicolumn{ 1}{|c|}{sleepr} & motion thresholding/velocity detection & \texttt{motion\_detectors()}  \\ \cline{ 2- 3}
-	\multicolumn{ 1}{|l|}{} & sleep definition using N minute rule & \texttt{sleep\_annotation()} \\ \cline{ 2- 3}
+	\multicolumn{ 1}{|l|}{} & sleep definition using N-minute rule & \texttt{sleep\_annotation()} \\ \cline{ 2- 3}
 	\multicolumn{ 1}{|l|}{} & data curation: dead animals scored as asleep & \texttt{curate\_dead\_animals()} \\ \cline{ 2- 3}
-	\multicolumn{ 1}{|l|}{} & discrete behavioural state bout architecture & \texttt{bout\_analysis()} \\ \hline
+	\multicolumn{ 1}{|l|}{} & discrete behavioural state architecture & \texttt{bout\_analysis()} \\ \hline
 \end{tabular}
 
 

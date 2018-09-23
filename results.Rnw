@@ -433,9 +433,9 @@ The problem of understanding time series at different scales is not uncommon in 
 One approach is to study a variable of interest in the time/period domain using, for instance, continuous wavelet transform (CWT)\cite{grossmann_decomposition_1984}.
 In the context of chronobiology, CWT has been suggested as a tool to investigate ultradian rhythms \cite{leise_wavelet_2013}.
 
-To illustrate how \texttt{rethomic} integrates with other packages and render such non-mainstream analysis possible,
-we performed a wavelet analysis of the position of 80 naive fruit flies (40 females and 40 males) in their glass tubes.
-We used the package \texttt{scopr}, part of \texttt{rethomics}, to load five days of ethoscope positional data, which we sampled at 0.1~Hz.
+To illustrate how \texttt{rethomic} integrates with other packages and render such non-mainstream analysis possible, 
+we developped, as part of the \texttt{zeitgebr} package, utilities to perform wavelet analysis, which we then applied to the position of 80 naive fruit flies (40 females and 40 males) in their glass tubes.
+We used the package \texttt{scopr}, to load five days of ethoscope positional data, which we sampled at 0.1~Hz.
 Our variable of interest is the position of animals in their tube (from the food end, $Position = 0$,  to the cotton end, $Position = 1$).
 Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for two representative animals.
 
@@ -459,8 +459,8 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 
 
 
-In order to compute CWT, we used the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp_2018}.
-We then averaged the result of the five consecutive days in the time/period domain over one circadian day both for the two representative animals (Fig~\ref{fig:fig-6}D)
+In order to compute CWT, we interfaced the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp_2018} in \texttt{rethomics}. 
+This interface allowed us to average the result of the five consecutive days in the time/period domain over one circadian day both for the two representative animals (Fig~\ref{fig:fig-6}D)
 and for the population(Fig~\ref{fig:fig-6}E).
 
 As suggested by the slow oscillations of the mean position (Fig~\ref{fig:fig-6}A), we observe peaks in power corresponding to high-period (12~h and 24~h) rhythms.
