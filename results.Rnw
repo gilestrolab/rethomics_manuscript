@@ -459,8 +459,8 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 
 
 
-In order to compute CWT, we interfaced the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp_2018} in \texttt{rethomics}. 
-This interface allowed us to average the result of the five consecutive days in the time/period domain over one circadian day both for the two representative animals (Fig~\ref{fig:fig-6}D)
+We implemented specific utilities to compute and display CWT spectrograms in \texttt{rethomics}, based on the \texttt{WaveletComp} package\cite{schmidbauer_waveletcomp_2018}. 
+We then used this interface to average the result of the five consecutive days in the time/period domain over one circadian day both for the two representative animals (Fig~\ref{fig:fig-6}D)
 and for the population(Fig~\ref{fig:fig-6}E).
 
 As suggested by the slow oscillations of the mean position (Fig~\ref{fig:fig-6}A), we observe peaks in power corresponding to high-period (12~h and 24~h) rhythms.
