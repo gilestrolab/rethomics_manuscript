@@ -4,9 +4,12 @@ ALL_EPS_FIG := $(join $(dir $(ALL_PDF_FIG)),  $(notdir $(ALL_PDF_FIG:.pdf=.eps))
 LAST_SUBMISSION := e6c6d3ecbe85b68809b6926548e23c99bf4142c5
 	
 
-all: geissmann_et_al_2018.pdf manuscript-changes.pdf
+all: geissmann_et_al_2018.pdf manuscript-changes.pdf 
 
 geissmann_et_al_2018.pdf: geissmann_et_al_2018.tex manuscript.pdf all-figures.pdf manuscript.tex functionalities_table.pdf
+	pdflatex $<
+
+manuscript-final.pdf: manuscript-final.tex
 	pdflatex $<
 
 functionalities_table.pdf: functionalities_table.tex
