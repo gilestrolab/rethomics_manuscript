@@ -167,7 +167,7 @@ Note that, as a consequence of the curation procedure, we now have \Sexpr{nrow(d
 
 \subsubsection*{Double-plotted actograms}
 Double-plotted actograms are a common choice to visualise the periodicity and rhythmicity in circadian experiments.
-In \nameref{S2-Fig}A, we show a double-plotted actogram for each animal.
+In \hyperref[S2-Fig]{S2A~Fig.}, we show a double-plotted actogram for each animal.
 A selected sample of four individuals for each genotype is shown in Fig~\ref{fig:fig-4}A.
 
 <<cache=TRUE, warning=FALSE, result="hide", message=FALSE>>=
@@ -226,7 +226,7 @@ Several methods are implemented in \texttt{zeitgebr}: $\chi{}^2$, Lomb-Scargle, 
 and Fourier.
 In this example, we generate $\chi{}^2$ periodograms and lay them out in a grid.
 Periodograms for the subset of eight animals used in Fig~\ref{fig:fig-4}A are shown in Fig~\ref{fig:fig-4}B. 
-See \nameref{S2-Fig}B for the visualisation of all individuals.
+See \hyperref[S2-Fig]{S2B~Fig.} for the visualisation of all individuals.
 
 <<cache=TRUE>>=
 # only the LL data
@@ -452,7 +452,7 @@ Fig~\ref{fig:fig-6}A-C shows the raw position data at two different scales for t
 		D: Continuous wavelet transform spectrogram for the two representative animals.
 		E: Average spectrogram across 40 males and 40 females.
 		In D and E, the lines on the right show the marginal power spectra corresponding to the spectrograms shown -- that is the average across 12 hours in either the light (white bar) or dark (black bar) phase.
-		The male data was collected and described in our previous study \cite{geissmann_ethoscopes_2017} (controls in figure~5M-P) and the females data was acquired in parallel, in the same experimental conditions, but not previously published.
+		The male data was collected and described in our previous study \cite{geissmann_ethoscopes_2017} (controls in Fig~5M-P) and the females data was acquired in parallel, in the same experimental conditions, but not previously published.
 	}
 	\label{fig:fig-6}
 \end{figure}
