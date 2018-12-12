@@ -172,7 +172,7 @@ A selected sample of four individuals for each genotype is shown in Fig~\ref{fig
 
 <<cache=TRUE, warning=FALSE, result="hide", message=FALSE>>=
 # we also show a subset of this figure as Figure 4
-figS2A <- ggetho(dt, aes(z = moving), multiplot = 2) +
+S2A_fig <- ggetho(dt, aes(z = moving), multiplot = 2) +
             # one could also use stat_tile_etho
             stat_bar_tile_etho() + 
             # split plot by individual
@@ -239,7 +239,7 @@ per_dt <- periodogram(moving,
                     	
 per_dt <- find_peaks(per_dt)
 # we also show a subset of this figure in supplementary materials
-figS2B <- ggperio(per_dt, aes(y = power, peak = peak)) + 
+S2B_fig <- ggperio(per_dt, aes(y = power, peak = peak)) + 
                   # periododogram drawn as a line
                   geom_line() +
                   # the significance line in red
@@ -530,12 +530,13 @@ print(fig3_final)
 tmp  <- dev.off()
 
 #=================================================
-figS2A <- figS2A +  theme(strip.text.x = element_text(size =8))
-figS2B <- figS2B +  theme(strip.text.x = element_text(size =8))
+
+S2A_fig <- S2A_fig +  theme(strip.text.x = element_text(size =8))
+S2B_fig <- S2B_fig +  theme(strip.text.x = element_text(size =8))
 
 figS2 <- cowplot::plot_grid(
-                          figS2A,
-                          figS2B,
+                          S2A_fig,
+                          S2B_fig,
                           nrow=1,
                           labels=c( "A", "B"),
                           label_size = label_size,

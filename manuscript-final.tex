@@ -576,7 +576,7 @@ A selected sample of four individuals for each genotype is shown in Fig~\ref{fig
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# we also show a subset of this figure as Figure 4}
-\hlstd{figS2A} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{z} \hlstd{= moving),} \hlkwc{multiplot} \hlstd{=} \hlnum{2}\hlstd{)} \hlopt{+}
+\hlstd{S2A_fig} \hlkwb{<-} \hlkwd{ggetho}\hlstd{(dt,} \hlkwd{aes}\hlstd{(}\hlkwc{z} \hlstd{= moving),} \hlkwc{multiplot} \hlstd{=} \hlnum{2}\hlstd{)} \hlopt{+}
             \hlcom{# one could also use stat_tile_etho}
             \hlkwd{stat_bar_tile_etho}\hlstd{()} \hlopt{+}
             \hlcom{# split plot by individual}
@@ -611,7 +611,7 @@ See \hyperref[S2-Fig]{S2B~Fig.} for the visualisation of all individuals.
 
 \hlstd{per_dt} \hlkwb{<-} \hlkwd{find_peaks}\hlstd{(per_dt)}
 \hlcom{# we also show a subset of this figure in supplementary materials}
-\hlstd{figS2B} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power,} \hlkwc{peak} \hlstd{= peak))} \hlopt{+}
+\hlstd{S2B_fig} \hlkwb{<-} \hlkwd{ggperio}\hlstd{(per_dt,} \hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= power,} \hlkwc{peak} \hlstd{= peak))} \hlopt{+}
                   \hlcom{# periododogram drawn as a line}
                   \hlkwd{geom_line}\hlstd{()} \hlopt{+}
                   \hlcom{# the significance line in red}
